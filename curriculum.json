@@ -1,0 +1,522 @@
+[
+  {
+    "id": "1a",
+    "title": "Financing Interest Comparison",
+    "topic": "math-basics",
+    "statement": "You are evaluating two loan financing options. Compute the simple interest for each option using the formula: interest = (principal * rate) / 100.0.\n\nInput Format:\nThe input consists of two lines:\n- First line: two space-separated floating-point numbers: principal1 and rate1 (for Option 1).\n- Second line: two space-separated floating-point numbers: principal2 and rate2 (for Option 2).\n\nOutput Format:\nPrint the computed interest for each option on separate lines, formatted to 2 decimal places (%.2f):\nOption 1: <interest1>\nOption 2: <interest2>\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "1000.0 5.5\n2000.0 4.0\n",
+        "expected": "Option 1: 55.00\nOption 2: 80.00\n"
+      },
+      {
+        "input": "0.0 7.5\n1500.0 0.0\n",
+        "expected": "Option 1: 0.00\nOption 2: 0.00\n"
+      },
+      {
+        "input": "12500.50 8.25\n9800.75 10.50\n",
+        "expected": "Option 1: 1031.29\nOption 2: 1029.08\n"
+      }
+    ]
+  },
+  {
+    "id": "1b",
+    "title": "Three-Digit Sum and Parity",
+    "topic": "math-basics",
+    "statement": "Read an integer N representing a three-digit number from stdin. Extract its three individual digits, compute the sum of the digits, and determine whether this digit sum is even or odd.\n\nInput Format:\nA single line containing an integer N (between 100 and 999, or -999 and -100). If N is negative, use its absolute value to extract digits.\n\nOutput Format:\nPrint exactly two lines:\nLine 1: 'Sum of digits: <sum>'\nLine 2: 'Even' if the digit sum is even, or 'Odd' if the digit sum is odd.\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "345\n",
+        "expected": "Sum of digits: 12\nEven\n"
+      },
+      {
+        "input": "100\n",
+        "expected": "Sum of digits: 1\nOdd\n"
+      },
+      {
+        "input": "-246\n",
+        "expected": "Sum of digits: 12\nEven\n"
+      },
+      {
+        "input": "999\n",
+        "expected": "Sum of digits: 27\nOdd\n"
+      }
+    ]
+  },
+  {
+    "id": "1c",
+    "title": "Primes in Inclusive Range",
+    "topic": "math-basics",
+    "statement": "Write a Java program to find and print all prime numbers in the inclusive range [start, end] using a for loop. A prime number is an integer strictly greater than 1 that has no positive divisors other than 1 and itself.\n\nInput Format:\nA single line containing two space-separated integers: start and end.\n\nOutput Format:\nIf one or more primes exist in the range, print all primes in ascending order on a single line separated by a single space, followed by a newline.\nIf no prime numbers exist in the range [start, end], print:\nNo primes found\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "10 30\n",
+        "expected": "11 13 17 19 23 29\n"
+      },
+      {
+        "input": "-5 1\n",
+        "expected": "No primes found\n"
+      },
+      {
+        "input": "2 2\n",
+        "expected": "2\n"
+      },
+      {
+        "input": "-10 10\n",
+        "expected": "2 3 5 7\n"
+      }
+    ]
+  },
+  {
+    "id": "2a",
+    "title": "Daily Step Counts Distance",
+    "topic": "arrays",
+    "statement": "You are given two daily step count logs from two devices. Merge the two arrays into a single combined array (preserving order: all steps from the first array followed by all steps from the second array). Then compute the total distance walked, assuming 1 unit of distance per step.\n\nInput Format:\n- Line 1: Integer N (number of elements in the first step log).\n- Line 2: N space-separated integers (steps in the first log; empty if N is 0).\n- Line 3: Integer M (number of elements in the second step log).\n- Line 4: M space-separated integers (steps in the second log; empty if M is 0).\n\nOutput Format:\nLine 1: 'Merged steps: <s1> <s2> ... <sN+M>' (space-separated; if total count is 0, print 'Merged steps:')\nLine 2: 'Total Distance: <total>'\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "3\n1000 2500 4000\n2\n3000 1500\n",
+        "expected": "Merged steps: 1000 2500 4000 3000 1500\nTotal Distance: 12000\n"
+      },
+      {
+        "input": "0\n\n3\n500 1200 800\n",
+        "expected": "Merged steps: 500 1200 800\nTotal Distance: 2500\n"
+      },
+      {
+        "input": "1\n0\n1\n0\n",
+        "expected": "Merged steps: 0 0\nTotal Distance: 0\n"
+      }
+    ]
+  },
+  {
+    "id": "2b",
+    "title": "Prime Coordinates in 2D Grid",
+    "topic": "arrays",
+    "statement": "Read a 2D integer grid and find the positions of all prime numbers. An integer is prime if it is strictly greater than 1 and divisible only by 1 and itself.\n\nInput Format:\n- Line 1: Two space-separated integers: rows R and columns C.\n- Next R lines: Each contains C space-separated integers representing row elements (row index from 0 to R-1, column index from 0 to C-1).\n\nOutput Format:\nFor each prime number found (scanning row-by-row from top to bottom, left to right), print:\nPrime <val> at (<row>, <col>)\nIf no prime numbers exist anywhere in the grid, print:\nNo primes found\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "2 3\n4 7 8\n9 11 12\n",
+        "expected": "Prime 7 at (0, 1)\nPrime 11 at (1, 1)\n"
+      },
+      {
+        "input": "2 2\n0 1\n-3 4\n",
+        "expected": "No primes found\n"
+      },
+      {
+        "input": "1 1\n2\n",
+        "expected": "Prime 2 at (0, 0)\n"
+      }
+    ]
+  },
+  {
+    "id": "3a",
+    "title": "Rectangle Area and Perimeter",
+    "topic": "oop",
+    "statement": "Create a nested static class Rectangle inside Main with integer fields length and breadth. Provide methods int area() and int perimeter(). In the main method, instantiate a Rectangle with values read from stdin and print its area and perimeter.\n\nInput Format:\nA single line containing two space-separated integers: length and breadth.\n\nOutput Format:\nPrint two lines:\nArea: <area>\nPerimeter: <perimeter>\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "12 7\n",
+        "expected": "Area: 84\nPerimeter: 38\n"
+      },
+      {
+        "input": "5 5\n",
+        "expected": "Area: 25\nPerimeter: 20\n"
+      },
+      {
+        "input": "0 10\n",
+        "expected": "Area: 0\nPerimeter: 20\n"
+      }
+    ]
+  },
+  {
+    "id": "3b",
+    "title": "Array Concatenator Class",
+    "topic": "oop",
+    "statement": "Define a nested static class ArrayConcatenator inside Main. The class must have a constructor ArrayConcatenator(int[] first, int[] second) that concatenates the two arrays into a single internal array. Provide a method to retrieve or print the concatenated elements.\n\nInput Format:\n- Line 1: Integer N (size of first array, 1 <= N <= 10).\n- Line 2: N space-separated integers (elements between 1 and 100).\n- Line 3: Integer M (size of second array, 1 <= M <= 10).\n- Line 4: M space-separated integers (elements between 1 and 100).\n\nOutput Format:\nPrint all elements of the concatenated array separated by a single space on one line, ending with a newline.\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "3\n10 20 30\n2\n40 50\n",
+        "expected": "10 20 30 40 50\n"
+      },
+      {
+        "input": "1\n42\n1\n99\n",
+        "expected": "42 99\n"
+      },
+      {
+        "input": "2\n1 100\n2\n100 1\n",
+        "expected": "1 100 100 1\n"
+      }
+    ]
+  },
+  {
+    "id": "4a",
+    "title": "Employee Income Hierarchy",
+    "topic": "inheritance",
+    "statement": "Define a base class Employee (nested static class inside Main) with protected fields double baseSalary and double hours. Create two subclasses extending Employee:\n- Developer: bonus percentage is 10.0%\n- Designer: bonus percentage is 5.0%\n\nEach subclass must compute final income using the formula:\nfinalIncome = baseSalary + (baseSalary * bonusPercentage * hours / 100.0)\n\nInput Format:\n- Line 1: Employee role string: 'Developer' or 'Designer'.\n- Line 2: Two space-separated floating-point numbers: baseSalary and hours.\n\nOutput Format:\nPrint the final income formatted to 2 decimal places (%.2f):\nFinal Income: <income>\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "Developer\n50000.0 40.0\n",
+        "expected": "Final Income: 250000.00\n"
+      },
+      {
+        "input": "Designer\n40000.0 10.0\n",
+        "expected": "Final Income: 60000.00\n"
+      },
+      {
+        "input": "Developer\n3500.50 0.0\n",
+        "expected": "Final Income: 3500.50\n"
+      }
+    ]
+  },
+  {
+    "id": "4b",
+    "title": "Game Character Actions",
+    "topic": "inheritance",
+    "statement": "Define an abstract class GameCharacter (as a nested static class inside Main) with two abstract methods:\n- abstract int attack()\n- abstract int defend()\n\nCreate two concrete subclasses extending GameCharacter:\n- Warrior: constructor accepts int strength. attack() returns strength * 3. defend() returns strength.\n- Wizard: constructor accepts int power. attack() returns power * 2. defend() returns power.\n\nInput Format:\nA single line containing two space-separated integers: choice (1 for Warrior, 2 for Wizard) and value (strength or power).\nIf choice is not 1 or 2, print 'Invalid character choice'.\n\nOutput Format:\nIf valid:\nLine 1: Attack: <attack_value>\nLine 2: Defend: <defend_value>\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "1 10\n",
+        "expected": "Attack: 30\nDefend: 10\n"
+      },
+      {
+        "input": "2 25\n",
+        "expected": "Attack: 50\nDefend: 25\n"
+      },
+      {
+        "input": "1 0\n",
+        "expected": "Attack: 0\nDefend: 0\n"
+      },
+      {
+        "input": "3 15\n",
+        "expected": "Invalid character choice\n"
+      }
+    ]
+  },
+  {
+    "id": "5a",
+    "title": "Motor Interface and Washing Machine",
+    "topic": "interfaces",
+    "statement": "Define an interface Motor (nested static interface inside Main) with the following methods:\n- void run()\n- void consume()\n- double consume(double capacity)\n\nCreate a nested static class WashingMachine implementing Motor:\n- run() prints exactly: 'Washing machine is running.'\n- consume() with no arguments prints exactly: 'Washing machine is consuming electricity.'\n- consume(double capacity) returns capacity * 0.05.\n\nIn the main method:\n1. Read a floating-point number representing capacity from stdin.\n2. Instantiate WashingMachine via a Motor reference.\n3. Call run().\n4. Call consume().\n5. Print the consumption returned by consume(capacity) formatted with %.2f in the format: 'Consumption: <value>'.\n\nOutput Format:\nLine 1: Washing machine is running.\nLine 2: Washing machine is consuming electricity.\nLine 3: Consumption: <value to 2 decimal places>",
+    "cases": [
+      {
+        "input": "50.0\n",
+        "expected": "Washing machine is running.\nWashing machine is consuming electricity.\nConsumption: 2.50\n"
+      },
+      {
+        "input": "0.0\n",
+        "expected": "Washing machine is running.\nWashing machine is consuming electricity.\nConsumption: 0.00\n"
+      },
+      {
+        "input": "7.5\n",
+        "expected": "Washing machine is running.\nWashing machine is consuming electricity.\nConsumption: 0.38\n"
+      }
+    ]
+  },
+  {
+    "id": "5b",
+    "title": "Unique Characters with StringBuilder",
+    "topic": "stringbuilder",
+    "statement": "Read a line of text from stdin and construct a string consisting of only the unique characters from the input in the exact order of their first appearance. You must use a StringBuilder to build the result.\n\nInput Format:\nA single line of text.\n\nOutput Format:\nPrint the resulting unique characters as a single string, followed by a newline.\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "programming\n",
+        "expected": "progamin\n"
+      },
+      {
+        "input": "hello world\n",
+        "expected": "helo wrd\n"
+      },
+      {
+        "input": "aaaaa\n",
+        "expected": "a\n"
+      },
+      {
+        "input": "Java 17!\n",
+        "expected": "Jav 17!\n"
+      }
+    ]
+  },
+  {
+    "id": "6a",
+    "title": "Grade Validation Exception Handling",
+    "topic": "exceptions",
+    "statement": "Write a method static void validateGrade(int grade) throws IllegalArgumentException. If grade < 0 or grade > 100, it throws new IllegalArgumentException(\"Grade must be between 0 and 100\").\n\nIn the main method:\nRead a string from stdin. Parse it into an integer and call validateGrade(grade).\nIf valid, print: 'Valid grade: <grade>'.\n\nException Handling Requirements:\n- If the input cannot be parsed as an integer, catch NumberFormatException and print e.getMessage().\n- If the grade is out of range, catch IllegalArgumentException and print e.getMessage().\n\nNote: The syllabus asks for multi-catch in exception handling exercises, but combining NumberFormatException and IllegalArgumentException in a single multi-catch block like `catch (NumberFormatException | IllegalArgumentException e)` causes a compilation error because NumberFormatException extends IllegalArgumentException. In Java multi-catch alternatives, an exception type cannot be a subclass of another alternative in the same clause. Therefore, you must use separate catch blocks, placing NumberFormatException first.\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "85\n",
+        "expected": "Valid grade: 85\n"
+      },
+      {
+        "input": "105\n",
+        "expected": "Grade must be between 0 and 100\n"
+      },
+      {
+        "input": "-5\n",
+        "expected": "Grade must be between 0 and 100\n"
+      },
+      {
+        "input": "abc\n",
+        "expected": "For input string: \"abc\"\n"
+      }
+    ]
+  },
+  {
+    "id": "6b",
+    "title": "Custom Time Format Exceptions",
+    "topic": "exceptions",
+    "statement": "Create three custom exception classes as nested static classes inside Main, all extending Exception:\n- InvalidHourException\n- InvalidMinuteException\n- InvalidSecondException\n\nWrite a method static void validateTime(int h, int m, int s) throws InvalidHourException, InvalidMinuteException, InvalidSecondException:\n- If h < 0 or h > 23: throw new InvalidHourException(\"Invalid Hour: \" + h);\n- Else if m < 0 or m > 59: throw new InvalidMinuteException(\"Invalid Minute: \" + m);\n- Else if s < 0 or s > 59: throw new InvalidSecondException(\"Invalid Second: \" + s);\n\nIn the main method, read three space-separated integers (hours, minutes, seconds). Call validateTime(h, m, s).\n- If valid, print: 'Correct Time - hh:mm:ss' (each component zero-padded to 2 digits, e.g. %02d:%02d:%02d).\n- If any exception is thrown, catch it and print e.getMessage().",
+    "cases": [
+      {
+        "input": "14 5 9\n",
+        "expected": "Correct Time - 14:05:09\n"
+      },
+      {
+        "input": "25 10 30\n",
+        "expected": "Invalid Hour: 25\n"
+      },
+      {
+        "input": "12 65 0\n",
+        "expected": "Invalid Minute: 65\n"
+      },
+      {
+        "input": "10 20 -1\n",
+        "expected": "Invalid Second: -1\n"
+      },
+      {
+        "input": "0 0 0\n",
+        "expected": "Correct Time - 00:00:00\n"
+      }
+    ]
+  },
+  {
+    "id": "6c",
+    "title": "Multi-Catch Input Handling",
+    "topic": "exceptions",
+    "statement": "Demonstrate legal Java multi-catch exception handling. Read two integers a and b from stdin using Scanner and compute integer division (a / b).\n\nException Handling Requirements:\nUse a single multi-catch block combining two unrelated exception types from different hierarchies:\n`catch (InputMismatchException | ArithmeticException e)`\n- If an InputMismatchException occurs (when a non-integer token is encountered) or ArithmeticException occurs (division by zero), catch both in the single multi-catch block and print:\n'Caught exception: ' + e.getClass().getSimpleName()\n\nOutput Format:\n- If division succeeds, print: 'Result: <a / b>'\n- If an exception is caught, print: 'Caught exception: <ExceptionName>'",
+    "cases": [
+      {
+        "input": "10 2\n",
+        "expected": "Result: 5\n"
+      },
+      {
+        "input": "10 0\n",
+        "expected": "Caught exception: ArithmeticException\n"
+      },
+      {
+        "input": "abc 2\n",
+        "expected": "Caught exception: InputMismatchException\n"
+      },
+      {
+        "input": "-15 3\n",
+        "expected": "Result: -5\n"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Thread Message Buffer",
+    "topic": "threads",
+    "statement": "Implement a deterministic multi-threaded Producer-Consumer program with a single-slot buffer using wait() and notify().\n\nClass Structure:\n1. Nested static class MessageBuffer with:\n   - synchronized void put(String msg): waits while the buffer is full, stores the message, and calls notify() to wake the consumer.\n   - synchronized String take(): waits while the buffer is empty, retrieves the message, clears the buffer, and calls notify() to wake the producer.\n   (Note: notify() is safe here because exactly two threads share the buffer).\n2. Nested static class Producer implements Runnable: constructor accepts MessageBuffer and int count N. Its run() method generates and puts 'Message 1' through 'Message N' into the buffer.\n3. Nested static class Consumer implements Runnable: constructor accepts MessageBuffer and int count N. Its run() method takes N messages from the buffer and prints each one on its own line: 'Message <i>'.\n4. Main class: reads N from stdin (where N >= 1, e.g. 5 for the syllabus standard case), creates the MessageBuffer, instantiates Producer and Consumer without lambdas (new Thread(new Producer(...)) and new Thread(new Consumer(...))), starts both threads, and joins both before exiting.",
+    "cases": [
+      {
+        "input": "5\n",
+        "expected": "Message 1\nMessage 2\nMessage 3\nMessage 4\nMessage 5\n"
+      },
+      {
+        "input": "1\n",
+        "expected": "Message 1\n"
+      },
+      {
+        "input": "3\n",
+        "expected": "Message 1\nMessage 2\nMessage 3\n"
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Prices Tax File Processing",
+    "topic": "file-io",
+    "statement": "Read N followed by N price values (floating-point doubles) from stdin.\n1. Write the N price values to a file named 'prices.txt' in the current working directory.\n2. Read the values back from 'prices.txt'.\n3. For each price, compute the taxed amount by adding 10% tax (taxed = price * 1.10).\n4. Write each taxed amount formatted to 2 decimal places to 'tax.txt'.\n5. Print all taxed amounts on stdout separated by a single space, formatted to 2 decimal places (%.2f), ending with a newline.\n\nThe program creates this file in the current working directory and may overwrite it on each run.\n\nInput Format:\n- Line 1: Integer N (number of prices).\n- Line 2: N space-separated floating-point numbers (prices).\n\nOutput Format:\nAll taxed values formatted to 2 decimal places separated by a single space on one line:\n<val1> <val2> ... <valN>",
+    "cases": [
+      {
+        "input": "3\n10.50 20.00 99.95\n",
+        "expected": "11.55 22.00 109.95\n"
+      },
+      {
+        "input": "1\n100.00\n",
+        "expected": "110.00\n"
+      },
+      {
+        "input": "4\n0.00 5.50 12.00 50.25\n",
+        "expected": "0.00 6.05 13.20 55.28\n"
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "title": "Sentiment Keyword Classifier",
+    "topic": "file-io",
+    "statement": "Read a single sentence from stdin.\n1. Write the sentence to a file named 'input.txt' in the current working directory.\n2. Read the sentence back from 'input.txt'.\n3. Tokenize words (ignoring case and treating non-alphanumeric characters as delimiters).\n   Count matches against these keyword sets:\n   - Positive keywords: happy, good, excellent, positive\n   - Negative keywords: sad, bad, terrible, negative\n4. Classification rules:\n   - If positive count > negative count: 'positive'\n   - If negative count > positive count: 'negative'\n   - If positive count == negative count: 'neutral'\n5. Write the classification result ('positive', 'negative', or 'neutral') to 'output.txt'.\n6. Print the classification result to stdout followed by a newline.\n\nThe program creates this file in the current working directory and may overwrite it on each run.",
+    "cases": [
+      {
+        "input": "It was a good and happy day!\n",
+        "expected": "positive\n"
+      },
+      {
+        "input": "Terrible weather and bad mood.\n",
+        "expected": "negative\n"
+      },
+      {
+        "input": "The cat sat on the mat.\n",
+        "expected": "neutral\n"
+      },
+      {
+        "input": "A good start but terrible finish.\n",
+        "expected": "neutral\n"
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "title": "Speed Unit Conversion File IO",
+    "topic": "file-io",
+    "statement": "Read a speed in kilometers per hour (km/h) from stdin.\n1. Write the speed value to a file named 'data.txt' in the current directory.\n2. Read the value back from 'data.txt'.\n3. Convert the speed to meters per second (m/s) using the formula: speedMs = speedKmh / 3.6.\n4. Write the converted value formatted to 2 decimal places to 'converted.txt'.\n5. Print the converted value to stdout formatted to 2 decimal places (%.2f) followed by a newline.\n\nThe program creates this file in the current working directory and may overwrite it on each run.",
+    "cases": [
+      {
+        "input": "72.0\n",
+        "expected": "20.00\n"
+      },
+      {
+        "input": "0.0\n",
+        "expected": "0.00\n"
+      },
+      {
+        "input": "100.0\n",
+        "expected": "27.78\n"
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "title": "Bank Account Serialization",
+    "topic": "serialization",
+    "statement": "Define a nested static class BankAccount inside Main implementing java.io.Serializable.\nThe class must have:\n- private double balance;\n- Constructor BankAccount(double initialBalance)\n- void deposit(double amount)\n- void withdraw(double amount)\n- double getBalance()\n\nIn the main method:\n1. Read three space-separated floating-point numbers from stdin: initialBalance, depositAmount, withdrawAmount.\n2. Instantiate BankAccount with initialBalance, call deposit(depositAmount), and call withdraw(withdrawAmount).\n3. Serialize the BankAccount object to 'bankAccount.ser' in the current working directory.\n4. Deserialize the object from 'bankAccount.ser'.\n5. Print the deserialized account's balance formatted to 2 decimal places (%.2f) followed by a newline.",
+    "cases": [
+      {
+        "input": "1000.50 250.25 100.10\n",
+        "expected": "1150.65\n"
+      },
+      {
+        "input": "0.0 0.0 0.0\n",
+        "expected": "0.00\n"
+      },
+      {
+        "input": "500.00 100.00 700.00\n",
+        "expected": "-100.00\n"
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "title": "Savings Category Serialization",
+    "topic": "serialization",
+    "statement": "Define a nested static class SavingsData inside Main implementing java.io.Serializable with fields double salary and double savings.\n\nIn the main method:\n1. Read two space-separated floating-point numbers from stdin: salary and savings.\n2. Instantiate SavingsData, serialize it to 'savings.ser', and deserialize it.\n3. Compute the savings percentage: pct = (savings / salary) * 100.0.\n4. Boundary Handling Rules:\n   10.0% is classified as Poor and 20.0% is classified as High; the Good range is strictly between them.\n   - If salary <= 0 or savings < 0 or pct < 1.0: print 'Invalid input'.\n   - If 1.0 <= pct <= 10.0: print 'Poor' (10.0% is classified as Poor).\n   - If 10.0 < pct < 20.0: print 'Good'.\n   - If pct >= 20.0: print 'High' (20.0% is classified as High).",
+    "cases": [
+      {
+        "input": "50000 2500\n",
+        "expected": "Poor\n"
+      },
+      {
+        "input": "50000 5000\n",
+        "expected": "Poor\n"
+      },
+      {
+        "input": "50000 7500\n",
+        "expected": "Good\n"
+      },
+      {
+        "input": "50000 10000\n",
+        "expected": "High\n"
+      },
+      {
+        "input": "50000 200\n",
+        "expected": "Invalid input\n"
+      },
+      {
+        "input": "-1000 500\n",
+        "expected": "Invalid input\n"
+      },
+      {
+        "input": "50000 5000.01\n",
+        "expected": "Good\n"
+      },
+      {
+        "input": "50000 4999.99\n",
+        "expected": "Poor\n"
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "title": "Generic Record Holder",
+    "topic": "generics",
+    "statement": "Define a generic class RecordHolder<T> (nested static class in Main) with:\n- private T record;\n- Constructor RecordHolder(T record)\n- T getRecord()\n- void displayRecordInfo(): prints the record's string representation (System.out.println(record);).\n\nDefine two record classes (nested static classes in Main):\n1. GradeRecord with fields String name and Double grade. Its toString() returns 'Grade for [name]: [grade formatted with %.2f]'.\n2. EnrollmentRecord with fields String course and Integer id. Its toString() returns 'Student [id] is enrolled in [course]'.\n\nIn the main method:\nRead four space-separated tokens from stdin: name (String), grade (Double), course (String), id (Integer).\nInstantiate RecordHolder<GradeRecord> and RecordHolder<EnrollmentRecord>.\nInvoke getRecord() and displayRecordInfo() on each holder.\n\nOutput Format:\nLine 1: Grade for <name>: <grade to 2 decimal places>\nLine 2: Student <id> is enrolled in <course>\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "Alice 95.5 CS101 1001\n",
+        "expected": "Grade for Alice: 95.50\nStudent 1001 is enrolled in CS101\n"
+      },
+      {
+        "input": "Bob 0.0 Math202 2002\n",
+        "expected": "Grade for Bob: 0.00\nStudent 2002 is enrolled in Math202\n"
+      },
+      {
+        "input": "Charlie 88.75 Eng301 3003\n",
+        "expected": "Grade for Charlie: 88.75\nStudent 3003 is enrolled in Eng301\n"
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "title": "Student Names ArrayList Lookup",
+    "topic": "arraylist",
+    "statement": "Read a list of student names into an ArrayList<String>, and retrieve the name at a specified index.\n\nInput Format:\n- Line 1: Integer count (number of student names, count >= 0).\n- Next line(s): count space-separated student names.\n- Next line: Integer queryIndex (0-indexed).\n\nOutput Format:\n- If queryIndex is valid (0 <= queryIndex < count):\n  print: 'Student: <name>'\n- If queryIndex is out of range (queryIndex < 0 or queryIndex >= count):\n  print: 'Index out of bounds: <queryIndex>'\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "3\nAlice Bob Charlie\n1\n",
+        "expected": "Student: Bob\n"
+      },
+      {
+        "input": "3\nAlice Bob Charlie\n5\n",
+        "expected": "Index out of bounds: 5\n"
+      },
+      {
+        "input": "3\nAlice Bob Charlie\n-1\n",
+        "expected": "Index out of bounds: -1\n"
+      },
+      {
+        "input": "0\n0\n",
+        "expected": "Index out of bounds: 0\n"
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "title": "City Temperatures Median Map",
+    "topic": "hashmap",
+    "statement": "Read N temperature recordings for various cities into a HashMap<String, List<Double>>. For each city, compute the median temperature, and print each city along with its median sorted alphabetically by city name.\n\nInput Format:\n- Line 1: Integer N (total number of recordings).\n- Next N lines: Each line contains a city name (single token String) and a temperature (Double) separated by a space.\n\nMedian Calculation:\nSort the temperatures for a city in ascending order. If the city has k readings:\n- If k is odd, the median is the element at index k / 2.\n- If k is even, the median is the average of elements at index (k / 2 - 1) and k / 2.\n\nOutput Format:\nFor each city sorted alphabetically in ascending order, print:\n<cityName>: <median formatted to 2 decimal places (%.2f)>\n\n(Output format assumed; verify against the lab sheet.)",
+    "cases": [
+      {
+        "input": "5\nLondon 15.0\nParis 20.0\nLondon 17.5\nLondon 12.0\nParis 22.0\n",
+        "expected": "London: 15.00\nParis: 21.00\n"
+      },
+      {
+        "input": "3\nOslo -5.0\nOslo -10.0\nOslo -1.0\n",
+        "expected": "Oslo: -5.00\n"
+      },
+      {
+        "input": "2\nTokyo 18.5\nKyoto 21.0\n",
+        "expected": "Kyoto: 21.00\nTokyo: 18.50\n"
+      }
+    ]
+  }
+]

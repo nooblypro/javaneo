@@ -1,0 +1,23 @@
+{
+  "title": "Primes in Inclusive Range",
+  "topic": "math-basics",
+  "statement": "Write a Java program to find and print all prime numbers in the inclusive range [start, end] using a for loop. A prime number is an integer strictly greater than 1 that has no positive divisors other than 1 and itself.\n\nInput Format:\nA single line containing two space-separated integers: start and end.\n\nOutput Format:\nIf one or more primes exist in the range, print all primes in ascending order on a single line separated by a single space, followed by a newline.\nIf no prime numbers exist in the range [start, end], print:\nNo primes found\n\n(Output format assumed; verify against the lab sheet.)",
+  "cases": [
+    {
+      "input": "10 30\n",
+      "expected": "11 13 17 19 23 29\n"
+    },
+    {
+      "input": "-5 1\n",
+      "expected": "No primes found\n"
+    },
+    {
+      "input": "2 2\n",
+      "expected": "2\n"
+    },
+    {
+      "input": "-10 10\n",
+      "expected": "2 3 5 7\n"
+    }
+  ]
+}

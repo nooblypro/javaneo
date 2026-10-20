@@ -1,0 +1,19 @@
+{
+  "title": "Motor Interface and Washing Machine",
+  "topic": "interfaces",
+  "statement": "Define an interface Motor (nested static interface inside Main) with the following methods:\n- void run()\n- void consume()\n- double consume(double capacity)\n\nCreate a nested static class WashingMachine implementing Motor:\n- run() prints exactly: 'Washing machine is running.'\n- consume() with no arguments prints exactly: 'Washing machine is consuming electricity.'\n- consume(double capacity) returns capacity * 0.05.\n\nIn the main method:\n1. Read a floating-point number representing capacity from stdin.\n2. Instantiate WashingMachine via a Motor reference.\n3. Call run().\n4. Call consume().\n5. Print the consumption returned by consume(capacity) formatted with %.2f in the format: 'Consumption: <value>'.\n\nOutput Format:\nLine 1: Washing machine is running.\nLine 2: Washing machine is consuming electricity.\nLine 3: Consumption: <value to 2 decimal places>",
+  "cases": [
+    {
+      "input": "50.0\n",
+      "expected": "Washing machine is running.\nWashing machine is consuming electricity.\nConsumption: 2.50\n"
+    },
+    {
+      "input": "0.0\n",
+      "expected": "Washing machine is running.\nWashing machine is consuming electricity.\nConsumption: 0.00\n"
+    },
+    {
+      "input": "7.5\n",
+      "expected": "Washing machine is running.\nWashing machine is consuming electricity.\nConsumption: 0.38\n"
+    }
+  ]
+}

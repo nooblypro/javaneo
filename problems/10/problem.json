@@ -1,0 +1,19 @@
+{
+  "title": "Speed Unit Conversion File IO",
+  "topic": "file-io",
+  "statement": "Read a speed in kilometers per hour (km/h) from stdin.\n1. Write the speed value to a file named 'data.txt' in the current directory.\n2. Read the value back from 'data.txt'.\n3. Convert the speed to meters per second (m/s) using the formula: speedMs = speedKmh / 3.6.\n4. Write the converted value formatted to 2 decimal places to 'converted.txt'.\n5. Print the converted value to stdout formatted to 2 decimal places (%.2f) followed by a newline.\n\nThe program creates this file in the current working directory and may overwrite it on each run.",
+  "cases": [
+    {
+      "input": "72.0\n",
+      "expected": "20.00\n"
+    },
+    {
+      "input": "0.0\n",
+      "expected": "0.00\n"
+    },
+    {
+      "input": "100.0\n",
+      "expected": "27.78\n"
+    }
+  ]
+}

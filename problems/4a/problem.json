@@ -1,0 +1,19 @@
+{
+  "title": "Employee Income Hierarchy",
+  "topic": "inheritance",
+  "statement": "Define a base class Employee (nested static class inside Main) with protected fields double baseSalary and double hours. Create two subclasses extending Employee:\n- Developer: bonus percentage is 10.0%\n- Designer: bonus percentage is 5.0%\n\nEach subclass must compute final income using the formula:\nfinalIncome = baseSalary + (baseSalary * bonusPercentage * hours / 100.0)\n\nInput Format:\n- Line 1: Employee role string: 'Developer' or 'Designer'.\n- Line 2: Two space-separated floating-point numbers: baseSalary and hours.\n\nOutput Format:\nPrint the final income formatted to 2 decimal places (%.2f):\nFinal Income: <income>\n\n(Output format assumed; verify against the lab sheet.)",
+  "cases": [
+    {
+      "input": "Developer\n50000.0 40.0\n",
+      "expected": "Final Income: 250000.00\n"
+    },
+    {
+      "input": "Designer\n40000.0 10.0\n",
+      "expected": "Final Income: 60000.00\n"
+    },
+    {
+      "input": "Developer\n3500.50 0.0\n",
+      "expected": "Final Income: 3500.50\n"
+    }
+  ]
+}

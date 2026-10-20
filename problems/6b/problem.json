@@ -1,0 +1,27 @@
+{
+  "title": "Custom Time Format Exceptions",
+  "topic": "exceptions",
+  "statement": "Create three custom exception classes as nested static classes inside Main, all extending Exception:\n- InvalidHourException\n- InvalidMinuteException\n- InvalidSecondException\n\nWrite a method static void validateTime(int h, int m, int s) throws InvalidHourException, InvalidMinuteException, InvalidSecondException:\n- If h < 0 or h > 23: throw new InvalidHourException(\"Invalid Hour: \" + h);\n- Else if m < 0 or m > 59: throw new InvalidMinuteException(\"Invalid Minute: \" + m);\n- Else if s < 0 or s > 59: throw new InvalidSecondException(\"Invalid Second: \" + s);\n\nIn the main method, read three space-separated integers (hours, minutes, seconds). Call validateTime(h, m, s).\n- If valid, print: 'Correct Time - hh:mm:ss' (each component zero-padded to 2 digits, e.g. %02d:%02d:%02d).\n- If any exception is thrown, catch it and print e.getMessage().",
+  "cases": [
+    {
+      "input": "14 5 9\n",
+      "expected": "Correct Time - 14:05:09\n"
+    },
+    {
+      "input": "25 10 30\n",
+      "expected": "Invalid Hour: 25\n"
+    },
+    {
+      "input": "12 65 0\n",
+      "expected": "Invalid Minute: 65\n"
+    },
+    {
+      "input": "10 20 -1\n",
+      "expected": "Invalid Second: -1\n"
+    },
+    {
+      "input": "0 0 0\n",
+      "expected": "Correct Time - 00:00:00\n"
+    }
+  ]
+}

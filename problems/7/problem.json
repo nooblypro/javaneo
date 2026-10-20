@@ -1,0 +1,19 @@
+{
+  "title": "Thread Message Buffer",
+  "topic": "threads",
+  "statement": "Implement a deterministic multi-threaded Producer-Consumer program with a single-slot buffer using wait() and notify().\n\nClass Structure:\n1. Nested static class MessageBuffer with:\n   - synchronized void put(String msg): waits while the buffer is full, stores the message, and calls notify() to wake the consumer.\n   - synchronized String take(): waits while the buffer is empty, retrieves the message, clears the buffer, and calls notify() to wake the producer.\n   (Note: notify() is safe here because exactly two threads share the buffer).\n2. Nested static class Producer implements Runnable: constructor accepts MessageBuffer and int count N. Its run() method generates and puts 'Message 1' through 'Message N' into the buffer.\n3. Nested static class Consumer implements Runnable: constructor accepts MessageBuffer and int count N. Its run() method takes N messages from the buffer and prints each one on its own line: 'Message <i>'.\n4. Main class: reads N from stdin (where N >= 1, e.g. 5 for the syllabus standard case), creates the MessageBuffer, instantiates Producer and Consumer without lambdas (new Thread(new Producer(...)) and new Thread(new Consumer(...))), starts both threads, and joins both before exiting.",
+  "cases": [
+    {
+      "input": "5\n",
+      "expected": "Message 1\nMessage 2\nMessage 3\nMessage 4\nMessage 5\n"
+    },
+    {
+      "input": "1\n",
+      "expected": "Message 1\n"
+    },
+    {
+      "input": "3\n",
+      "expected": "Message 1\nMessage 2\nMessage 3\n"
+    }
+  ]
+}

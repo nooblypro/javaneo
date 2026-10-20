@@ -1,0 +1,11 @@
+.DS_Store
+*.class
+*.ser
+prices.txt
+tax.txt
+data.txt
+converted.txt
+input.txt
+output.txt
+__pycache__/
+*.pyc

@@ -1,0 +1,39 @@
+{
+  "title": "Savings Category Serialization",
+  "topic": "serialization",
+  "statement": "Define a nested static class SavingsData inside Main implementing java.io.Serializable with fields double salary and double savings.\n\nIn the main method:\n1. Read two space-separated floating-point numbers from stdin: salary and savings.\n2. Instantiate SavingsData, serialize it to 'savings.ser', and deserialize it.\n3. Compute the savings percentage: pct = (savings / salary) * 100.0.\n4. Boundary Handling Rules:\n   10.0% is classified as Poor and 20.0% is classified as High; the Good range is strictly between them.\n   - If salary <= 0 or savings < 0 or pct < 1.0: print 'Invalid input'.\n   - If 1.0 <= pct <= 10.0: print 'Poor' (10.0% is classified as Poor).\n   - If 10.0 < pct < 20.0: print 'Good'.\n   - If pct >= 20.0: print 'High' (20.0% is classified as High).",
+  "cases": [
+    {
+      "input": "50000 2500\n",
+      "expected": "Poor\n"
+    },
+    {
+      "input": "50000 5000\n",
+      "expected": "Poor\n"
+    },
+    {
+      "input": "50000 7500\n",
+      "expected": "Good\n"
+    },
+    {
+      "input": "50000 10000\n",
+      "expected": "High\n"
+    },
+    {
+      "input": "50000 200\n",
+      "expected": "Invalid input\n"
+    },
+    {
+      "input": "-1000 500\n",
+      "expected": "Invalid input\n"
+    },
+    {
+      "input": "50000 5000.01\n",
+      "expected": "Good\n"
+    },
+    {
+      "input": "50000 4999.99\n",
+      "expected": "Poor\n"
+    }
+  ]
+}

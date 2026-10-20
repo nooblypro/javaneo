@@ -1,0 +1,19 @@
+{
+  "title": "Prime Coordinates in 2D Grid",
+  "topic": "arrays",
+  "statement": "Read a 2D integer grid and find the positions of all prime numbers. An integer is prime if it is strictly greater than 1 and divisible only by 1 and itself.\n\nInput Format:\n- Line 1: Two space-separated integers: rows R and columns C.\n- Next R lines: Each contains C space-separated integers representing row elements (row index from 0 to R-1, column index from 0 to C-1).\n\nOutput Format:\nFor each prime number found (scanning row-by-row from top to bottom, left to right), print:\nPrime <val> at (<row>, <col>)\nIf no prime numbers exist anywhere in the grid, print:\nNo primes found\n\n(Output format assumed; verify against the lab sheet.)",
+  "cases": [
+    {
+      "input": "2 3\n4 7 8\n9 11 12\n",
+      "expected": "Prime 7 at (0, 1)\nPrime 11 at (1, 1)\n"
+    },
+    {
+      "input": "2 2\n0 1\n-3 4\n",
+      "expected": "No primes found\n"
+    },
+    {
+      "input": "1 1\n2\n",
+      "expected": "Prime 2 at (0, 0)\n"
+    }
+  ]
+}

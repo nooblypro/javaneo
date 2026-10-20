@@ -1,0 +1,19 @@
+{
+  "title": "Rectangle Area and Perimeter",
+  "topic": "oop",
+  "statement": "Create a nested static class Rectangle inside Main with integer fields length and breadth. Provide methods int area() and int perimeter(). In the main method, instantiate a Rectangle with values read from stdin and print its area and perimeter.\n\nInput Format:\nA single line containing two space-separated integers: length and breadth.\n\nOutput Format:\nPrint two lines:\nArea: <area>\nPerimeter: <perimeter>\n\n(Output format assumed; verify against the lab sheet.)",
+  "cases": [
+    {
+      "input": "12 7\n",
+      "expected": "Area: 84\nPerimeter: 38\n"
+    },
+    {
+      "input": "5 5\n",
+      "expected": "Area: 25\nPerimeter: 20\n"
+    },
+    {
+      "input": "0 10\n",
+      "expected": "Area: 0\nPerimeter: 20\n"
+    }
+  ]
+}

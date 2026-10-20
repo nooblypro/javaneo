@@ -1,0 +1,19 @@
+{
+  "title": "Financing Interest Comparison",
+  "topic": "math-basics",
+  "statement": "You are evaluating two loan financing options. Compute the simple interest for each option using the formula: interest = (principal * rate) / 100.0.\n\nInput Format:\nThe input consists of two lines:\n- First line: two space-separated floating-point numbers: principal1 and rate1 (for Option 1).\n- Second line: two space-separated floating-point numbers: principal2 and rate2 (for Option 2).\n\nOutput Format:\nPrint the computed interest for each option on separate lines, formatted to 2 decimal places (%.2f):\nOption 1: <interest1>\nOption 2: <interest2>\n\n(Output format assumed; verify against the lab sheet.)",
+  "cases": [
+    {
+      "input": "1000.0 5.5\n2000.0 4.0\n",
+      "expected": "Option 1: 55.00\nOption 2: 80.00\n"
+    },
+    {
+      "input": "0.0 7.5\n1500.0 0.0\n",
+      "expected": "Option 1: 0.00\nOption 2: 0.00\n"
+    },
+    {
+      "input": "12500.50 8.25\n9800.75 10.50\n",
+      "expected": "Option 1: 1031.29\nOption 2: 1029.08\n"
+    }
+  ]
+}

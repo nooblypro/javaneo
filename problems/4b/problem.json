@@ -1,0 +1,23 @@
+{
+  "title": "Game Character Actions",
+  "topic": "inheritance",
+  "statement": "Define an abstract class GameCharacter (as a nested static class inside Main) with two abstract methods:\n- abstract int attack()\n- abstract int defend()\n\nCreate two concrete subclasses extending GameCharacter:\n- Warrior: constructor accepts int strength. attack() returns strength * 3. defend() returns strength.\n- Wizard: constructor accepts int power. attack() returns power * 2. defend() returns power.\n\nInput Format:\nA single line containing two space-separated integers: choice (1 for Warrior, 2 for Wizard) and value (strength or power).\nIf choice is not 1 or 2, print 'Invalid character choice'.\n\nOutput Format:\nIf valid:\nLine 1: Attack: <attack_value>\nLine 2: Defend: <defend_value>\n\n(Output format assumed; verify against the lab sheet.)",
+  "cases": [
+    {
+      "input": "1 10\n",
+      "expected": "Attack: 30\nDefend: 10\n"
+    },
+    {
+      "input": "2 25\n",
+      "expected": "Attack: 50\nDefend: 25\n"
+    },
+    {
+      "input": "1 0\n",
+      "expected": "Attack: 0\nDefend: 0\n"
+    },
+    {
+      "input": "3 15\n",
+      "expected": "Invalid character choice\n"
+    }
+  ]
+}

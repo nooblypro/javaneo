@@ -1,0 +1,19 @@
+{
+  "title": "City Temperatures Median Map",
+  "topic": "hashmap",
+  "statement": "Read N temperature recordings for various cities into a HashMap<String, List<Double>>. For each city, compute the median temperature, and print each city along with its median sorted alphabetically by city name.\n\nInput Format:\n- Line 1: Integer N (total number of recordings).\n- Next N lines: Each line contains a city name (single token String) and a temperature (Double) separated by a space.\n\nMedian Calculation:\nSort the temperatures for a city in ascending order. If the city has k readings:\n- If k is odd, the median is the element at index k / 2.\n- If k is even, the median is the average of elements at index (k / 2 - 1) and k / 2.\n\nOutput Format:\nFor each city sorted alphabetically in ascending order, print:\n<cityName>: <median formatted to 2 decimal places (%.2f)>\n\n(Output format assumed; verify against the lab sheet.)",
+  "cases": [
+    {
+      "input": "5\nLondon 15.0\nParis 20.0\nLondon 17.5\nLondon 12.0\nParis 22.0\n",
+      "expected": "London: 15.00\nParis: 21.00\n"
+    },
+    {
+      "input": "3\nOslo -5.0\nOslo -10.0\nOslo -1.0\n",
+      "expected": "Oslo: -5.00\n"
+    },
+    {
+      "input": "2\nTokyo 18.5\nKyoto 21.0\n",
+      "expected": "Kyoto: 21.00\nTokyo: 18.50\n"
+    }
+  ]
+}

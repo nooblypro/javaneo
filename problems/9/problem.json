@@ -1,0 +1,23 @@
+{
+  "title": "Sentiment Keyword Classifier",
+  "topic": "file-io",
+  "statement": "Read a single sentence from stdin.\n1. Write the sentence to a file named 'input.txt' in the current working directory.\n2. Read the sentence back from 'input.txt'.\n3. Tokenize words (ignoring case and treating non-alphanumeric characters as delimiters).\n   Count matches against these keyword sets:\n   - Positive keywords: happy, good, excellent, positive\n   - Negative keywords: sad, bad, terrible, negative\n4. Classification rules:\n   - If positive count > negative count: 'positive'\n   - If negative count > positive count: 'negative'\n   - If positive count == negative count: 'neutral'\n5. Write the classification result ('positive', 'negative', or 'neutral') to 'output.txt'.\n6. Print the classification result to stdout followed by a newline.\n\nThe program creates this file in the current working directory and may overwrite it on each run.",
+  "cases": [
+    {
+      "input": "It was a good and happy day!\n",
+      "expected": "positive\n"
+    },
+    {
+      "input": "Terrible weather and bad mood.\n",
+      "expected": "negative\n"
+    },
+    {
+      "input": "The cat sat on the mat.\n",
+      "expected": "neutral\n"
+    },
+    {
+      "input": "A good start but terrible finish.\n",
+      "expected": "neutral\n"
+    }
+  ]
+}

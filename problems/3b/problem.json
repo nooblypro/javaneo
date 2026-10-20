@@ -1,0 +1,19 @@
+{
+  "title": "Array Concatenator Class",
+  "topic": "oop",
+  "statement": "Define a nested static class ArrayConcatenator inside Main. The class must have a constructor ArrayConcatenator(int[] first, int[] second) that concatenates the two arrays into a single internal array. Provide a method to retrieve or print the concatenated elements.\n\nInput Format:\n- Line 1: Integer N (size of first array, 1 <= N <= 10).\n- Line 2: N space-separated integers (elements between 1 and 100).\n- Line 3: Integer M (size of second array, 1 <= M <= 10).\n- Line 4: M space-separated integers (elements between 1 and 100).\n\nOutput Format:\nPrint all elements of the concatenated array separated by a single space on one line, ending with a newline.\n\n(Output format assumed; verify against the lab sheet.)",
+  "cases": [
+    {
+      "input": "3\n10 20 30\n2\n40 50\n",
+      "expected": "10 20 30 40 50\n"
+    },
+    {
+      "input": "1\n42\n1\n99\n",
+      "expected": "42 99\n"
+    },
+    {
+      "input": "2\n1 100\n2\n100 1\n",
+      "expected": "1 100 100 1\n"
+    }
+  ]
+}
