@@ -369,15 +369,6 @@
             max-height: 160px;
         }
 
-        .problem-footer {
-            margin-top: 26px;
-            padding-top: 18px;
-            border-top: 1px solid var(--border-subtle);
-            display: flex;
-            gap: 24px;
-            font-size: 15px;
-            color: var(--text-muted);
-        }
 
         /* Right Column: Editor & Results */
         #right-pane {
@@ -728,10 +719,6 @@
                     <div id="sample-cases-list"></div>
                 </div>
 
-                <div class="problem-footer" id="problem-footer">
-                    <span>Marks: 1</span>
-                    <span>Negative Marks: 0</span>
-                </div>
             </div>
         </div>
 
@@ -964,16 +951,6 @@
 
                 // Render 2 Sample Test Cases under statement
                 renderSampleCases(data.cases || []);
-
-                // Footer marks
-                const footer = document.getElementById("problem-footer");
-                footer.innerHTML = "";
-                const mSpan = document.createElement("span");
-                mSpan.textContent = "Marks: " + (data.marks !== undefined ? data.marks : "1");
-                footer.appendChild(mSpan);
-                const nmSpan = document.createElement("span");
-                nmSpan.textContent = "Negative Marks: " + (data.negative_marks !== undefined ? data.negative_marks : "0");
-                footer.appendChild(nmSpan);
 
                 // Update editor
                 editor.value = data.code || "";
