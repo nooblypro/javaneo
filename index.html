@@ -752,6 +752,141 @@
         .toast-error {
             border-color: var(--status-red);
         }
+
+        /* Themed In-Page Modal Dialog */
+        #modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 6, 14, 0.7);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 150ms ease, visibility 150ms ease;
+        }
+
+        #modal-backdrop.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #modal-dialog {
+            background: #0a0f1e;
+            border: 1px solid #1e2a44;
+            border-radius: 14px;
+            padding: 24px;
+            width: min(420px, 90vw);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transform: scale(0.96);
+            opacity: 0;
+            transition: transform 150ms ease, opacity 150ms ease;
+        }
+
+        #modal-backdrop.open #modal-dialog {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #modal-backdrop,
+            #modal-dialog {
+                transition: none !important;
+                transform: none !important;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-accent-bar {
+            width: 4px;
+            height: 18px;
+            background: #5ee2f0;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e5e7eb;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .modal-message {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #9ca3af;
+            white-space: pre-wrap;
+            margin: 0;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .modal-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+        }
+
+        .modal-btn:focus-visible {
+            box-shadow: 0 0 0 2px #5ee2f0;
+        }
+
+        .modal-btn-cancel {
+            background: transparent;
+            border: 1px solid #374151;
+            color: #e5e7eb;
+        }
+
+        .modal-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: #4b5563;
+        }
+
+        .modal-btn-confirm {
+            background: #7c3aed;
+            border: 1px solid transparent;
+            color: #ffffff;
+        }
+
+        .modal-btn-confirm:hover {
+            background: #6d28d9;
+        }
+
+        .modal-btn-danger {
+            background: #f43f7a;
+            border: 1px solid transparent;
+            color: #ffffff;
+        }
+
+        .modal-btn-danger:hover {
+            background: #e11d48;
+        }
     </style>
 </head>
 
@@ -849,6 +984,21 @@
         </div>
     </div>
 
+    <!-- Themed In-Page Modal Dialog -->
+    <div id="modal-backdrop" aria-hidden="true">
+        <div id="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+            <div class="modal-header">
+                <div class="modal-accent-bar"></div>
+                <h3 class="modal-title" id="modal-title-text"></h3>
+            </div>
+            <p class="modal-message" id="modal-message-text"></p>
+            <div class="modal-buttons">
+                <button type="button" class="modal-btn modal-btn-cancel" id="modal-cancel-btn">Cancel</button>
+                <button type="button" class="modal-btn modal-btn-confirm" id="modal-confirm-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification Container -->
     <div id="toast-container"></div>
 
@@ -861,17 +1011,132 @@
         // Status per problem ID: 'viewed' (yellow), 'passed' (green), 'failed' (red)
         let problemStatus = {};
 
-        // Toast notification (safe from XSS)
-        function showToast(message, type = "info") {
-            const container = document.getElementById("toast-container");
-            const toast = document.createElement("div");
-            toast.className = "toast " + (type === "success" ? "toast-success" : type === "error" ? "toast-error" : "");
-            toast.textContent = message;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = "0";
-                setTimeout(() => toast.remove(), 250);
-            }, 3200);
+        // Themed In-Page Modal Dialog helper
+        let activeDialogResolve = null;
+        let previousActiveElement = null;
+
+        function showDialog({
+            title = "",
+            message = "",
+            confirmText = "OK",
+            cancelText = "Cancel",
+            danger = false,
+            alertOnly = false
+        } = {}) {
+            // Only one dialog at a time: if one is already open, resolve it as false/cancelled first
+            if (activeDialogResolve) {
+                activeDialogResolve(false);
+                activeDialogResolve = null;
+            }
+
+            return new Promise((resolve) => {
+                previousActiveElement = document.activeElement;
+                activeDialogResolve = resolve;
+
+                const backdrop = document.getElementById("modal-backdrop");
+                const dialog = document.getElementById("modal-dialog");
+                const titleEl = document.getElementById("modal-title-text");
+                const messageEl = document.getElementById("modal-message-text");
+                const cancelBtn = document.getElementById("modal-cancel-btn");
+                const confirmBtn = document.getElementById("modal-confirm-btn");
+
+                titleEl.textContent = title;
+                messageEl.textContent = message;
+                confirmBtn.textContent = confirmText;
+                cancelBtn.textContent = cancelText;
+
+                if (danger) {
+                    confirmBtn.className = "modal-btn modal-btn-danger";
+                } else {
+                    confirmBtn.className = "modal-btn modal-btn-confirm";
+                }
+
+                if (alertOnly) {
+                    cancelBtn.style.display = "none";
+                } else {
+                    cancelBtn.style.display = "";
+                }
+
+                backdrop.setAttribute("aria-hidden", "false");
+                backdrop.classList.add("open");
+
+                function cleanup(result) {
+                    window.removeEventListener("keydown", onKeyDown, true);
+                    backdrop.removeEventListener("click", onBackdropClick);
+                    cancelBtn.removeEventListener("click", onCancel);
+                    confirmBtn.removeEventListener("click", onConfirm);
+
+                    backdrop.classList.remove("open");
+                    backdrop.setAttribute("aria-hidden", "true");
+
+                    activeDialogResolve = null;
+                    if (previousActiveElement && typeof previousActiveElement.focus === "function") {
+                        previousActiveElement.focus();
+                    }
+                    resolve(result);
+                }
+
+                function onConfirm(e) {
+                    if (e) e.stopPropagation();
+                    cleanup(true);
+                }
+
+                function onCancel(e) {
+                    if (e) e.stopPropagation();
+                    cleanup(alertOnly ? true : false);
+                }
+
+                function onBackdropClick(e) {
+                    if (e.target === backdrop) {
+                        cleanup(alertOnly ? true : false);
+                    }
+                }
+
+                function onKeyDown(e) {
+                    if (e.key === "Escape") {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        cleanup(alertOnly ? true : false);
+                        return;
+                    }
+                    if (e.key === "Enter") {
+                        // Allow enter unless user is explicitly on cancel button
+                        if (document.activeElement !== cancelBtn) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            cleanup(true);
+                            return;
+                        }
+                    }
+                    if (e.key === "Tab") {
+                        // Trap focus inside modal
+                        const focusables = alertOnly ? [confirmBtn] : [cancelBtn, confirmBtn];
+                        const first = focusables[0];
+                        const last = focusables[focusables.length - 1];
+                        if (e.shiftKey) {
+                            if (document.activeElement === first) {
+                                e.preventDefault();
+                                last.focus();
+                            }
+                        } else {
+                            if (document.activeElement === last) {
+                                e.preventDefault();
+                                first.focus();
+                            }
+                        }
+                    }
+                }
+
+                confirmBtn.addEventListener("click", onConfirm);
+                cancelBtn.addEventListener("click", onCancel);
+                backdrop.addEventListener("click", onBackdropClick);
+                window.addEventListener("keydown", onKeyDown, true);
+
+                // Focus the primary button when opened
+                requestAnimationFrame(() => {
+                    confirmBtn.focus();
+                });
+            });
         }
 
         // Generic API helper
@@ -1082,7 +1347,13 @@
 
             // Warn if unsaved changes exist
             if (currentProblem && editor.value !== lastLoadedCode) {
-                const discard = confirm("You have unsaved changes in your code. Discard them?");
+                const discard = await showDialog({
+                    title: "Unsaved Changes",
+                    message: "You have unsaved changes in your code. Discard them?",
+                    confirmText: "Discard",
+                    cancelText: "Keep Editing",
+                    danger: true
+                });
                 if (!discard) return;
             }
 
@@ -1188,9 +1459,16 @@
         }
 
         // Clear button
-        function clearCode() {
+        async function clearCode() {
             if (!currentProblem) return;
-            if (confirm("Clear editor contents?")) {
+            const ok = await showDialog({
+                title: "Clear Editor",
+                message: "Clear editor contents?",
+                confirmText: "Clear",
+                cancelText: "Cancel",
+                danger: true
+            });
+            if (ok) {
                 editor.value = "";
                 updateEditor();
             }
@@ -1364,9 +1642,20 @@
             try {
                 const r = await api("/api/import", "POST", {});
                 await loadProblems();
-                showToast(`Imported ${r.created.length} new, ${r.updated.length} updated.`, "success");
+                const msg = `Curriculum imported successfully:\n• ${r.created.length} new problems created\n• ${r.updated.length} problems updated`;
+                await showDialog({
+                    title: "Import Curriculum",
+                    message: msg,
+                    confirmText: "OK",
+                    alertOnly: true
+                });
             } catch (err) {
-                showToast("Import failed: " + err.message, "error");
+                await showDialog({
+                    title: "Import Failed",
+                    message: "Failed to import curriculum: " + err.message,
+                    confirmText: "OK",
+                    alertOnly: true
+                });
             }
         }
 
