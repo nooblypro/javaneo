@@ -33,13 +33,18 @@ def list_problems():
     for d in sorted(PROBLEMS.iterdir()):
         f = d / "problem.json"
         if d.is_dir() and f.exists():
-            out.append({"id": d.name, "title": json.loads(f.read_text()).get("title") or d.name})
+            data = json.loads(f.read_text())
+            out.append({"id": d.name, "title": data.get("title") or d.name, "topic": data.get("topic", "other")})
     return out
 
 def get_problem(pid):
     d = check_id(pid)
     meta = json.loads((d / "problem.json").read_text())
-    meta["code"] = (d / "Main.java").read_text()
+    # For footer problems student code lives in Solution.java after the first run
+    if meta.get("footer") and (d / "Solution.java").exists():
+        meta["code"] = (d / "Solution.java").read_text()
+    else:
+        meta["code"] = (d / "Main.java").read_text()
     return meta
 
 def save_problem(pid, data):
@@ -47,6 +52,8 @@ def save_problem(pid, data):
     cases = [{"input": str(c.get("input", "")), "expected": str(c.get("expected", ""))}
              for c in data.get("cases", [])]
     meta = {"title": str(data.get("title", pid)), "statement": str(data.get("statement", "")), "cases": cases}
+    if "footer" in data and isinstance(data["footer"], str):
+        meta["footer"] = data["footer"]
     (d / "problem.json").write_text(json.dumps(meta, indent=2))
 
 def create_problem(data):
@@ -67,7 +74,18 @@ def save_code(pid, code):
 def run_problem(pid):
     d = check_id(pid)
     meta = json.loads((d / "problem.json").read_text())
-    compiled = subprocess.run(["javac", "Main.java"], cwd=d, capture_output=True, text=True)
+    student_code = (d / "Main.java").read_text()
+    footer = meta.get("footer")
+
+    if footer:
+        if "public class Main" in student_code:
+            return {"compile_error": "Your code must not declare public class Main. Write only the helper classes."}
+        (d / "Solution.java").write_text(student_code)
+        (d / "Main.java").write_text(footer)
+        compiled = subprocess.run(["javac", "Main.java", "Solution.java"], cwd=d, capture_output=True, text=True)
+    else:
+        compiled = subprocess.run(["javac", "Main.java"], cwd=d, capture_output=True, text=True)
+
     if compiled.returncode != 0:
         return {"compile_error": compiled.stderr or "compilation failed"}
     results = []
@@ -120,6 +138,8 @@ def import_curriculum():
         for c in cases:
             if not isinstance(c.get("input"), str) or not isinstance(c.get("expected"), str):
                 raise ValueError(f"{pid}: each case needs string input and expected")
+        if "footer" in item and not isinstance(item["footer"], str):
+            raise ValueError(f"{pid}: footer must be a string")
 
     created, updated = [], []
     for item in items:
@@ -133,6 +153,8 @@ def import_curriculum():
             "statement": str(item.get("statement", "")),
             "cases": [{"input": c["input"], "expected": c["expected"]} for c in item["cases"]],
         }
+        if "footer" in item:
+            meta["footer"] = item["footer"]
         (d / "problem.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
         if not (d / "Main.java").exists():  # never overwrite existing code
             (d / "Main.java").write_text(DEFAULT_CODE)
@@ -161,6 +183,10 @@ class Handler(BaseHTTPRequestHandler):
             if method == "POST" and path == "/api/import":
                 return self.send_json(200, import_curriculum())
             if method == "GET" and path == "/api/problems":
+                try:
+                    import_curriculum()
+                except ValueError as e:
+                    print(f"auto-import: {e}")
                 return self.send_json(200, list_problems())
             if method == "POST" and path == "/api/problems":
                 return self.send_json(200, create_problem(self.body()))
@@ -168,6 +194,10 @@ class Handler(BaseHTTPRequestHandler):
             if m:
                 pid, action = m.group(1), m.group(2)
                 if method == "GET" and not action:
+                    try:
+                        import_curriculum()
+                    except ValueError as e:
+                        print(f"auto-import: {e}")
                     return self.send_json(200, get_problem(pid))
                 if method == "PUT" and not action:
                     save_problem(pid, self.body())
@@ -198,6 +228,10 @@ class Handler(BaseHTTPRequestHandler):
         self.handle_api("PUT")
 
 if __name__ == "__main__":
+    try:
+        import_curriculum()
+    except ValueError as e:
+        print(f"auto-import: {e}")
     server = ThreadingHTTPServer(("127.0.0.1", 8000), Handler)  # localhost only
     print("Open http://127.0.0.1:8000  (Ctrl+C to stop)")
     server.serve_forever()

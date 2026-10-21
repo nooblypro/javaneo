@@ -28,20 +28,33 @@ def check_all():
 
     for problem in curriculum:
         pid = problem.get("id")
-        solution_java = SOLUTIONS_DIR / pid / "Main.java"
+        footer = problem.get("footer")
 
-        if not solution_java.exists():
-            print(f"[{pid}] ERROR: Missing solution file at {solution_java}")
-            all_passed = False
-            continue
+        if footer:
+            solution_java = SOLUTIONS_DIR / pid / "Solution.java"
+            if not solution_java.exists():
+                print(f"[{pid}] ERROR: Missing solution file at {solution_java}")
+                all_passed = False
+                continue
+        else:
+            solution_java = SOLUTIONS_DIR / pid / "Main.java"
+            if not solution_java.exists():
+                print(f"[{pid}] ERROR: Missing solution file at {solution_java}")
+                all_passed = False
+                continue
 
         with tempfile.TemporaryDirectory() as td:
-            # Copy Main.java to isolated tempdir
-            src_dest = Path(td) / "Main.java"
-            src_dest.write_text(solution_java.read_text(encoding="utf-8"), encoding="utf-8")
+            if footer:
+                # Write Solution.java and Main.java (footer)
+                (Path(td) / "Solution.java").write_text(solution_java.read_text(encoding="utf-8"), encoding="utf-8")
+                (Path(td) / "Main.java").write_text(footer, encoding="utf-8")
+                comp = subprocess.run(["javac", "Main.java", "Solution.java"], cwd=td, capture_output=True, text=True)
+            else:
+                # Copy Main.java to isolated tempdir
+                src_dest = Path(td) / "Main.java"
+                src_dest.write_text(solution_java.read_text(encoding="utf-8"), encoding="utf-8")
+                comp = subprocess.run(["javac", "Main.java"], cwd=td, capture_output=True, text=True)
 
-            # Compile
-            comp = subprocess.run(["javac", "Main.java"], cwd=td, capture_output=True, text=True)
             if comp.returncode != 0:
                 print(f"[{pid}] COMPILE ERROR:\n{comp.stderr.strip()}")
                 all_passed = False

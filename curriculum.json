@@ -518,5 +518,845 @@
         "expected": "Kyoto: 21.00\nTokyo: 18.50\n"
       }
     ]
+  },
+  {
+    "id": "task-list",
+    "title": "Task List with LinkedList",
+    "topic": "arraylist",
+    "statement": "Users manage a to-do list using a LinkedList in FIFO order. Read n commands. \"ADD task_name\" appends a task. \"REMOVE\" deletes the first task (no error if empty). \"SHOW\" prints all tasks separated by single spaces in order, or \"EMPTY\" if none. Output one line per SHOW. Implement a class TaskManager with a method processCommand(String command). Output format assumed; verify against the lab sheet.",
+    "cases": [
+      {
+        "input": "5\nADD homework\nADD project\nSHOW\nREMOVE\nSHOW\n",
+        "expected": "homework project\nproject\n"
+      },
+      {
+        "input": "4\nADD testing\nSHOW\nREMOVE\nSHOW\n",
+        "expected": "testing\nEMPTY\n"
+      },
+      {
+        "input": "3\nSHOW\nREMOVE\nSHOW\n",
+        "expected": "EMPTY\nEMPTY\n"
+      }
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        sc.nextLine(); // Consume newline\n        TaskManager manager = new TaskManager();\n        for (int i = 0; i < n; i++) {\n            String command = sc.nextLine();\n            manager.processCommand(command);\n        }\n        sc.close();\n    }\n}\n"
+  },
+  {
+    "id": "guest-lookup",
+    "title": "Student Names ArrayList Index Lookup",
+    "topic": "arraylist",
+    "statement": "Register n names (2 <= n <= 10) into an ArrayList, then read an index. Print \"Element at index [index]: [name]\" if valid, otherwise \"Invalid index\". Implement a class NameManager with addName(String) and printNameAtIndex(int index). Output format assumed; verify against the lab sheet.",
+    "cases": [
+      {
+        "input": "5\nAlice\nBob\nAnkit\nAlice\nPrajit\n2\n",
+        "expected": "Element at index 2: Ankit\n"
+      },
+      {
+        "input": "2\nAlice\nBob\n2\n",
+        "expected": "Invalid index\n"
+      },
+      {
+        "input": "2\nAlice\nBob\n0\n",
+        "expected": "Element at index 0: Alice\n"
+      }
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        NameManager manager = new NameManager();\n        int n = sc.nextInt();\n        sc.nextLine();\n        for (int i = 0; i < n; i++) {\n            manager.addName(sc.nextLine());\n        }\n        int index = sc.nextInt();\n        manager.printNameAtIndex(index);\n        sc.close();\n    }\n}\n"
+  },
+  {
+    "id": "review-averages",
+    "title": "Product Average Ratings with TreeMap",
+    "topic": "hashmap",
+    "statement": "Read n reviews, each line \"product_id rating\" (product_id integer, rating double 1 to 5). Compute the average rating per product using a TreeMap<Integer, Double> so products are sorted by id. Print \"Product ID and Average Rating:\" first, then \"<product_id>: <average with 2 decimals>\" for each product in ascending id order. Implement a class ProductAnalyzer with analyzeProductRatings(List<String> lines). Output format assumed; verify against the lab sheet.",
+    "cases": [
+      {
+        "input": "5\n101 4.5\n102 3.0\n101 5.0\n102 4.5\n103 2.5\n",
+        "expected": "Product ID and Average Rating:\n101: 4.75\n102: 3.75\n103: 2.50\n"
+      },
+      {
+        "input": "3\n201 4.0\n202 3.5\n201 4.5\n",
+        "expected": "Product ID and Average Rating:\n201: 4.25\n202: 3.50\n"
+      }
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = Integer.parseInt(sc.nextLine());\n        List<String> lines = new ArrayList<>();\n        for (int i = 0; i < n; i++) {\n            lines.add(sc.nextLine());\n        }\n        ProductAnalyzer analyzer = new ProductAnalyzer();\n        analyzer.analyzeProductRatings(lines);\n        sc.close();\n    }\n}\n"
+  },
+  {
+    "id": "name-frequency",
+    "title": "Name Frequency in ArrayList",
+    "topic": "arraylist",
+    "statement": "Read N names (2 <= N <= 10) into an ArrayList, then read a search string. Print how many times it appears (case-sensitive). Print 0 if not found. Implement the counting in a class NameCounter with a method count(ArrayList<String> names, String target) returning int. Output format assumed; verify against the lab sheet.",
+    "cases": [
+      {
+        "input": "5\nAlice\nBob\nAnkit\nAlice\nPranitha\nAlice\n",
+        "expected": "2\n"
+      },
+      {
+        "input": "3\nMitchell\nSofia\nLily\nCameron\n",
+        "expected": "0\n"
+      },
+      {
+        "input": "6\nBenjamin\nEmma\nEmma\nBenjamin\nemma\nDaniel\nEmma\n",
+        "expected": "2\n"
+      }
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        sc.nextLine();\n        ArrayList<String> names = new ArrayList<>();\n        for (int i = 0; i < n; i++) {\n            names.add(sc.nextLine());\n        }\n        String search = sc.nextLine();\n        NameCounter counter = new NameCounter();\n        System.out.println(counter.count(names, search));\n        sc.close();\n    }\n}\n"
+  },
+  {
+    "id": "arraylist-sort-length",
+    "title": "Sort Strings by Length in ArrayList",
+    "topic": "arraylist",
+    "statement": "Read a list of strings into an ArrayList and sort them in ascending order of string length.\n\nInput Format:\n- Line 1: An integer N representing the number of strings.\n- Next N lines: A single string on each line.\n\nOutput Format:\n- Print each string from the sorted list on its own line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100\n- Strings contain only printable non-whitespace characters.",
+    "cases": [
+      {
+        "input": "4\nelephant\ncat\ndog\nbanana\n",
+        "expected": "cat\ndog\nbanana\nelephant\n"
+      },
+      {
+        "input": "3\njava\npython\nc\n",
+        "expected": "c\njava\npython\n"
+      },
+      {
+        "input": "1\nsingle\n",
+        "expected": "single\n"
+      }
+    ]
+  },
+  {
+    "id": "array-rotate-k",
+    "title": "Rotate Array Elements Right by K Steps",
+    "topic": "arrays",
+    "statement": "Rotate an array of N integers to the right by K positions.\n\nInput Format:\n- Line 1: An integer N representing array length.\n- Line 2: N space-separated integers representing the array elements.\n- Line 3: An integer K representing rotation steps.\n\nOutput Format:\n- Print the rotated array elements separated by a single space on one line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 1000\n- 0 <= K <= 100000",
+    "cases": [
+      {
+        "input": "5\n1 2 3 4 5\n2\n",
+        "expected": "4 5 1 2 3\n"
+      },
+      {
+        "input": "4\n10 20 30 40\n0\n",
+        "expected": "10 20 30 40\n"
+      },
+      {
+        "input": "3\n7 8 9\n5\n",
+        "expected": "8 9 7\n"
+      }
+    ]
+  },
+  {
+    "id": "array-matrix-transpose",
+    "title": "Transpose of a 2D Integer Matrix",
+    "topic": "arrays",
+    "statement": "Compute and print the transpose of a rectangular matrix of integers.\n\nInput Format:\n- Line 1: Two space-separated integers R and C representing rows and columns.\n- Next R lines: C space-separated integers for each row.\n\nOutput Format:\n- Print C lines, each containing R space-separated integers for the transposed matrix.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= R, C <= 50",
+    "cases": [
+      {
+        "input": "2 3\n1 2 3\n4 5 6\n",
+        "expected": "1 4\n2 5\n3 6\n"
+      },
+      {
+        "input": "1 2\n10 20\n",
+        "expected": "10\n20\n"
+      },
+      {
+        "input": "2 2\n5 8\n9 12\n",
+        "expected": "5 9\n8 12\n"
+      }
+    ]
+  },
+  {
+    "id": "array-second-largest",
+    "title": "Find the Second Distinct Largest Integer",
+    "topic": "arrays",
+    "statement": "Find and display the second distinct largest number in an integer array.\n\nInput Format:\n- Line 1: An integer N representing the number of elements.\n- Line 2: N space-separated integers.\n\nOutput Format:\n- Print 'Second largest: <val>' if a second distinct largest exists.\n- Print 'No second largest' if fewer than two distinct numbers exist.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 500",
+    "cases": [
+      {
+        "input": "5\n12 35 1 10 34\n",
+        "expected": "Second largest: 34\n"
+      },
+      {
+        "input": "3\n5 5 5\n",
+        "expected": "No second largest\n"
+      },
+      {
+        "input": "4\n-10 -5 -20 -5\n",
+        "expected": "Second largest: -10\n"
+      }
+    ]
+  },
+  {
+    "id": "exception-bank-withdrawal",
+    "title": "Bank Account Withdrawal with Custom Exception",
+    "topic": "exceptions",
+    "statement": "Process bank account withdrawals and handle insufficient balances using a custom checked exception.\n\nInput Format:\n- Line 1: A floating-point number representing starting balance.\n- Line 2: A floating-point number representing withdrawal amount.\n\nOutput Format:\n- If successful: 'Remaining balance: <balance to 2 decimals>'\n- If insufficient funds: 'Error: Insufficient funds: balance is <balance>, attempted <amount>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- balance >= 0.0, amount >= 0.0",
+    "cases": [
+      {
+        "input": "500.00\n200.00\n",
+        "expected": "Remaining balance: 300.00\n"
+      },
+      {
+        "input": "150.00\n250.00\n",
+        "expected": "Error: Insufficient funds: balance is 150.0, attempted 250.0\n"
+      },
+      {
+        "input": "100.00\n100.00\n",
+        "expected": "Remaining balance: 0.00\n"
+      }
+    ]
+  },
+  {
+    "id": "exception-array-bounds",
+    "title": "Safe Array Index Lookup with Exception Handling",
+    "topic": "exceptions",
+    "statement": "Retrieve values from an array by index and safely handle out-of-bounds queries.\n\nInput Format:\n- Line 1: An integer N representing array size.\n- Line 2: N space-separated integers.\n- Line 3: An integer Q representing query index.\n\nOutput Format:\n- If valid: 'Value: <val>'\n- If out of bounds: 'Error: Invalid index <Q>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100",
+    "cases": [
+      {
+        "input": "4\n10 20 30 40\n2\n",
+        "expected": "Value: 30\n"
+      },
+      {
+        "input": "3\n1 2 3\n5\n",
+        "expected": "Error: Invalid index 5\n"
+      },
+      {
+        "input": "2\n8 9\n-1\n",
+        "expected": "Error: Invalid index -1\n"
+      }
+    ]
+  },
+  {
+    "id": "file-word-count",
+    "title": "File Text Statistics Counter",
+    "topic": "file-io",
+    "statement": "Read text from a file and calculate the total number of lines, words, and characters.\n\nInput Format:\n- Line 1: An integer N (number of lines of text to follow).\n- Next N lines: The text lines.\n\nOutput Format:\n- Line 1: 'Lines: <L>'\n- Line 2: 'Words: <W>'\n- Line 3: 'Chars: <C>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 20",
+    "cases": [
+      {
+        "input": "2\nHello world\nWelcome to Java\n",
+        "expected": "Lines: 2\nWords: 5\nChars: 28\n"
+      },
+      {
+        "input": "1\nOneWord\n",
+        "expected": "Lines: 1\nWords: 1\nChars: 8\n"
+      },
+      {
+        "input": "3\nLine one\nLine two\nLine three\n",
+        "expected": "Lines: 3\nWords: 6\nChars: 29\n"
+      }
+    ]
+  },
+  {
+    "id": "file-line-filter",
+    "title": "Filter and Copy Matching Lines to File",
+    "topic": "file-io",
+    "statement": "Filter lines matching a prefix from an input file and save them to a filtered output file.\n\nInput Format:\n- Line 1: Prefix string to match (e.g. 'ERROR').\n- Line 2: Integer N (number of log lines).\n- Next N lines: Log message strings.\n\nOutput Format:\n- Line 1: 'Matched lines: <count>'\n- Followed by each matching line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 50",
+    "cases": [
+      {
+        "input": "ERROR\n4\nERROR Database connection failed\nINFO User logged in\nERROR Timeout on port 8080\nWARN High memory usage\n",
+        "expected": "Matched lines: 2\nERROR Database connection failed\nERROR Timeout on port 8080\n"
+      },
+      {
+        "input": "WARN\n2\nINFO System start\nINFO System stop\n",
+        "expected": "Matched lines: 0\n"
+      },
+      {
+        "input": "FATAL\n1\nFATAL Disk failure\n",
+        "expected": "Matched lines: 1\nFATAL Disk failure\n"
+      }
+    ]
+  },
+  {
+    "id": "generic-pair-swap",
+    "title": "Generic Pair Holder with Element Swapping",
+    "topic": "generics",
+    "statement": "Store a pair of two typed elements in a generic container and swap their positions.\n\nInput Format:\n- Line 1: A string and an integer separated by a space.\n\nOutput Format:\n- Line 1: 'Original: (<first>, <second>)'\n- Line 2: 'Swapped: (<second>, <first>)'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Standard Java String and Integer ranges.",
+    "cases": [
+      {
+        "input": "Alpha 100\n",
+        "expected": "Original: (Alpha, 100)\nSwapped: (100, Alpha)\n"
+      },
+      {
+        "input": "Test -42\n",
+        "expected": "Original: (Test, -42)\nSwapped: (-42, Test)\n"
+      },
+      {
+        "input": "Key 0\n",
+        "expected": "Original: (Key, 0)\nSwapped: (0, Key)\n"
+      }
+    ]
+  },
+  {
+    "id": "generic-stack",
+    "title": "Generic LIFO Stack Implementation",
+    "topic": "generics",
+    "statement": "Implement a generic stack data structure supporting push, pop, and peek operations.\n\nInput Format:\n- Line 1: An integer N representing number of operations.\n- Next N lines: A command string ('PUSH <value>', 'POP', or 'PEEK').\n\nOutput Format:\n- Print the result of each POP and PEEK command on a new line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 50",
+    "cases": [
+      {
+        "input": "5\nPUSH Apple\nPUSH Banana\nPEEK\nPOP\nPOP\n",
+        "expected": "Banana\nBanana\nApple\n"
+      },
+      {
+        "input": "3\nPOP\nPUSH Mango\nPOP\n",
+        "expected": "EMPTY\nMango\n"
+      },
+      {
+        "input": "4\nPUSH One\nPUSH Two\nPEEK\nPOP\n",
+        "expected": "Two\nTwo\n"
+      }
+    ]
+  },
+  {
+    "id": "generic-max-finder",
+    "title": "Generic Array Maximum Element Finder",
+    "topic": "generics",
+    "statement": "Find the maximum element in an array using a bounded generic method.\n\nInput Format:\n- Line 1: Type string: 'INTEGER' or 'STRING'.\n- Line 2: An integer N representing the array size.\n- Line 3: N space-separated elements.\n\nOutput Format:\n- Line 1: 'Max: <maxElement>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100",
+    "cases": [
+      {
+        "input": "INTEGER\n5\n3 18 9 42 15\n",
+        "expected": "Max: 42\n"
+      },
+      {
+        "input": "STRING\n4\npeach apple zebra banana\n",
+        "expected": "Max: zebra\n"
+      },
+      {
+        "input": "INTEGER\n3\n-5 -2 -10\n",
+        "expected": "Max: -2\n"
+      }
+    ]
+  },
+  {
+    "id": "generic-box-filter",
+    "title": "Generic Box Container with Equality Comparison",
+    "topic": "generics",
+    "statement": "Encapsulate values in a generic Box and count matching values in a collection.\n\nInput Format:\n- Line 1: Type descriptor ('INT' or 'STR').\n- Line 2: Target value.\n- Line 3: Integer N.\n- Line 4: N space-separated values.\n\nOutput Format:\n- Line 1: 'Matches: <count>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100",
+    "cases": [
+      {
+        "input": "INT\n5\n6\n1 5 3 5 5 7\n",
+        "expected": "Matches: 3\n"
+      },
+      {
+        "input": "STR\njava\n4\njava python java c++\n",
+        "expected": "Matches: 2\n"
+      },
+      {
+        "input": "INT\n10\n3\n1 2 3\n",
+        "expected": "Matches: 0\n"
+      }
+    ]
+  },
+  {
+    "id": "hashmap-char-frequency",
+    "title": "Character Frequency Counter with HashMap",
+    "topic": "hashmap",
+    "statement": "Count occurrences of lowercase English letters in a string using a HashMap.\n\nInput Format:\n- Line 1: A line of text.\n\nOutput Format:\n- Print each character and its count on a new line in alphabetical order: '<char>: <count>'.\n- If no lowercase letters, print 'None'.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- String length <= 500",
+    "cases": [
+      {
+        "input": "hello world\n",
+        "expected": "d: 1\ne: 1\nh: 1\nl: 3\no: 2\nr: 1\nw: 1\n"
+      },
+      {
+        "input": "12345 !@#\n",
+        "expected": "None\n"
+      },
+      {
+        "input": "banana\n",
+        "expected": "a: 3\nb: 1\nn: 2\n"
+      }
+    ]
+  },
+  {
+    "id": "hashmap-phone-directory",
+    "title": "Contact Phone Directory with HashMap",
+    "topic": "hashmap",
+    "statement": "Store contact names and phone numbers in a HashMap and query numbers by name.\n\nInput Format:\n- Line 1: An integer N representing number of operations.\n- Next N lines: Command string ('ADD <name> <number>' or 'FIND <name>').\n\nOutput Format:\n- Print output for each FIND command on its own line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100",
+    "cases": [
+      {
+        "input": "4\nADD Alice 555-1234\nADD Bob 555-5678\nFIND Alice\nFIND Charlie\n",
+        "expected": "Alice: 555-1234\nNot found: Charlie\n"
+      },
+      {
+        "input": "3\nADD John 111-2222\nADD John 333-4444\nFIND John\n",
+        "expected": "John: 333-4444\n"
+      },
+      {
+        "input": "2\nFIND Stranger\nADD Dave 999-0000\n",
+        "expected": "Not found: Stranger\n"
+      }
+    ]
+  },
+  {
+    "id": "hashmap-two-sum-indices",
+    "title": "Two-Sum Target Index Lookup with HashMap",
+    "topic": "hashmap",
+    "statement": "Find indices of two numbers that add up to a target sum using a HashMap.\n\nInput Format:\n- Line 1: An integer S representing target sum.\n- Line 2: An integer N representing array length.\n- Line 3: N space-separated integers.\n\nOutput Format:\n- Line 1: 'Indices: <i> <j>' or 'No pair found'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 1000",
+    "cases": [
+      {
+        "input": "9\n4\n2 7 11 15\n",
+        "expected": "Indices: 0 1\n"
+      },
+      {
+        "input": "10\n3\n1 2 3\n",
+        "expected": "No pair found\n"
+      },
+      {
+        "input": "6\n3\n3 2 4\n",
+        "expected": "Indices: 1 2\n"
+      }
+    ]
+  },
+  {
+    "id": "inheritance-vehicle-fleet",
+    "title": "Vehicle Fleet Rental Cost Hierarchy",
+    "topic": "inheritance",
+    "statement": "Calculate rental charges for different vehicle types using class inheritance.\n\nInput Format:\n- Line 1: Vehicle type ('CAR' or 'TRUCK').\n- Line 2: Model name string.\n- Line 3: Floating-point baseRatePerDay and integer days separated by space.\n\nOutput Format:\n- Line 1: 'Model: <model>'\n- Line 2: 'Total: $<amount to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- days >= 1, baseRatePerDay >= 0.0",
+    "cases": [
+      {
+        "input": "CAR\nSedan\n40.0 3\n",
+        "expected": "Model: Sedan\nTotal: $135.00\n"
+      },
+      {
+        "input": "TRUCK\nHauler\n80.0 2\n",
+        "expected": "Model: Hauler\nTotal: $210.00\n"
+      },
+      {
+        "input": "CAR\nCompact\n25.50 1\n",
+        "expected": "Model: Compact\nTotal: $40.50\n"
+      }
+    ]
+  },
+  {
+    "id": "inheritance-bank-accounts",
+    "title": "Bank Account Hierarchy with Interest and Overdraft",
+    "topic": "inheritance",
+    "statement": "Model savings and checking accounts inheriting from a common base bank account.\n\nInput Format:\n- Line 1: Account type ('SAVINGS' or 'CHECKING').\n- Line 2: If SAVINGS: initialBalance and interestRate. If CHECKING: initialBalance, overdraftLimit, and withdrawalAmount.\n\nOutput Format:\n- Print error message if overdraft exceeded, then 'Final Balance: <balance formatted to 2 decimals>'.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Amounts >= 0.0",
+    "cases": [
+      {
+        "input": "SAVINGS\n1000.00 5.0\n",
+        "expected": "Final Balance: 1050.00\n"
+      },
+      {
+        "input": "CHECKING\n500.00 200.00 650.00\n",
+        "expected": "Final Balance: -150.00\n"
+      },
+      {
+        "input": "CHECKING\n200.00 100.00 400.00\n",
+        "expected": "Overdraft limit exceeded\nFinal Balance: 200.00\n"
+      }
+    ]
+  },
+  {
+    "id": "inheritance-shape-hierarchy",
+    "title": "Geometric Shape Hierarchy with Area and Perimeter",
+    "topic": "inheritance",
+    "statement": "Calculate dimensions of circles and rectangles using abstract class inheritance.\n\nInput Format:\n- Line 1: Shape type string ('CIRCLE' or 'RECTANGLE').\n- Line 2: Dimension(s) as space-separated floating-point numbers.\n\nOutput Format:\n- Line 1: 'Area: <area to 2 decimals>'\n- Line 2: 'Perimeter: <perimeter to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Dimensions > 0.0",
+    "cases": [
+      {
+        "input": "CIRCLE\n5.0\n",
+        "expected": "Area: 78.54\nPerimeter: 31.42\n"
+      },
+      {
+        "input": "RECTANGLE\n4.0 6.0\n",
+        "expected": "Area: 24.00\nPerimeter: 20.00\n"
+      },
+      {
+        "input": "CIRCLE\n1.0\n",
+        "expected": "Area: 3.14\nPerimeter: 6.28\n"
+      }
+    ]
+  },
+  {
+    "id": "interface-payment-gateway",
+    "title": "Payment Processor Interface Implementation",
+    "topic": "interfaces",
+    "statement": "Process financial transactions using a payment processor interface with varying transaction fees.\n\nInput Format:\n- Line 1: Processor type string ('CREDIT' or 'CRYPTO').\n- Line 2: A floating-point number representing payment amount.\n\nOutput Format:\n- Line 1: 'Charged: $<total formatted to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- amount >= 0.0",
+    "cases": [
+      {
+        "input": "CREDIT\n200.00\n",
+        "expected": "Charged: $205.00\n"
+      },
+      {
+        "input": "CRYPTO\n50.00\n",
+        "expected": "Charged: $55.00\n"
+      },
+      {
+        "input": "CREDIT\n0.00\n",
+        "expected": "Charged: $0.00\n"
+      }
+    ]
+  },
+  {
+    "id": "interface-sortable-items",
+    "title": "Audio and Video Playback Control",
+    "topic": "interfaces",
+    "statement": "Control audio and video media playback using a common Playable interface.\n\nInput Format:\n- Line 1: Media type ('AUDIO' or 'VIDEO').\n- Line 2: Title string.\n- Line 3: Action string ('PLAY' or 'PAUSE').\n\nOutput Format:\n- Line 1: Action result message string.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Title is non-empty string.",
+    "cases": [
+      {
+        "input": "AUDIO\nSymphony\nPLAY\n",
+        "expected": "Playing audio track: Symphony\n"
+      },
+      {
+        "input": "VIDEO\nTutorial\nPAUSE\n",
+        "expected": "Paused video clip: Tutorial\n"
+      },
+      {
+        "input": "AUDIO\nPodcast\nPAUSE\n",
+        "expected": "Paused audio track: Podcast\n"
+      }
+    ]
+  },
+  {
+    "id": "interface-notifiable",
+    "title": "Notification Dispatcher with Notifier Interface",
+    "topic": "interfaces",
+    "statement": "Dispatch alert messages across multiple channels via a Notifier interface.\n\nInput Format:\n- Line 1: Channel ('EMAIL' or 'SMS').\n- Line 2: Recipient string.\n- Line 3: Message string.\n\nOutput Format:\n- Line 1: Dispatch notification message.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Non-empty recipient and message strings.",
+    "cases": [
+      {
+        "input": "EMAIL\nalice@example.com\nMeeting at 10 AM\n",
+        "expected": "Email sent to alice@example.com: Meeting at 10 AM\n"
+      },
+      {
+        "input": "SMS\n+1234567890\nYour code is 4321\n",
+        "expected": "SMS sent to +1234567890: Your code is 4321\n"
+      },
+      {
+        "input": "EMAIL\nbob@test.com\nWelcome aboard\n",
+        "expected": "Email sent to bob@test.com: Welcome aboard\n"
+      }
+    ]
+  },
+  {
+    "id": "interface-data-transformer",
+    "title": "String Data Transformer Interface",
+    "topic": "interfaces",
+    "statement": "Transform input text using interchangeable string transformation strategies.\n\nInput Format:\n- Line 1: Transformation choice ('UPPER', 'REVERSE', or 'TRIM').\n- Line 2: Input text string.\n\nOutput Format:\n- Line 1: Transformed string.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Non-empty text.",
+    "cases": [
+      {
+        "input": "UPPER\nhello world\n",
+        "expected": "HELLO WORLD\n"
+      },
+      {
+        "input": "REVERSE\nAntigravity\n",
+        "expected": "ytivargitnA\n"
+      },
+      {
+        "input": "TRIM\n   centered text   \n",
+        "expected": "centered text\n"
+      }
+    ]
+  },
+  {
+    "id": "math-gcd-lcm",
+    "title": "Greatest Common Divisor and Least Common Multiple",
+    "topic": "math-basics",
+    "statement": "Calculate the GCD and LCM of two positive integers using the Euclidean algorithm.\n\nInput Format:\n- Line 1: Two space-separated integers A and B.\n\nOutput Format:\n- Line 1: 'GCD: <gcd>'\n- Line 2: 'LCM: <lcm>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= A, B <= 10^7",
+    "cases": [
+      {
+        "input": "12 18\n",
+        "expected": "GCD: 6\nLCM: 36\n"
+      },
+      {
+        "input": "7 13\n",
+        "expected": "GCD: 1\nLCM: 91\n"
+      },
+      {
+        "input": "20 20\n",
+        "expected": "GCD: 20\nLCM: 20\n"
+      }
+    ]
+  },
+  {
+    "id": "math-compound-interest",
+    "title": "Compound Interest Calculation",
+    "topic": "math-basics",
+    "statement": "Compute future investment value and compound interest earned over time.\n\nInput Format:\n- Line 1: Three space-separated numbers: principal P (double), rate r (double), and time t (integer years).\n\nOutput Format:\n- Line 1: 'Amount: <total to 2 decimals>'\n- Line 2: 'Interest: <interest to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- P >= 1.0, r >= 0.0, t >= 1",
+    "cases": [
+      {
+        "input": "1000.0 5.0 2\n",
+        "expected": "Amount: 1102.50\nInterest: 102.50\n"
+      },
+      {
+        "input": "5000.0 10.0 1\n",
+        "expected": "Amount: 5500.00\nInterest: 500.00\n"
+      },
+      {
+        "input": "2000.0 0.0 5\n",
+        "expected": "Amount: 2000.00\nInterest: 0.00\n"
+      }
+    ]
+  },
+  {
+    "id": "oop-student-gradebook",
+    "title": "Student Gradebook Object with Average and Letter Grade",
+    "topic": "oop",
+    "statement": "Encapsulate student grades in an object and compute academic performance metrics.\n\nGrade bands:\n- A: average >= 90.00\n- B: 75.00 <= average < 90.00 (at exactly 75.00, grade is B)\n- C: 60.00 <= average < 75.00 (at exactly 60.00, grade is C)\n- D: 40.00 <= average < 60.00 (at exactly 40.00, grade is D)\n- F: average < 40.00\n\nInput Format:\n- Line 1: Student name string.\n- Line 2: Integer rollNumber.\n- Line 3: Integer K (number of subjects).\n- Line 4: K space-separated integer marks.\n\nOutput Format:\n- Line 1: 'Student: <name> (Roll: <rollNumber>)'\n- Line 2: 'Average: <avg to 2 decimals>'\n- Line 3: 'Grade: <grade>'\n\nConstraints:\n- 1 <= K <= 10, marks between 0 and 100",
+    "cases": [
+      {
+        "input": "Alice\n101\n3\n95 90 85\n",
+        "expected": "Student: Alice (Roll: 101)\nAverage: 90.00\nGrade: A\n"
+      },
+      {
+        "input": "Bob\n102\n4\n70 80 65 75\n",
+        "expected": "Student: Bob (Roll: 102)\nAverage: 72.50\nGrade: C\n"
+      },
+      {
+        "input": "Charlie\n103\n2\n35 40\n",
+        "expected": "Student: Charlie (Roll: 103)\nAverage: 37.50\nGrade: F\n"
+      }
+    ]
+  },
+  {
+    "id": "oop-point-distance",
+    "title": "2D Coordinate Point with Distance Calculations",
+    "topic": "oop",
+    "statement": "Represent 2D coordinates in a Point class and compute Euclidean and Manhattan distances.\n\nInput Format:\n- Line 1: Two space-separated integers x1 and y1.\n- Line 2: Two space-separated integers x2 and y2.\n\nOutput Format:\n- Line 1: 'Euclidean: <dist to 2 decimals>'\n- Line 2: 'Manhattan: <dist>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- -1000 <= x, y <= 1000",
+    "cases": [
+      {
+        "input": "0 0\n3 4\n",
+        "expected": "Euclidean: 5.00\nManhattan: 7\n"
+      },
+      {
+        "input": "1 2\n1 2\n",
+        "expected": "Euclidean: 0.00\nManhattan: 0\n"
+      },
+      {
+        "input": "-2 3\n4 -5\n",
+        "expected": "Euclidean: 10.00\nManhattan: 14\n"
+      }
+    ]
+  },
+  {
+    "id": "oop-shopping-cart",
+    "title": "Shopping Cart Item Aggregator Object",
+    "topic": "oop",
+    "statement": "Model items and cart totals using object-oriented state encapsulation.\n\nInput Format:\n- Line 1: An integer N representing number of items.\n- Next N lines: Item name (single token String), price (double), and quantity (int) separated by space.\n\nOutput Format:\n- Line 1: 'Subtotal: $<subtotal to 2 decimals>'\n- Line 2: 'Discount: $<discount to 2 decimals>'\n- Line 3: 'Total: $<total to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 20",
+    "cases": [
+      {
+        "input": "2\nBook 30.00 2\nPen 10.00 5\n",
+        "expected": "Subtotal: $110.00\nDiscount: $11.00\nTotal: $99.00\n"
+      },
+      {
+        "input": "1\nNotebook 25.00 2\n",
+        "expected": "Subtotal: $50.00\nDiscount: $0.00\nTotal: $50.00\n"
+      },
+      {
+        "input": "3\nApple 1.50 10\nMilk 4.00 2\nBread 2.50 4\n",
+        "expected": "Subtotal: $33.00\nDiscount: $0.00\nTotal: $33.00\n"
+      }
+    ]
+  },
+  {
+    "id": "serialization-student-record",
+    "title": "Transient Field Behavior in Student Serialization",
+    "topic": "serialization",
+    "statement": "Demonstrate transient attribute exclusion during object serialization and deserialization.\n\nInput Format:\n- Line 1: Space-separated name (String), rollNumber (int), and secretPin (String).\n\nOutput Format:\n- Line 1: 'Name: <name>'\n- Line 2: 'Roll: <rollNumber>'\n- Line 3: 'PIN: <secretPin>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Valid non-empty strings, positive rollNumber.",
+    "cases": [
+      {
+        "input": "Alice 101 secret99\n",
+        "expected": "Name: Alice\nRoll: 101\nPIN: null\n"
+      },
+      {
+        "input": "Bob 202 1234\n",
+        "expected": "Name: Bob\nRoll: 202\nPIN: null\n"
+      },
+      {
+        "input": "Charlie 303 pass@word\n",
+        "expected": "Name: Charlie\nRoll: 303\nPIN: null\n"
+      }
+    ]
+  },
+  {
+    "id": "serialization-book-catalog",
+    "title": "Serialize and Sort Book Catalog",
+    "topic": "serialization",
+    "statement": "Serialize a list of Book objects to disk, deserialize them back, and sort them by price.\n\nInput Format:\n- Line 1: Integer N.\n- Next N lines: Title (single token String) and price (double) separated by space.\n\nOutput Format:\n- N lines, each printing '<title>: $<price to 2 decimals>' in ascending order of price.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 20",
+    "cases": [
+      {
+        "input": "3\nJavaGuide 45.50\nAlgorithmBook 60.00\nPythonBasics 30.00\n",
+        "expected": "PythonBasics: $30.00\nJavaGuide: $45.50\nAlgorithmBook: $60.00\n"
+      },
+      {
+        "input": "2\nBookB 15.00\nBookA 10.00\n",
+        "expected": "BookA: $10.00\nBookB: $15.00\n"
+      },
+      {
+        "input": "1\nSolo 9.99\n",
+        "expected": "Solo: $9.99\n"
+      }
+    ]
+  },
+  {
+    "id": "serialization-config-object",
+    "title": "Application Configuration State Persistence",
+    "topic": "serialization",
+    "statement": "Persist, modify, and verify application settings using object serialization.\n\nInput Format:\n- Line 1: Space-separated environment string and initial timeoutSeconds (int).\n- Line 2: Integer extraSeconds to add.\n\nOutput Format:\n- Line 1: 'Environment: <environment>'\n- Line 2: 'Timeout: <timeoutSeconds>s'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- timeoutSeconds >= 0, extraSeconds >= 0",
+    "cases": [
+      {
+        "input": "Production 30\n15\n",
+        "expected": "Environment: Production\nTimeout: 45s\n"
+      },
+      {
+        "input": "Staging 10\n0\n",
+        "expected": "Environment: Staging\nTimeout: 10s\n"
+      },
+      {
+        "input": "Development 5\n20\n",
+        "expected": "Environment: Development\nTimeout: 25s\n"
+      }
+    ]
+  },
+  {
+    "id": "stringbuilder-palindrome-check",
+    "title": "Alphanumeric Palindrome Verification with StringBuilder",
+    "topic": "stringbuilder",
+    "statement": "Validate whether an input string is a palindrome after stripping non-alphanumeric characters.\n\nInput Format:\n- Line 1: A line of text.\n\nOutput Format:\n- Line 1: 'Cleaned: <cleanedString>'\n- Line 2: 'Result: <Palindrome | Not a palindrome>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- String length <= 500",
+    "cases": [
+      {
+        "input": "A man, a plan, a canal: Panama!\n",
+        "expected": "Cleaned: amanaplanacanalpanama\nResult: Palindrome\n"
+      },
+      {
+        "input": "race a car\n",
+        "expected": "Cleaned: raceacar\nResult: Not a palindrome\n"
+      },
+      {
+        "input": "Was it a car or a cat I saw?\n",
+        "expected": "Cleaned: wasitacaroracatisaw\nResult: Palindrome\n"
+      }
+    ]
+  },
+  {
+    "id": "stringbuilder-run-length-encode",
+    "title": "Run-Length String Compression with StringBuilder",
+    "topic": "stringbuilder",
+    "statement": "Compress repeated characters in a string into character-frequency pairs using StringBuilder.\n\nInput Format:\n- Line 1: A non-empty string containing only letters.\n\nOutput Format:\n- Line 1: Compressed string.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= length <= 200",
+    "cases": [
+      {
+        "input": "aaabbc\n",
+        "expected": "a3b2c1\n"
+      },
+      {
+        "input": "abcd\n",
+        "expected": "a1b1c1d1\n"
+      },
+      {
+        "input": "WWWWWW\n",
+        "expected": "W6\n"
+      }
+    ]
+  },
+  {
+    "id": "stringbuilder-caesar-cipher",
+    "title": "Caesar Cipher Encryption with StringBuilder",
+    "topic": "stringbuilder",
+    "statement": "Shift alphabetic characters in a text by K positions using StringBuilder.\n\nInput Format:\n- Line 1: Integer shift K.\n- Line 2: A line of text to encrypt.\n\nOutput Format:\n- Line 1: Encrypted text string.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 0 <= K <= 25, string length <= 500",
+    "cases": [
+      {
+        "input": "3\nHello, World!\n",
+        "expected": "Khoor, Zruog!\n"
+      },
+      {
+        "input": "0\nNo shift here.\n",
+        "expected": "No shift here.\n"
+      },
+      {
+        "input": "1\nxyz XYZ 123\n",
+        "expected": "yza YZA 123\n"
+      }
+    ]
+  },
+  {
+    "id": "stringbuilder-word-reverser",
+    "title": "Sentence Word Reverser using StringBuilder",
+    "topic": "stringbuilder",
+    "statement": "Reverse the characters of each word in a sentence while keeping word order intact.\n\nInput Format:\n- Line 1: A line of text containing space-separated words.\n\nOutput Format:\n- Line 1: The modified sentence with each word reversed.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- String length <= 500",
+    "cases": [
+      {
+        "input": "Java makes coding fun\n",
+        "expected": "avaJ sekam gnidoc nuf\n"
+      },
+      {
+        "input": "hello\n",
+        "expected": "olleh\n"
+      },
+      {
+        "input": "step on no pets\n",
+        "expected": "pets no on step\n"
+      }
+    ]
+  },
+  {
+    "id": "threads-counter-sync",
+    "title": "Thread-Safe Synchronized Shared Counter",
+    "topic": "threads",
+    "statement": "Safely increment a shared counter across two concurrent threads using synchronization.\n\nInput Format:\n- Line 1: An integer N representing increment iterations per thread.\n\nOutput Format:\n- Line 1: 'Final count: <val>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100000",
+    "cases": [
+      {
+        "input": "100\n",
+        "expected": "Final count: 300\n"
+      },
+      {
+        "input": "1000\n",
+        "expected": "Final count: 3000\n"
+      },
+      {
+        "input": "1\n",
+        "expected": "Final count: 3\n"
+      }
+    ]
+  },
+  {
+    "id": "threads-even-odd-printer",
+    "title": "Coordinated Even and Odd Number Thread Printer",
+    "topic": "threads",
+    "statement": "Coordinate two threads using wait and notify to print numbers sequentially from 1 to N.\n\nInput Format:\n- Line 1: An integer N.\n\nOutput Format:\n- N lines printing integers from 1 to N in order.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 20",
+    "cases": [
+      {
+        "input": "5\n",
+        "expected": "1\n2\n3\n4\n5\n"
+      },
+      {
+        "input": "2\n",
+        "expected": "1\n2\n"
+      },
+      {
+        "input": "1\n",
+        "expected": "1\n"
+      }
+    ]
+  },
+  {
+    "id": "threads-parallel-array-sum",
+    "title": "Two-Thread Parallel Array Summation",
+    "topic": "threads",
+    "statement": "Partition an array into two segments and calculate their partial sums concurrently.\n\nInput Format:\n- Line 1: An integer N (number of elements).\n- Line 2: N space-separated integers.\n\nOutput Format:\n- Line 1: 'Half 1: <sum1>'\n- Line 2: 'Half 2: <sum2>'\n- Line 3: 'Total: <total>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 2 <= N <= 1000",
+    "cases": [
+      {
+        "input": "4\n10 20 30 40\n",
+        "expected": "Half 1: 30\nHalf 2: 70\nTotal: 100\n"
+      },
+      {
+        "input": "5\n1 2 3 4 5\n",
+        "expected": "Half 1: 3\nHalf 2: 12\nTotal: 15\n"
+      },
+      {
+        "input": "2\n-5 5\n",
+        "expected": "Half 1: -5\nHalf 2: 5\nTotal: 0\n"
+      }
+    ]
+  },
+  {
+    "id": "threads-worker-lifecycle",
+    "title": "Thread Lifecycle State Monitoring",
+    "topic": "threads",
+    "statement": "Inspect and monitor Java thread lifecycle states from creation through termination.\n\nInput Format:\n- Line 1: Integer delayMs (sleep duration in milliseconds).\n\nOutput Format:\n- Line 1: 'Initial: NEW'\n- Line 2: 'Final: TERMINATED'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 0 <= delayMs <= 100",
+    "cases": [
+      {
+        "input": "10\n",
+        "expected": "Initial: NEW\nFinal: TERMINATED\n"
+      },
+      {
+        "input": "0\n",
+        "expected": "Initial: NEW\nFinal: TERMINATED\n"
+      },
+      {
+        "input": "20\n",
+        "expected": "Initial: NEW\nFinal: TERMINATED\n"
+      }
+    ]
   }
 ]

@@ -14,7 +14,7 @@
             --bg-editor: #080d1a;
             --border: #1a2740;
             --border-subtle: #131e33;
-            
+
             /* Sky Blue Primary Palette */
             --sky-50: #f0f9ff;
             --sky-100: #e0f2fe;
@@ -28,7 +28,7 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --text-subtle: #64748b;
-            
+
             /* Status Colors */
             --status-green: #10b981;
             --status-green-bg: rgba(16, 185, 129, 0.18);
@@ -53,7 +53,7 @@
             flex-direction: column;
             overflow: hidden;
             -webkit-font-smoothing: antialiased;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         /* Top Bar & Tab Strip */
@@ -69,7 +69,7 @@
         }
 
         .brand-title {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.5px;
             display: flex;
@@ -109,7 +109,7 @@
             border: 1px solid var(--border);
             border-radius: 7px;
             color: var(--text-muted);
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.18s ease;
@@ -169,13 +169,13 @@
             box-shadow: 0 0 0 2px #dc2626, 0 0 14px rgba(220, 38, 38, 0.45) !important;
         }
 
-        .btn-top-import {
+        .btn-top-sort {
             background: var(--bg-elevated);
             color: var(--sky-200);
             border: 1px solid var(--border);
             padding: 8px 14px;
             border-radius: 7px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
@@ -185,11 +185,65 @@
             white-space: nowrap;
         }
 
-        .btn-top-import:hover {
+        .btn-top-sort:hover {
             background: var(--sky-light);
             border-color: var(--sky-400);
             color: #ffffff;
             box-shadow: 0 0 10px var(--sky-glow);
+        }
+
+        .sort-topic-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .sort-topic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 10px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .sort-topic-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-size: 13px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .sort-topic-option:hover {
+            background: var(--bg-elevated);
+            border-color: var(--sky-400);
+            color: var(--sky-300);
+        }
+
+        .sort-topic-option.active {
+            background: rgba(124, 58, 237, 0.18);
+            border-color: #7c3aed;
+            color: #c4b5fd;
+            font-weight: 600;
+        }
+
+        .sort-topic-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 8px;
+            border-radius: 10px;
         }
 
         /* Main Content Layout (Two Columns) */
@@ -224,7 +278,7 @@
         }
 
         .pane-header-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
@@ -261,7 +315,7 @@
         }
 
         .problem-title {
-            font-size: 24px;
+            font-size: 23px;
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 12px;
@@ -273,7 +327,7 @@
             background: var(--sky-light);
             color: var(--sky-300);
             border: 1px solid rgba(56, 189, 248, 0.3);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             padding: 4px 12px;
             border-radius: 9999px;
@@ -284,7 +338,7 @@
 
         /* Clean Statement Header with Sky-Blue Underline */
         .statement-heading {
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 700;
             color: var(--text-main);
             text-decoration: underline;
@@ -296,7 +350,7 @@
         }
 
         .problem-statement-text {
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.7;
             color: #e2e8f0;
             white-space: pre-wrap;
@@ -306,7 +360,7 @@
 
         /* Sample Cases Section */
         .samples-section-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -328,7 +382,7 @@
 
         .sample-card-header {
             padding: 10px 14px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--sky-200);
             background: rgba(14, 165, 233, 0.12);
@@ -351,7 +405,7 @@
         }
 
         .sample-card .io-label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text-subtle);
@@ -361,7 +415,7 @@
 
         .sample-card .io-content {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 15px;
+            font-size: 14px;
             line-height: 1.5;
             color: #e2e8f0;
             white-space: pre-wrap;
@@ -377,14 +431,24 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            height: 100%;
+        }
+
+        #right-scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
         }
 
         /* Editor Section */
         #editor-container {
             display: flex;
             flex-direction: column;
-            flex: 1;
-            min-height: 250px;
+            flex-shrink: 0;
+            height: 420px;
+            min-height: 320px;
             overflow: hidden;
             --editor-bg: #0a0f1e;
             --editor-text: #e5e7eb;
@@ -402,7 +466,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text-muted);
             flex-shrink: 0;
         }
@@ -412,7 +476,7 @@
             border: 1px solid rgba(56, 189, 248, 0.3);
             padding: 4px 10px;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--sky-300);
             font-weight: 700;
         }
@@ -433,7 +497,7 @@
             border-right: 1px solid var(--border-subtle);
             color: var(--text-subtle);
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.6;
             letter-spacing: normal;
             user-select: none;
@@ -465,7 +529,7 @@
             border: none;
             box-sizing: border-box;
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.6;
             letter-spacing: normal;
             white-space: pre;
@@ -499,7 +563,7 @@
             color: transparent;
             caret-color: #ffffff;
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.6;
             letter-spacing: normal;
             white-space: pre;
@@ -538,24 +602,72 @@
             font-style: italic;
         }
 
+        /* Fixed Main Program Footer */
+        #footer-container {
+            border-top: 1px solid var(--border);
+            background: var(--bg-surface);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            --editor-bg: #0a0f1e;
+            --editor-text: #e5e7eb;
+            --tok-keyword: #f43f7a;
+            --tok-type: #5ee2f0;
+            --tok-number: #a78bfa;
+            --tok-string: #bef264;
+            --tok-comment: #8b8f6a;
+        }
+
+        .footer-heading {
+            padding: 8px 18px;
+            background: var(--bg-surface);
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--sky-400);
+            border-bottom: 1px solid var(--border-subtle);
+            letter-spacing: 0.5px;
+        }
+
+        #footer-pre {
+            margin: 0;
+            padding: 14px 18px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 15px;
+            line-height: 1.6;
+            letter-spacing: normal;
+            white-space: pre;
+            tab-size: 4;
+            color: var(--editor-text);
+            background: var(--editor-bg);
+            box-sizing: border-box;
+            overflow-x: auto;
+        }
+
+        #footer-pre code {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            letter-spacing: inherit;
+            white-space: pre;
+            tab-size: 4;
+            color: inherit;
+        }
+
         /* Results Section */
         #results-container {
-            height: 280px;
+            min-height: 280px;
             background: var(--bg-surface);
             border-top: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
             flex-shrink: 0;
+            overflow-y: auto;
+            max-height: 520px;
         }
 
         .results-header {
             padding: 10px 18px;
             border-bottom: 1px solid var(--border-subtle);
-            font-size: 14.5px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
             color: var(--sky-400);
             display: flex;
             align-items: center;
@@ -563,7 +675,39 @@
             position: sticky;
             top: 0;
             background: var(--bg-surface);
-            z-index: 1;
+            z-index: 2;
+        }
+
+        .results-header-left {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .results-header-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background: #0284c7;
+            color: #ffffff;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            font-weight: 800;
+            border-radius: 4px;
+            line-height: 1;
+            letter-spacing: -0.5px;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .results-header-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--sky-400);
         }
 
         .results-body {
@@ -572,87 +716,330 @@
 
         .placeholder-text {
             color: var(--text-subtle);
-            font-size: 16px;
+            font-size: 15px;
             font-style: italic;
             padding: 26px 0;
             text-align: center;
         }
 
-        /* Compiler message box */
-        .compiler-block {
+        /* Compile status card */
+        .compile-card {
+            border-radius: 8px;
             padding: 12px 16px;
-            border-radius: 7px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 15.5px;
-            line-height: 1.5;
             margin-bottom: 14px;
-            white-space: pre-wrap;
+            display: flex;
+            gap: 12px;
         }
 
-        .compiler-success {
-            background: var(--status-green-bg);
+        .compile-card-success {
+            background: rgba(16, 185, 129, 0.08);
             border: 1px solid rgba(16, 185, 129, 0.35);
-            color: #34d399;
-            font-weight: 600;
+            align-items: center;
         }
 
-        .compiler-error {
-            background: var(--status-red-bg);
+        .compile-card-error {
+            background: rgba(239, 68, 68, 0.08);
             border: 1px solid rgba(239, 68, 68, 0.35);
-            color: #f87171;
+            flex-direction: column;
         }
 
-        /* Summary Bar */
-        .summary-bar {
-            padding: 10px 16px;
-            border-radius: 7px;
-            font-size: 16px;
+        .compile-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .compile-card-title {
             font-weight: 700;
-            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .compile-card-success .compile-card-title {
+            color: #10b981;
+        }
+
+        .compile-card-error .compile-card-title {
+            color: #ef4444;
+        }
+
+        .compile-card-subtitle {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .compile-error-output {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+            color: #f87171;
+            background: #040710;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            border-radius: 6px;
+            padding: 10px 14px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        /* Status circle icons */
+        .status-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .status-icon svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .status-icon-success {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        .status-icon-error {
+            background: #ef4444;
+            color: #ffffff;
+        }
+
+        .status-icon-amber {
+            background: #f59e0b;
+            color: #ffffff;
+        }
+
+        /* Summary Card */
+        .summary-card {
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .summary-card-success {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+
+        .summary-card-success:hover {
+            background: rgba(16, 185, 129, 0.13);
+        }
+
+        .summary-card-error {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+
+        .summary-card-error:hover {
+            background: rgba(239, 68, 68, 0.13);
+        }
+
+        .summary-card-title {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .summary-card-success .summary-card-title {
+            color: #10b981;
+        }
+
+        .summary-card-error .summary-card-title {
+            color: #ef4444;
+        }
+
+        .summary-card-subtitle {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .summary-chevron {
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .summary-chevron.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        /* Testcase list & cards */
+        #testcase-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        #testcase-list.collapsed {
+            display: none;
+        }
+
+        .testcase-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .testcase-card-header {
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            border-bottom: 1px solid var(--border-subtle);
+            background: rgba(30, 58, 138, 0.28);
+            /* #1e3a8a at low opacity */
+            transition: background 0.15s ease;
+        }
+
+        .testcase-card-header:hover {
+            background: rgba(30, 58, 138, 0.4);
+        }
+
+        .testcase-card-header.collapsed {
+            background: transparent;
+            border-bottom: none;
+        }
+
+        .testcase-card-header-left {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .summary-pass {
-            background: var(--status-green-bg);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #34d399;
-        }
-
-        .summary-fail {
-            background: var(--status-red-bg);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #f87171;
-        }
-
-        /* Testcase Cards */
-        .case-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 7px;
-            margin-bottom: 14px;
-            overflow: hidden;
-        }
-
-        .case-card-header {
-            padding: 10px 14px;
-            font-size: 15px;
+        .testcase-card-title {
+            font-size: 14px;
             font-weight: 700;
+        }
+
+        .title-pass {
+            color: #10b981;
+        }
+
+        .title-fail {
+            color: #ef4444;
+        }
+
+        .title-timeout {
+            color: #f59e0b;
+        }
+
+        .testcase-chevron {
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .testcase-chevron.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        .testcase-card-body {
+            padding: 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: var(--bg-surface);
+        }
+
+        .testcase-card-body.collapsed {
+            display: none;
+        }
+
+        /* Expected Output & Output IO Boxes */
+        .io-box {
+            background: #040710;
+            border: 1px solid var(--border-subtle);
+            border-radius: 7px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .io-box-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 8px 12px;
+            background: #0a0f1d;
             border-bottom: 1px solid var(--border-subtle);
         }
 
-        .case-status-pass {
-            background: var(--status-green-bg);
-            color: #34d399;
+        .io-box-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #e2e8f0;
+            letter-spacing: 0.3px;
         }
 
-        .case-status-fail {
-            background: var(--status-red-bg);
-            color: #f87171;
+        .btn-copy-io {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 3px 6px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+
+        .btn-copy-io:hover {
+            color: var(--sky-300);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .io-box-body {
+            display: flex;
+            background: #040710;
+            overflow-x: auto;
+            min-height: 48px;
+        }
+
+        .io-line-numbers {
+            width: 36px;
+            padding: 10px 8px;
+            text-align: right;
+            color: var(--text-subtle);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            background: #03050c;
+            border-right: 1px solid var(--border-subtle);
+            user-select: none;
+            white-space: pre;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .io-text {
+            margin: 0;
+            padding: 10px 12px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #e2e8f0;
+            white-space: pre;
+            tab-size: 4;
+            overflow-x: auto;
+            flex: 1;
         }
 
         /* Action Bar */
@@ -669,7 +1056,7 @@
 
         .btn {
             padding: 9px 18px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             border-radius: 7px;
             cursor: pointer;
@@ -738,7 +1125,7 @@
             border: 1px solid var(--border);
             padding: 12px 18px;
             border-radius: 7px;
-            font-size: 16px;
+            font-size: 15px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
             pointer-events: auto;
             transition: all 0.25s ease;
@@ -795,6 +1182,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+
             #modal-backdrop,
             #modal-dialog {
                 transition: none !important;
@@ -817,7 +1205,7 @@
         }
 
         .modal-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #e5e7eb;
             margin: 0;
@@ -825,7 +1213,7 @@
         }
 
         .modal-message {
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.6;
             color: #9ca3af;
             white-space: pre-wrap;
@@ -842,7 +1230,7 @@
 
         .modal-btn {
             padding: 8px 16px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
@@ -891,21 +1279,26 @@
 </head>
 
 <body>
-    <!-- Top Bar with Brand, Numbered Tabs, and Import Button -->
+    <!-- Top Bar with Brand, Numbered Tabs, and Sort Button -->
     <div id="top-bar">
         <div class="brand-title">
             <svg viewBox="0 0 24 24">
-                <path d="M9.5 3h5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 8 5.5v-1A1.5 1.5 0 0 1 9.5 3zm-2 5h9A2.5 2.5 0 0 1 19 10.5v8a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 18.5v-8A2.5 2.5 0 0 1 7.5 8zm0 2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-9z"/>
+                <path
+                    d="M9.5 3h5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 8 5.5v-1A1.5 1.5 0 0 1 9.5 3zm-2 5h9A2.5 2.5 0 0 1 19 10.5v8a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 18.5v-8A2.5 2.5 0 0 1 7.5 8zm0 2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-9z" />
             </svg>
             JavaPractice
         </div>
         <div id="tab-strip"></div>
-        <button class="btn-top-import" onclick="importCurriculum()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-            </svg>
-            Import curriculum.json
-        </button>
+        <div class="top-bar-sort-container"
+            style="margin-left: auto; display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+            <span id="sort-topic-label" class="sort-topic-label"></span>
+            <button class="btn-top-sort" id="btn-top-sort" onclick="openSortModal()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18M6 12h12M10 18h4" />
+                </svg>
+                Sort
+            </button>
+        </div>
     </div>
 
     <!-- Main Content Area: Left (Problem) and Right (Editor & Results) -->
@@ -914,14 +1307,15 @@
         <div id="problem-pane">
             <div class="pane-header">
                 <span class="pane-header-title">PROBLEM STATEMENT</span>
-                <svg id="bookmark-btn" class="bookmark-icon" viewBox="0 0 24 24" onclick="toggleBookmark()" title="Toggle Bookmark">
-                    <path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z"/>
+                <svg id="bookmark-btn" class="bookmark-icon" viewBox="0 0 24 24" onclick="toggleBookmark()"
+                    title="Toggle Bookmark">
+                    <path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z" />
                 </svg>
             </div>
             <div class="problem-content">
                 <h1 class="problem-title" id="problem-title">Loading problem...</h1>
                 <span class="problem-topic-badge" id="problem-topic">TOPIC</span>
-                
+
                 <!-- Underlined Problem Statement Heading matching lab assessment UI -->
                 <div>
                     <h2 class="statement-heading">Problem Statement</h2>
@@ -931,10 +1325,11 @@
                 <!-- 2 Sample Cases shown under the statement -->
                 <div id="sample-cases-container">
                     <div class="samples-section-title">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                            <line x1="3" y1="9" x2="21" y2="9"/>
-                            <line x1="9" y1="21" x2="9" y2="9"/>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <line x1="3" y1="9" x2="21" y2="9" />
+                            <line x1="9" y1="21" x2="9" y2="9" />
                         </svg>
                         Sample Test Cases
                     </div>
@@ -946,29 +1341,41 @@
 
         <!-- Right: Code Editor & Results Pane -->
         <div id="right-pane">
-            <!-- Editor -->
-            <div id="editor-container">
-                <div class="editor-header">
-                    <span>Fill your code here</span>
-                    <span class="lang-badge">Java (JDK 17)</span>
-                </div>
-                <div class="editor-wrapper">
-                    <div class="line-numbers" id="line-numbers">1</div>
-                    <div class="code-box">
-                        <pre id="editor-pre" aria-hidden="true"><code id="editor-highlight-code"></code></pre>
-                        <textarea id="code-editor" spellcheck="false"></textarea>
+            <div id="right-scroll-area">
+                <!-- Editor -->
+                <div id="editor-container">
+                    <div class="editor-header">
+                        <span>Fill your code here</span>
+                        <span class="lang-badge">Java (JDK 17)</span>
+                    </div>
+                    <div class="editor-wrapper">
+                        <div class="line-numbers" id="line-numbers">1</div>
+                        <div class="code-box">
+                            <pre id="editor-pre" aria-hidden="true"><code id="editor-highlight-code"></code></pre>
+                            <textarea id="code-editor" spellcheck="false"></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Results -->
-            <div id="results-container">
-                <div class="results-header">
-                    <span>Execution &amp; Test Results</span>
-                    <span id="results-meta" style="font-size:13px; text-transform:none; color:var(--text-subtle);"></span>
+                <!-- Fixed Main Program Footer (Normal Scrolling Section) -->
+                <div id="footer-container" style="display: none;">
+                    <div class="footer-heading" id="footer-heading-text"></div>
+                    <pre id="footer-pre"><code id="footer-code"></code></pre>
                 </div>
-                <div class="results-body" id="results-body">
-                    <div class="placeholder-text">Run or Submit code to see execution results.</div>
+
+                <!-- Results -->
+                <div id="results-container">
+                    <div class="results-header">
+                        <div class="results-header-left">
+                            <span class="results-header-icon">&gt;_</span>
+                            <span class="results-header-title">EXECUTION &amp; TEST RESULTS</span>
+                        </div>
+                        <span id="results-meta"
+                            style="font-size: 12px; text-transform:none; color:var(--text-subtle);"></span>
+                    </div>
+                    <div class="results-body" id="results-body">
+                        <div class="placeholder-text">Run or Submit code to see execution results.</div>
+                    </div>
                 </div>
             </div>
 
@@ -988,7 +1395,6 @@
     <div id="modal-backdrop" aria-hidden="true">
         <div id="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
             <div class="modal-header">
-                <div class="modal-accent-bar"></div>
                 <h3 class="modal-title" id="modal-title-text"></h3>
             </div>
             <p class="modal-message" id="modal-message-text"></p>
@@ -1003,25 +1409,50 @@
     <div id="toast-container"></div>
 
     <script>
+        let allProblems = [];
         let problems = [];
         let currentIndex = -1;
         let currentProblem = null;
         let lastLoadedCode = "";
-        
+
         // Status per problem ID: 'viewed' (yellow), 'passed' (green), 'failed' (red)
         let problemStatus = {};
 
+        // Toast notifications helper
+        function showToast(msg, type = "info") {
+            const container = document.getElementById("toast-container");
+            if (!container) return;
+            const toast = document.createElement("div");
+            toast.className = "toast" + (type === "error" ? " toast-error" : type === "success" ? " toast-success" : "");
+            toast.textContent = msg;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                setTimeout(() => toast.remove(), 250);
+            }, 3000);
+        }
+
         // Themed In-Page Modal Dialog helper
         let activeDialogResolve = null;
+        let activeDialogCleanup = null;
         let previousActiveElement = null;
+
+        function closeDialog(result = false) {
+            if (activeDialogCleanup) {
+                activeDialogCleanup(result);
+            }
+        }
 
         function showDialog({
             title = "",
             message = "",
+            customElement = null,
             confirmText = "OK",
             cancelText = "Cancel",
             danger = false,
-            alertOnly = false
+            alertOnly = false,
+            cancelOnly = false,
+            hideButtons = false
         } = {}) {
             // Only one dialog at a time: if one is already open, resolve it as false/cancelled first
             if (activeDialogResolve) {
@@ -1042,6 +1473,9 @@
 
                 titleEl.textContent = title;
                 messageEl.textContent = message;
+                if (customElement) {
+                    messageEl.appendChild(customElement);
+                }
                 confirmBtn.textContent = confirmText;
                 cancelBtn.textContent = cancelText;
 
@@ -1051,10 +1485,18 @@
                     confirmBtn.className = "modal-btn modal-btn-confirm";
                 }
 
-                if (alertOnly) {
+                if (cancelOnly) {
+                    confirmBtn.style.display = "none";
+                    cancelBtn.style.display = "";
+                } else if (alertOnly) {
+                    cancelBtn.style.display = "none";
+                    confirmBtn.style.display = "";
+                } else if (hideButtons) {
+                    confirmBtn.style.display = "none";
                     cancelBtn.style.display = "none";
                 } else {
                     cancelBtn.style.display = "";
+                    confirmBtn.style.display = "";
                 }
 
                 backdrop.setAttribute("aria-hidden", "false");
@@ -1070,11 +1512,14 @@
                     backdrop.setAttribute("aria-hidden", "true");
 
                     activeDialogResolve = null;
+                    activeDialogCleanup = null;
                     if (previousActiveElement && typeof previousActiveElement.focus === "function") {
                         previousActiveElement.focus();
                     }
                     resolve(result);
                 }
+
+                activeDialogCleanup = cleanup;
 
                 function onConfirm(e) {
                     if (e) e.stopPropagation();
@@ -1302,10 +1747,150 @@
             }
         }
 
+        // Sort Topic State & Labels
+        let currentSortTopic = "all";
+        try {
+            const saved = localStorage.getItem("javaneo.sortTopic");
+            if (saved) {
+                currentSortTopic = saved;
+            }
+        } catch (e) { }
+
+        const TOPIC_LABELS = {
+            "file-io": "File I/O",
+            "math-basics": "Math Basics",
+            "stringbuilder": "StringBuilder",
+            "arraylist": "ArrayList",
+            "hashmap": "HashMap",
+            "arrays": "Arrays",
+            "exceptions": "Exceptions",
+            "generics": "Generics",
+            "inheritance": "Inheritance",
+            "interfaces": "Interfaces",
+            "oop": "OOP",
+            "other": "Other",
+            "serialization": "Serialization",
+            "threads": "Threads"
+        };
+
+        function formatTopic(topic) {
+            if (!topic) return "Other";
+            if (TOPIC_LABELS[topic]) return TOPIC_LABELS[topic];
+            return topic.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+        }
+
+        function getFilteredProblems() {
+            if (!currentSortTopic || currentSortTopic === "all") {
+                return allProblems;
+            }
+            return allProblems.filter(p => p.topic === currentSortTopic);
+        }
+
+        function updateSortLabel() {
+            const labelEl = document.getElementById("sort-topic-label");
+            if (!labelEl) return;
+            if (currentSortTopic && currentSortTopic !== "all") {
+                labelEl.textContent = "Sort: " + formatTopic(currentSortTopic) + " (" + problems.length + ")";
+            } else {
+                labelEl.textContent = "";
+            }
+        }
+
+        function applySortTopic(topic) {
+            currentSortTopic = topic || "all";
+            try {
+                localStorage.setItem("javaneo.sortTopic", currentSortTopic);
+            } catch (e) { }
+
+            problems = getFilteredProblems();
+            updateSortLabel();
+
+            const openIdx = currentProblem ? problems.findIndex(p => p.id === currentProblem.id) : -1;
+            if (openIdx !== -1) {
+                currentIndex = openIdx;
+                renderTabStrip();
+            } else if (problems.length > 0) {
+                selectProblem(0);
+            } else {
+                currentProblem = null;
+                currentIndex = -1;
+                renderTabStrip();
+                document.getElementById("problem-title").textContent = "No problems in this topic";
+                document.getElementById("problem-topic").textContent = formatTopic(currentSortTopic);
+                document.getElementById("problem-statement").textContent = "No problems in this topic";
+                document.getElementById("sample-cases-list").innerHTML = "";
+                editor.value = "";
+                lastLoadedCode = "";
+                updateEditor();
+                renderFooter(null);
+                updateBookmarkUI();
+            }
+        }
+
+        async function openSortModal() {
+            const counts = {};
+            allProblems.forEach(p => {
+                const t = p.topic || "other";
+                counts[t] = (counts[t] || 0) + 1;
+            });
+
+            const list = document.createElement("div");
+            list.className = "sort-topic-list";
+
+            const allBtn = document.createElement("button");
+            allBtn.type = "button";
+            allBtn.className = "sort-topic-option" + (currentSortTopic === "all" || !currentSortTopic ? " active" : "");
+            const allName = document.createElement("span");
+            allName.textContent = "All topics";
+            const allCount = document.createElement("span");
+            allCount.className = "sort-topic-count";
+            allCount.textContent = String(allProblems.length);
+            allBtn.appendChild(allName);
+            allBtn.appendChild(allCount);
+            allBtn.onclick = () => {
+                applySortTopic("all");
+                closeDialog();
+            };
+            list.appendChild(allBtn);
+
+            const sortedTopics = Object.keys(counts).sort((a, b) => {
+                const nameA = formatTopic(a);
+                const nameB = formatTopic(b);
+                return nameA.localeCompare(nameB);
+            });
+
+            sortedTopics.forEach(t => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "sort-topic-option" + (currentSortTopic === t ? " active" : "");
+                const name = document.createElement("span");
+                name.textContent = formatTopic(t);
+                const count = document.createElement("span");
+                count.className = "sort-topic-count";
+                count.textContent = String(counts[t]);
+                btn.appendChild(name);
+                btn.appendChild(count);
+                btn.onclick = () => {
+                    applySortTopic(t);
+                    closeDialog();
+                };
+                list.appendChild(btn);
+            });
+
+            await showDialog({
+                title: "Sort by Topic",
+                customElement: list,
+                cancelText: "Cancel",
+                cancelOnly: true
+            });
+        }
+
         // Load problem list from server
         async function loadProblems() {
             try {
-                problems = await api("/api/problems");
+                allProblems = await api("/api/problems");
+                problems = getFilteredProblems();
+                updateSortLabel();
                 renderTabStrip();
                 if (problems.length > 0 && currentIndex === -1) {
                     selectProblem(0);
@@ -1323,7 +1908,7 @@
             problems.forEach((p, idx) => {
                 const square = document.createElement("div");
                 const status = problemStatus[p.id];
-                
+
                 let statusClass = "";
                 if (status === "passed") statusClass = " status-passed";
                 else if (status === "failed") statusClass = " status-failed";
@@ -1375,7 +1960,7 @@
 
                 // Problem Statement Header & Topic
                 document.getElementById("problem-title").textContent = data.title || p.id;
-                document.getElementById("problem-topic").textContent = data.topic || "Practice";
+                document.getElementById("problem-topic").textContent = formatTopic(data.topic);
                 document.getElementById("problem-statement").textContent = data.statement || "";
 
                 // Render 2 Sample Test Cases under statement
@@ -1385,6 +1970,9 @@
                 editor.value = data.code || "";
                 lastLoadedCode = data.code || "";
                 updateEditor();
+
+                // Update fixed footer block
+                renderFooter(data.footer);
 
                 // Clear execution results for newly opened problem
                 const resultsBody = document.getElementById("results-body");
@@ -1397,6 +1985,24 @@
 
             } catch (err) {
                 showToast("Failed to load problem: " + err.message, "error");
+            }
+        }
+
+        function renderFooter(footerCode) {
+            const container = document.getElementById("footer-container");
+            const headingEl = document.getElementById("footer-heading-text");
+            const codeEl = document.getElementById("footer-code");
+            if (!container || !codeEl) return;
+
+            if (footerCode && typeof footerCode === "string" && footerCode.trim().length > 0) {
+                if (headingEl) {
+                    headingEl.textContent = "Footer";
+                }
+                codeEl.innerHTML = highlightJava(footerCode);
+                container.style.display = "flex";
+            } else {
+                codeEl.innerHTML = "";
+                container.style.display = "none";
             }
         }
 
@@ -1515,7 +2121,7 @@
                 await saveCurrentCode();
 
                 const res = await api("/api/problems/" + currentProblem.id + "/run", "POST", {});
-                
+
                 // Determine problem pass/fail status
                 if (res.compile_error) {
                     problemStatus[currentProblem.id] = "failed";
@@ -1532,10 +2138,25 @@
                 renderTabStrip();
 
                 resultsBody.innerHTML = "";
-                const errBlock = document.createElement("div");
-                errBlock.className = "compiler-block compiler-error";
-                errBlock.textContent = "Execution Failed: " + err.message;
-                resultsBody.appendChild(errBlock);
+                const errCard = document.createElement("div");
+                errCard.className = "compile-card compile-card-error";
+
+                const errHead = document.createElement("div");
+                errHead.className = "compile-card-header";
+                errHead.appendChild(createStatusIcon("error"));
+
+                const errTitle = document.createElement("div");
+                errTitle.className = "compile-card-title";
+                errTitle.textContent = "Execution Failed";
+                errHead.appendChild(errTitle);
+                errCard.appendChild(errHead);
+
+                const outBlock = document.createElement("div");
+                outBlock.className = "compile-error-output";
+                outBlock.textContent = err.message;
+                errCard.appendChild(outBlock);
+
+                resultsBody.appendChild(errCard);
                 showToast("Execution error: " + err.message, "error");
             } finally {
                 btn.disabled = false;
@@ -1543,24 +2164,131 @@
             }
         }
 
-        // Render test results safely
+        // SVG Helpers for Results
+        function createStatusIcon(type) {
+            const el = document.createElement("div");
+            el.className = "status-icon " + (type === "pass" ? "status-icon-success" : type === "timeout" ? "status-icon-amber" : "status-icon-error");
+            if (type === "pass") {
+                el.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+            } else if (type === "timeout") {
+                el.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>';
+            } else {
+                el.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+            }
+            return el;
+        }
+
+        function createChevron() {
+            const span = document.createElement("span");
+            span.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+            return span.firstElementChild;
+        }
+
+        function createIoBox(titleText, contentText) {
+            const box = document.createElement("div");
+            box.className = "io-box";
+
+            // Header with label and copy icon
+            const header = document.createElement("div");
+            header.className = "io-box-header";
+
+            const title = document.createElement("span");
+            title.className = "io-box-title";
+            title.textContent = titleText;
+            header.appendChild(title);
+
+            const copyBtn = document.createElement("button");
+            copyBtn.type = "button";
+            copyBtn.className = "btn-copy-io";
+            copyBtn.title = "Copy";
+            copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+
+            const textToCopy = contentText !== undefined && contentText !== null ? String(contentText) : "";
+            copyBtn.onclick = async (e) => {
+                e.stopPropagation();
+                try {
+                    await navigator.clipboard.writeText(textToCopy);
+                    showToast("Copied", "success");
+                } catch (err) {
+                    showToast("Failed to copy", "error");
+                }
+            };
+            header.appendChild(copyBtn);
+            box.appendChild(header);
+
+            // Body with line numbers and text
+            const body = document.createElement("div");
+            body.className = "io-box-body";
+
+            let lines = textToCopy.split("\n");
+            if (lines.length > 1 && lines[lines.length - 1] === "") {
+                lines.pop();
+            }
+            const lineCount = lines.length > 0 ? lines.length : 1;
+            let gutterStr = "";
+            for (let i = 1; i <= lineCount; i++) {
+                gutterStr += i + (i < lineCount ? "\n" : "");
+            }
+
+            const gutter = document.createElement("div");
+            gutter.className = "io-line-numbers";
+            gutter.textContent = gutterStr;
+            body.appendChild(gutter);
+
+            const pre = document.createElement("pre");
+            pre.className = "io-text";
+            pre.textContent = textToCopy;
+            body.appendChild(pre);
+
+            box.appendChild(body);
+            return box;
+        }
+
+        // Render test results matching reference design
         function renderResults(res) {
             const resultsBody = document.getElementById("results-body");
             resultsBody.innerHTML = "";
             document.getElementById("results-meta").textContent = "";
 
+            // 1. Compile Error
             if (res.compile_error) {
-                const compBlock = document.createElement("div");
-                compBlock.className = "compiler-block compiler-error";
-                compBlock.textContent = res.compile_error;
-                resultsBody.appendChild(compBlock);
+                const card = document.createElement("div");
+                card.className = "compile-card compile-card-error";
+
+                const header = document.createElement("div");
+                header.className = "compile-card-header";
+                header.appendChild(createStatusIcon("error"));
+
+                const title = document.createElement("div");
+                title.className = "compile-card-title";
+                title.textContent = "Compilation Failed";
+                header.appendChild(title);
+                card.appendChild(header);
+
+                const outBlock = document.createElement("div");
+                outBlock.className = "compile-error-output";
+                outBlock.textContent = res.compile_error;
+                card.appendChild(outBlock);
+
+                resultsBody.appendChild(card);
                 return;
             }
 
-            // Compiler message block on success
+            // 2. Compile Success Card
             const compSuccess = document.createElement("div");
-            compSuccess.className = "compiler-block compiler-success";
-            compSuccess.textContent = "Compiled successfully";
+            compSuccess.className = "compile-card compile-card-success";
+            compSuccess.appendChild(createStatusIcon("pass"));
+
+            const compText = document.createElement("div");
+            const compTitle = document.createElement("div");
+            compTitle.className = "compile-card-title";
+            compTitle.textContent = "Compiled successfully";
+            const compSub = document.createElement("div");
+            compSub.className = "compile-card-subtitle";
+            compSub.textContent = "No compilation errors found.";
+            compText.appendChild(compTitle);
+            compText.appendChild(compSub);
+            compSuccess.appendChild(compText);
             resultsBody.appendChild(compSuccess);
 
             const cases = res.results || [];
@@ -1568,95 +2296,130 @@
             cases.forEach(c => {
                 if (c.status === "pass") passedCount++;
             });
+            const allPass = passedCount === cases.length && cases.length > 0;
 
-            // Summary Bar
-            const summaryBar = document.createElement("div");
-            summaryBar.className = "summary-bar " + (passedCount === cases.length && cases.length > 0 ? "summary-pass" : "summary-fail");
-            summaryBar.textContent = `${passedCount}/${cases.length} Sample testcases passed`;
-            resultsBody.appendChild(summaryBar);
+            // 3. Summary Card
+            const summaryCard = document.createElement("div");
+            summaryCard.className = "summary-card " + (allPass ? "summary-card-success" : "summary-card-error");
 
-            // Testcase Cards
+            const sumLeft = document.createElement("div");
+            sumLeft.style.display = "flex";
+            sumLeft.style.alignItems = "center";
+            sumLeft.style.gap = "12px";
+            sumLeft.style.flex = "1";
+
+            sumLeft.appendChild(createStatusIcon(allPass ? "pass" : "error"));
+
+            const sumText = document.createElement("div");
+            const sumTitle = document.createElement("div");
+            sumTitle.className = "summary-card-title";
+            sumTitle.textContent = `${passedCount}/${cases.length} Sample testcases passed`;
+            const sumSub = document.createElement("div");
+            sumSub.className = "summary-card-subtitle";
+            sumSub.textContent = allPass ? "All sample testcases passed successfully." : "Some sample testcases failed.";
+            sumText.appendChild(sumTitle);
+            sumText.appendChild(sumSub);
+            sumLeft.appendChild(sumText);
+            summaryCard.appendChild(sumLeft);
+
+            const sumChevron = document.createElement("div");
+            sumChevron.className = "summary-chevron";
+            sumChevron.appendChild(createChevron());
+            summaryCard.appendChild(sumChevron);
+
+            resultsBody.appendChild(summaryCard);
+
+            // Container for all testcase cards
+            const listContainer = document.createElement("div");
+            listContainer.id = "testcase-list";
+
+            summaryCard.onclick = () => {
+                const isCollapsed = listContainer.classList.toggle("collapsed");
+                sumChevron.classList.toggle("collapsed", isCollapsed);
+            };
+
+            // 4. Testcase Cards
             cases.forEach((c, idx) => {
                 const card = document.createElement("div");
-                card.className = "case-card";
+                card.className = "testcase-card";
 
                 const isPass = c.status === "pass";
-                let statusLabel = isPass ? "Passed" : "Failed";
-                if (c.status === "runtime_error") statusLabel = "Runtime Error";
-                else if (c.status === "timeout") statusLabel = "Time Limit Exceeded";
+                const isRuntimeErr = c.status === "runtime_error";
+                const isTimeout = c.status === "timeout";
 
-                const header = document.createElement("div");
-                header.className = "case-card-header " + (isPass ? "case-status-pass" : "case-status-fail");
-                header.textContent = `Testcase ${idx + 1} - ${statusLabel}`;
-                card.appendChild(header);
+                let statusType = "fail";
+                let statusLabel = "Failed";
+                let titleClass = "title-fail";
 
-                const grid = document.createElement("div");
-                grid.className = "case-io-grid";
-
-                // Expected Output Box
-                const expBox = document.createElement("div");
-                expBox.className = "io-box";
-                const expLabel = document.createElement("div");
-                expLabel.className = "io-label";
-                expLabel.textContent = "Expected Output";
-                const expContent = document.createElement("div");
-                expContent.className = "io-content";
-                expContent.textContent = c.expected !== undefined ? c.expected : "";
-                expBox.appendChild(expLabel);
-                expBox.appendChild(expContent);
-
-                // Output (Actual / Stderr) Box
-                const actBox = document.createElement("div");
-                actBox.className = "io-box";
-                const actLabel = document.createElement("div");
-                actLabel.className = "io-label";
-                actLabel.textContent = "Output";
-                const actContent = document.createElement("div");
-                actContent.className = "io-content";
-
-                if (c.status === "runtime_error" && c.error) {
-                    actContent.textContent = c.error;
-                } else if (c.status === "timeout") {
-                    actContent.textContent = c.actual || "(stopped after 2s, possible infinite loop)";
-                } else {
-                    let outText = c.actual !== undefined ? c.actual : "";
-                    if (c.error) {
-                        outText += "\n" + c.error;
-                    }
-                    actContent.textContent = outText;
+                if (isPass) {
+                    statusType = "pass";
+                    statusLabel = "Passed";
+                    titleClass = "title-pass";
+                } else if (isRuntimeErr) {
+                    statusType = "error";
+                    statusLabel = "Runtime Error";
+                    titleClass = "title-fail";
+                } else if (isTimeout) {
+                    statusType = "timeout";
+                    statusLabel = "Time Limit Exceeded";
+                    titleClass = "title-timeout";
                 }
 
-                actBox.appendChild(actLabel);
-                actBox.appendChild(actContent);
+                // Header
+                const header = document.createElement("div");
+                header.className = "testcase-card-header";
 
-                grid.appendChild(expBox);
-                grid.appendChild(actBox);
-                card.appendChild(grid);
+                const headerLeft = document.createElement("div");
+                headerLeft.className = "testcase-card-header-left";
+                headerLeft.appendChild(createStatusIcon(statusType));
 
-                resultsBody.appendChild(card);
+                const title = document.createElement("div");
+                title.className = "testcase-card-title " + titleClass;
+                title.textContent = `Testcase ${idx + 1} - ${statusLabel}`;
+                headerLeft.appendChild(title);
+                header.appendChild(headerLeft);
+
+                const chevron = document.createElement("div");
+                chevron.className = "testcase-chevron";
+                chevron.appendChild(createChevron());
+                header.appendChild(chevron);
+
+                card.appendChild(header);
+
+                // Body (two boxes side by side)
+                const body = document.createElement("div");
+                body.className = "testcase-card-body";
+
+                header.onclick = () => {
+                    const isBodyCollapsed = body.classList.toggle("collapsed");
+                    header.classList.toggle("collapsed", isBodyCollapsed);
+                    chevron.classList.toggle("collapsed", isBodyCollapsed);
+                };
+
+                // Left: Expected Output
+                const expBox = createIoBox("Expected Output", c.expected !== undefined ? c.expected : "");
+                body.appendChild(expBox);
+
+                // Right: Output
+                let outText = "";
+                if (isRuntimeErr && c.error) {
+                    outText = c.error;
+                } else if (isTimeout) {
+                    outText = c.actual || "(stopped after 2s, possible infinite loop)";
+                } else {
+                    outText = c.actual !== undefined ? c.actual : "";
+                    if (c.error) {
+                        outText += (outText ? "\n" : "") + c.error;
+                    }
+                }
+                const actBox = createIoBox("Output", outText);
+                body.appendChild(actBox);
+
+                card.appendChild(body);
+                listContainer.appendChild(card);
             });
-        }
 
-        // Import curriculum button
-        async function importCurriculum() {
-            try {
-                const r = await api("/api/import", "POST", {});
-                await loadProblems();
-                const msg = `Curriculum imported successfully:\n• ${r.created.length} new problems created\n• ${r.updated.length} problems updated`;
-                await showDialog({
-                    title: "Import Curriculum",
-                    message: msg,
-                    confirmText: "OK",
-                    alertOnly: true
-                });
-            } catch (err) {
-                await showDialog({
-                    title: "Import Failed",
-                    message: "Failed to import curriculum: " + err.message,
-                    confirmText: "OK",
-                    alertOnly: true
-                });
-            }
+            resultsBody.appendChild(listContainer);
         }
 
         // Initialize
