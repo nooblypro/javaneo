@@ -386,6 +386,13 @@
             flex: 1;
             min-height: 250px;
             overflow: hidden;
+            --editor-bg: #0a0f1e;
+            --editor-text: #e5e7eb;
+            --tok-keyword: #f43f7a;
+            --tok-type: #5ee2f0;
+            --tok-number: #a78bfa;
+            --tok-string: #bef264;
+            --tok-comment: #8b8f6a;
         }
 
         .editor-header {
@@ -414,7 +421,7 @@
             flex: 1;
             display: flex;
             position: relative;
-            background: var(--bg-editor);
+            background: var(--editor-bg);
             overflow: hidden;
         }
 
@@ -428,27 +435,107 @@
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             font-size: 16px;
             line-height: 1.6;
+            letter-spacing: normal;
             user-select: none;
             overflow: hidden;
             white-space: pre-line;
+            box-sizing: border-box;
+            margin: 0;
+            flex-shrink: 0;
         }
 
-        #code-editor {
+        .code-box {
+            position: relative;
             flex: 1;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .code-box pre {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
             padding: 14px;
-            background: transparent;
-            color: #e2e8f0;
             border: none;
-            outline: none;
+            box-sizing: border-box;
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             font-size: 16px;
             line-height: 1.6;
-            resize: none;
-            overflow: auto;
+            letter-spacing: normal;
+            white-space: pre;
             tab-size: 4;
+            overflow: hidden;
+            pointer-events: none;
+            background: transparent;
+            color: var(--editor-text);
+        }
+
+        .code-box pre code {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            letter-spacing: inherit;
+            white-space: pre;
+            tab-size: 4;
+        }
+
+        #code-editor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 14px;
+            border: none;
+            box-sizing: border-box;
+            background: transparent;
+            color: transparent;
+            caret-color: #ffffff;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 16px;
+            line-height: 1.6;
+            letter-spacing: normal;
             white-space: pre;
             word-wrap: normal;
-            caret-color: var(--sky-400);
+            overflow: auto;
+            tab-size: 4;
+            outline: none;
+            resize: none;
+            z-index: 1;
+        }
+
+        #code-editor::selection {
+            background: rgba(56, 189, 248, 0.28);
+            color: transparent;
+        }
+
+        .tok-keyword {
+            color: var(--tok-keyword);
+            font-weight: 600;
+        }
+
+        .tok-type {
+            color: var(--tok-type);
+        }
+
+        .tok-number {
+            color: var(--tok-number);
+        }
+
+        .tok-string {
+            color: var(--tok-string);
+        }
+
+        .tok-comment {
+            color: var(--tok-comment);
+            font-style: italic;
         }
 
         /* Results Section */
@@ -732,7 +819,10 @@
                 </div>
                 <div class="editor-wrapper">
                     <div class="line-numbers" id="line-numbers">1</div>
-                    <textarea id="code-editor" spellcheck="false"></textarea>
+                    <div class="code-box">
+                        <pre id="editor-pre" aria-hidden="true"><code id="editor-highlight-code"></code></pre>
+                        <textarea id="code-editor" spellcheck="false"></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -798,9 +888,70 @@
             return data;
         }
 
-        // Synchronize editor line numbers
+        // Synchronize editor line numbers and syntax highlighting
         const editor = document.getElementById("code-editor");
         const lineNumbers = document.getElementById("line-numbers");
+        const editorPre = document.getElementById("editor-pre");
+        const editorCode = document.getElementById("editor-highlight-code");
+
+        const KEYWORDS = new Set([
+            "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const",
+            "continue", "default", "do", "double", "else", "enum", "extends", "final", "finally", "float",
+            "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long", "native",
+            "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super",
+            "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while",
+            "var", "record", "yield", "true", "false", "null"
+        ]);
+
+        const KNOWN_TYPES = new Set([
+            "String", "Integer", "Double", "Float", "Long", "Short", "Byte", "Character", "Boolean",
+            "Object", "Math", "System", "Scanner", "ArrayList", "List", "Map", "HashMap", "HashSet",
+            "Set", "LinkedHashMap", "LinkedList", "Queue", "Deque", "Stack", "Iterator", "Collections",
+            "Arrays", "Optional", "StringBuilder", "Exception", "RuntimeException", "IllegalArgumentException",
+            "NumberFormatException", "ArithmeticException", "InputMismatchException", "Thread", "Runnable",
+            "BufferedReader", "FileReader", "FileWriter", "PrintWriter", "File", "FileInputStream",
+            "FileOutputStream", "ObjectInputStream", "ObjectOutputStream", "Serializable"
+        ]);
+
+        function highlightJava(src) {
+            // Escape &, <, > before tokenising
+            const escaped = src
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            // Highlighter rules in order (earlier wins):
+            // 1. Comments: /* ... */ or // ...
+            // 2. Strings & chars: "..." (with \" escapes) and '...'
+            // 3. Numbers: hex (0x...), decimals/integers with L/f/d suffix
+            // 4. Annotations: @Override etc.
+            // 5. Protected HTML entities from step 1
+            // 6. Identifiers (keywords, types, or plain)
+            const TOKEN_REGEX = /(\/\*[\s\S]*?\*\/|\/\/[^\r\n]*)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(\b0[xX][0-9a-fA-F]+[lL]?\b|\b\d+(?:\.\d+)?(?:[fFdDlL])?\b|(?:\b|\B)\.\d+(?:[fFdDlL])?\b)|(@[a-zA-Z_]\w*)|(&(?:amp|lt|gt);)|([a-zA-Z_$][a-zA-Z0-9_$]*)/g;
+
+            return escaped.replace(TOKEN_REGEX, (match, comment, string, number, annotation, entity, word) => {
+                if (comment) return `<span class="tok-comment">${comment}</span>`;
+                if (string) return `<span class="tok-string">${string}</span>`;
+                if (number) return `<span class="tok-number">${number}</span>`;
+                if (annotation) return `<span class="tok-keyword">${annotation}</span>`;
+                if (entity) return entity;
+                if (word) {
+                    if (KEYWORDS.has(word)) {
+                        return `<span class="tok-keyword">${word}</span>`;
+                    }
+                    if (KNOWN_TYPES.has(word) || /^[A-Z][a-z]/.test(word) || /^[A-Z][a-zA-Z0-9_]*$/.test(word)) {
+                        return `<span class="tok-type">${word}</span>`;
+                    }
+                    return word;
+                }
+                return match;
+            });
+        }
+
+        function updateHighlight() {
+            const val = editor.value || "";
+            editorCode.innerHTML = highlightJava(val) + (val.endsWith("\n") ? "\n" : "");
+        }
 
         function updateLineNumbers() {
             const lines = (editor.value || "").split("\n").length;
@@ -811,9 +962,16 @@
             lineNumbers.textContent = str;
         }
 
-        editor.addEventListener("input", updateLineNumbers);
+        function updateEditor() {
+            updateLineNumbers();
+            updateHighlight();
+        }
+
+        editor.addEventListener("input", updateEditor);
         editor.addEventListener("scroll", () => {
             lineNumbers.scrollTop = editor.scrollTop;
+            editorPre.scrollTop = editor.scrollTop;
+            editorPre.scrollLeft = editor.scrollLeft;
         });
 
         // Tab key support (4 spaces) & Ctrl/Cmd+Enter run
@@ -824,7 +982,7 @@
                 const end = editor.selectionEnd;
                 editor.value = editor.value.substring(0, start) + "    " + editor.value.substring(end);
                 editor.selectionStart = editor.selectionEnd = start + 4;
-                updateLineNumbers();
+                updateEditor();
             } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
                 e.preventDefault();
                 compileAndRun();
@@ -955,7 +1113,7 @@
                 // Update editor
                 editor.value = data.code || "";
                 lastLoadedCode = data.code || "";
-                updateLineNumbers();
+                updateEditor();
 
                 // Clear execution results for newly opened problem
                 const resultsBody = document.getElementById("results-body");
@@ -1034,7 +1192,7 @@
             if (!currentProblem) return;
             if (confirm("Clear editor contents?")) {
                 editor.value = "";
-                updateLineNumbers();
+                updateEditor();
             }
         }
 
