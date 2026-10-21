@@ -143,6 +143,11 @@
             border-color: #ef4444;
         }
 
+        /* Bookmarked tab: red outline */
+        .tab-square.bookmarked {
+            border: 2px solid #dc2626 !important;
+        }
+
         /* Active highlight */
         .tab-square.active {
             box-shadow: 0 0 0 2.5px var(--sky-400), 0 0 16px var(--sky-glow) !important;
@@ -154,6 +159,14 @@
             background: var(--sky-500);
             color: #ffffff;
             border-color: var(--sky-400);
+        }
+
+        /* If active tab is also bookmarked: keep visibly active (sky blue fill) and still show red outline */
+        .tab-square.active.bookmarked {
+            background: var(--sky-500) !important;
+            color: #ffffff !important;
+            border: 2px solid #dc2626 !important;
+            box-shadow: 0 0 0 2px #dc2626, 0 0 14px rgba(220, 38, 38, 0.45) !important;
         }
 
         .btn-top-import {
@@ -184,9 +197,10 @@
             flex: 1;
             display: flex;
             overflow: hidden;
+            background: var(--bg-base);
         }
 
-        /* Left Column: Problem Pane */
+        /* Left Column: Problem Pane (Dark Midnight Blue) */
         #problem-pane {
             width: 48%;
             background: var(--bg-surface);
@@ -210,10 +224,10 @@
         }
 
         .pane-header-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.08em;
             color: var(--sky-400);
             display: flex;
             align-items: center;
@@ -221,20 +235,29 @@
         }
 
         .bookmark-icon {
-            width: 19px;
-            height: 19px;
-            color: var(--text-subtle);
+            width: 20px;
+            height: 20px;
+            color: var(--sky-400);
+            stroke: var(--sky-400);
+            stroke-width: 2;
+            fill: none;
             cursor: pointer;
-            transition: color 0.15s ease;
+            transition: all 0.15s ease;
         }
 
         .bookmark-icon:hover {
-            color: var(--sky-400);
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 6px var(--sky-glow));
+        }
+
+        .bookmark-icon.bookmarked {
+            fill: var(--sky-400);
         }
 
         .problem-content {
             padding: 26px 28px;
             flex: 1;
+            background: var(--bg-surface);
         }
 
         .problem-title {
@@ -250,21 +273,22 @@
             background: var(--sky-light);
             color: var(--sky-300);
             border: 1px solid rgba(56, 189, 248, 0.3);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             padding: 4px 12px;
-            border-radius: 14px;
+            border-radius: 9999px;
             margin-bottom: 22px;
             text-transform: uppercase;
             letter-spacing: 0.6px;
         }
 
-        /* Clean Statement Header as in Reference Screenshot */
+        /* Clean Statement Header with Sky-Blue Underline */
         .statement-heading {
             font-size: 19px;
             font-weight: 700;
             color: var(--text-main);
             text-decoration: underline;
+            text-decoration-color: var(--sky-400);
             text-underline-offset: 6px;
             text-decoration-thickness: 2px;
             margin-bottom: 18px;
@@ -272,8 +296,8 @@
         }
 
         .problem-statement-text {
-            font-size: 17px;
-            line-height: 1.75;
+            font-size: 16px;
+            line-height: 1.7;
             color: #e2e8f0;
             white-space: pre-wrap;
             font-family: inherit;
@@ -296,9 +320,10 @@
         .sample-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 16px;
             overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .sample-card-header {
@@ -306,18 +331,18 @@
             font-size: 15px;
             font-weight: 700;
             color: var(--sky-200);
-            background: rgba(14, 165, 233, 0.08);
+            background: rgba(14, 165, 233, 0.12);
             border-bottom: 1px solid var(--border-subtle);
         }
 
-        .case-io-grid {
+        .sample-card .case-io-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 12px;
+            gap: 12px;
+            padding: 14px;
         }
 
-        .io-box {
+        .sample-card .io-box {
             background: #060913;
             border: 1px solid var(--border-subtle);
             border-radius: 6px;
@@ -325,8 +350,8 @@
             overflow: hidden;
         }
 
-        .io-label {
-            font-size: 13.5px;
+        .sample-card .io-label {
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text-subtle);
@@ -334,12 +359,12 @@
             letter-spacing: 0.5px;
         }
 
-        .io-content {
+        .sample-card .io-content {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             font-size: 15px;
             line-height: 1.5;
             color: #e2e8f0;
-            white-space: pre;
+            white-space: pre-wrap;
             overflow-x: auto;
             max-height: 160px;
         }
@@ -675,8 +700,8 @@
         <!-- Left: Problem Statement Pane -->
         <div id="problem-pane">
             <div class="pane-header">
-                <span class="pane-header-title">Problem Statement</span>
-                <svg class="bookmark-icon" viewBox="0 0 24 24" fill="currentColor">
+                <span class="pane-header-title">PROBLEM STATEMENT</span>
+                <svg id="bookmark-btn" class="bookmark-icon" viewBox="0 0 24 24" onclick="toggleBookmark()" title="Toggle Bookmark">
                     <path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18l-7-4-7 4V4z"/>
                 </svg>
             </div>
@@ -819,6 +844,54 @@
             }
         });
 
+        // LocalStorage bookmark management: key "javaneo.bookmarks"
+        function getBookmarks() {
+            try {
+                const raw = localStorage.getItem("javaneo.bookmarks");
+                if (!raw) return [];
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveBookmarks(bmarks) {
+            try {
+                localStorage.setItem("javaneo.bookmarks", JSON.stringify(bmarks));
+            } catch (e) {
+                // Ignore storage errors if disabled/blocked
+            }
+        }
+
+        function isBookmarked(pid) {
+            return getBookmarks().includes(pid);
+        }
+
+        function toggleBookmark() {
+            if (!currentProblem) return;
+            const pid = currentProblem.id;
+            let bmarks = getBookmarks();
+            if (bmarks.includes(pid)) {
+                bmarks = bmarks.filter(id => id !== pid);
+            } else {
+                bmarks.push(pid);
+            }
+            saveBookmarks(bmarks);
+            updateBookmarkUI();
+            renderTabStrip();
+        }
+
+        function updateBookmarkUI() {
+            const icon = document.getElementById("bookmark-btn");
+            if (!icon) return;
+            if (currentProblem && isBookmarked(currentProblem.id)) {
+                icon.classList.add("bookmarked");
+            } else {
+                icon.classList.remove("bookmarked");
+            }
+        }
+
         // Load problem list from server
         async function loadProblems() {
             try {
@@ -832,10 +905,11 @@
             }
         }
 
-        // Render top numbered tabs with status colors (green=done, red=error, yellow=viewed)
+        // Render top numbered tabs with status colors and bookmark outlines
         function renderTabStrip() {
             const strip = document.getElementById("tab-strip");
             strip.innerHTML = "";
+            const bookmarks = getBookmarks();
             problems.forEach((p, idx) => {
                 const square = document.createElement("div");
                 const status = problemStatus[p.id];
@@ -845,7 +919,11 @@
                 else if (status === "failed") statusClass = " status-failed";
                 else if (status === "viewed") statusClass = " status-viewed";
 
-                square.className = "tab-square" + statusClass + (idx === currentIndex ? " active" : "");
+                const isBmk = bookmarks.includes(p.id);
+                const bmkClass = isBmk ? " bookmarked" : "";
+                const activeClass = idx === currentIndex ? " active" : "";
+
+                square.className = "tab-square" + statusClass + activeClass + bmkClass;
                 square.textContent = String(idx + 1);
                 square.title = (idx + 1) + ". " + (p.title || p.id);
                 square.onclick = () => selectProblem(idx);
@@ -871,11 +949,13 @@
                 problemStatus[p.id] = "viewed";
             }
             renderTabStrip();
+            updateBookmarkUI();
 
             try {
                 const data = await api("/api/problems/" + p.id);
                 currentProblem = data;
                 currentProblem.id = p.id;
+                updateBookmarkUI();
 
                 // Problem Statement Header & Topic
                 document.getElementById("problem-title").textContent = data.title || p.id;
@@ -923,6 +1003,7 @@
             if (sampleSubset.length === 0) {
                 const emptyMsg = document.createElement("div");
                 emptyMsg.className = "placeholder-text";
+                emptyMsg.style.color = "#6b7280";
                 emptyMsg.textContent = "No sample cases provided.";
                 listEl.appendChild(emptyMsg);
                 return;
@@ -945,7 +1026,7 @@
                 inBox.className = "io-box";
                 const inLabel = document.createElement("div");
                 inLabel.className = "io-label";
-                inLabel.textContent = "Input";
+                inLabel.textContent = "INPUT";
                 const inContent = document.createElement("div");
                 inContent.className = "io-content";
                 inContent.textContent = c.input !== undefined ? c.input : "";
@@ -957,7 +1038,7 @@
                 expBox.className = "io-box";
                 const expLabel = document.createElement("div");
                 expLabel.className = "io-label";
-                expLabel.textContent = "Expected Output";
+                expLabel.textContent = "EXPECTED OUTPUT";
                 const expContent = document.createElement("div");
                 expContent.className = "io-content";
                 expContent.textContent = c.expected !== undefined ? c.expected : "";
