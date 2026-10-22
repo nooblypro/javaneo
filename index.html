@@ -1684,18 +1684,336 @@
             editorPre.scrollLeft = editor.scrollLeft;
         });
 
-        // Tab key support (4 spaces) & Ctrl/Cmd+Enter run
+        function replaceRange(rangeStart, rangeEnd, text, targetStart, targetEnd) {
+            editor.focus();
+            editor.setSelectionRange(rangeStart, rangeEnd);
+            let ok = false;
+            try {
+                if (text === "") {
+                    ok = document.execCommand("delete");
+                } else {
+                    ok = document.execCommand("insertText", false, text);
+                }
+            } catch (err) {
+                ok = false;
+            }
+            if (!ok) {
+                const val = editor.value;
+                editor.value = val.substring(0, rangeStart) + text + val.substring(rangeEnd);
+            }
+            const selStart = (targetStart !== undefined && targetStart !== null)
+                ? targetStart
+                : rangeStart + text.length;
+            const selEnd = (targetEnd !== undefined && targetEnd !== null)
+                ? targetEnd
+                : selStart;
+            editor.setSelectionRange(selStart, selEnd);
+            editor.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+
+        function getMatchingIndent(text, pos) {
+            const stack = [];
+            let i = 0;
+            let inString = false;
+            let inChar = false;
+            let inLineComment = false;
+            let inBlockComment = false;
+            let currentLineIndent = "";
+            let lineStart = true;
+
+            while (i < pos) {
+                const c = text[i];
+                const next = i + 1 < pos ? text[i + 1] : "";
+
+                if (inLineComment) {
+                    if (c === "\n") {
+                        inLineComment = false;
+                        lineStart = true;
+                        currentLineIndent = "";
+                    }
+                    i++;
+                    continue;
+                }
+                if (inBlockComment) {
+                    if (c === "*" && next === "/") {
+                        inBlockComment = false;
+                        i += 2;
+                        continue;
+                    }
+                    if (c === "\n") {
+                        lineStart = true;
+                        currentLineIndent = "";
+                    }
+                    i++;
+                    continue;
+                }
+                if (inString) {
+                    if (c === "\\") {
+                        i += 2;
+                        continue;
+                    }
+                    if (c === '"') {
+                        inString = false;
+                    }
+                    i++;
+                    continue;
+                }
+                if (inChar) {
+                    if (c === "\\") {
+                        i += 2;
+                        continue;
+                    }
+                    if (c === "'") {
+                        inChar = false;
+                    }
+                    i++;
+                    continue;
+                }
+
+                if (c === "/" && next === "/") {
+                    inLineComment = true;
+                    i += 2;
+                    continue;
+                }
+                if (c === "/" && next === "*") {
+                    inBlockComment = true;
+                    i += 2;
+                    continue;
+                }
+                if (c === '"') {
+                    inString = true;
+                    lineStart = false;
+                    i++;
+                    continue;
+                }
+                if (c === "'") {
+                    inChar = true;
+                    lineStart = false;
+                    i++;
+                    continue;
+                }
+
+                if (c === "\n") {
+                    lineStart = true;
+                    currentLineIndent = "";
+                    i++;
+                    continue;
+                }
+
+                if (lineStart) {
+                    if (c === " " || c === "\t") {
+                        currentLineIndent += c;
+                        i++;
+                        continue;
+                    } else {
+                        lineStart = false;
+                    }
+                }
+
+                if (c === "{") {
+                    stack.push(currentLineIndent);
+                } else if (c === "}") {
+                    if (stack.length > 0) {
+                        stack.pop();
+                    }
+                }
+                i++;
+            }
+
+            return stack.length > 0 ? stack[stack.length - 1] : null;
+        }
+
+        // Editor keyboard shortcuts: smart indentation, auto-closing brackets, Tab support & Ctrl/Cmd+Enter run
         editor.addEventListener("keydown", (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+                e.preventDefault();
+                compileAndRun();
+                return;
+            }
+
+            if (e.key === "Enter" && !e.ctrlKey && !e.metaKey && !e.altKey && !e.shiftKey) {
+                e.preventDefault();
+                const start = editor.selectionStart;
+                const end = editor.selectionEnd;
+                const val = editor.value;
+
+                const lastNewline = val.lastIndexOf("\n", start - 1);
+                const lineBeforeCaret = val.substring(lastNewline + 1, start);
+                const indentMatch = lineBeforeCaret.match(/^[ \t]*/);
+                let indent = indentMatch ? indentMatch[0] : "";
+
+                const charBefore = start > 0 ? val[start - 1] : "";
+                const charAfter = end < val.length ? val[end] : "";
+
+                if (charBefore === "{" && charAfter === "}") {
+                    const toInsert = "\n" + indent + "    \n" + indent;
+                    const caretTarget = start + 1 + indent.length + 4;
+                    replaceRange(start, end, toInsert, caretTarget);
+                } else {
+                    if (charBefore === "{") {
+                        indent += "    ";
+                    }
+                    const toInsert = "\n" + indent;
+                    replaceRange(start, end, toInsert, start + toInsert.length);
+                }
+                return;
+            }
+
+            if (e.key === "{" && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const start = editor.selectionStart;
+                const end = editor.selectionEnd;
+                const val = editor.value;
+                if (start !== end) {
+                    e.preventDefault();
+                    const sel = val.substring(start, end);
+                    replaceRange(start, end, "{" + sel + "}", start + 1, start + 1 + sel.length);
+                } else {
+                    const nextChar = start < val.length ? val[start] : "";
+                    if (/[a-zA-Z0-9]/.test(nextChar)) {
+                        e.preventDefault();
+                        replaceRange(start, end, "{", start + 1);
+                    } else {
+                        e.preventDefault();
+                        replaceRange(start, end, "{}", start + 1);
+                    }
+                }
+                return;
+            }
+
+            if (e.key === "}" && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const start = editor.selectionStart;
+                const end = editor.selectionEnd;
+                const val = editor.value;
+
+                if (start === end && start < val.length && val[start] === "}") {
+                    e.preventDefault();
+                    editor.setSelectionRange(start + 1, start + 1);
+                    return;
+                }
+
+                if (start === end) {
+                    const lastNewline = val.lastIndexOf("\n", start - 1);
+                    const lineBeforeCaret = val.substring(lastNewline + 1, start);
+                    if (/^[ \t]*$/.test(lineBeforeCaret)) {
+                        const matchingIndent = getMatchingIndent(val, lastNewline + 1);
+                        if (matchingIndent !== null) {
+                            e.preventDefault();
+                            const newText = matchingIndent + "}";
+                            replaceRange(lastNewline + 1, start, newText, lastNewline + 1 + newText.length);
+                            return;
+                        }
+                    }
+                }
+
+                e.preventDefault();
+                replaceRange(start, end, "}", start + 1);
+                return;
+            }
+
+            if (e.key === "(" && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const start = editor.selectionStart;
+                const end = editor.selectionEnd;
+                const val = editor.value;
+                if (start !== end) {
+                    e.preventDefault();
+                    const sel = val.substring(start, end);
+                    replaceRange(start, end, "(" + sel + ")", start + 1, start + 1 + sel.length);
+                } else {
+                    const nextChar = start < val.length ? val[start] : "";
+                    if (/[a-zA-Z0-9]/.test(nextChar)) {
+                        e.preventDefault();
+                        replaceRange(start, end, "(", start + 1);
+                    } else {
+                        e.preventDefault();
+                        replaceRange(start, end, "()", start + 1);
+                    }
+                }
+                return;
+            }
+
+            if (e.key === ")" && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const start = editor.selectionStart;
+                const end = editor.selectionEnd;
+                const val = editor.value;
+                if (start === end && start < val.length && val[start] === ")") {
+                    e.preventDefault();
+                    editor.setSelectionRange(start + 1, start + 1);
+                } else {
+                    e.preventDefault();
+                    replaceRange(start, end, ")", start + 1);
+                }
+                return;
+            }
+
+            if (e.key === '"' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const start = editor.selectionStart;
+                const end = editor.selectionEnd;
+                const val = editor.value;
+                if (start === end && start < val.length && val[start] === '"') {
+                    e.preventDefault();
+                    editor.setSelectionRange(start + 1, start + 1);
+                } else {
+                    e.preventDefault();
+                    replaceRange(start, end, '"', start + 1);
+                }
+                return;
+            }
+
             if (e.key === "Tab") {
                 e.preventDefault();
                 const start = editor.selectionStart;
                 const end = editor.selectionEnd;
-                editor.value = editor.value.substring(0, start) + "    " + editor.value.substring(end);
-                editor.selectionStart = editor.selectionEnd = start + 4;
-                updateEditor();
-            } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-                e.preventDefault();
-                compileAndRun();
+                const val = editor.value;
+
+                if (start !== end && val.substring(start, end).includes("\n")) {
+                    const blockStart = val.lastIndexOf("\n", start - 1) + 1;
+                    let blockEnd = val.indexOf("\n", end);
+                    if (blockEnd === -1) blockEnd = val.length;
+                    const blockText = val.substring(blockStart, blockEnd);
+                    const lines = blockText.split("\n");
+
+                    if (e.shiftKey) {
+                        let removedFirst = 0;
+                        let totalRemoved = 0;
+                        const newLines = lines.map((line, idx) => {
+                            let sp = 0;
+                            while (sp < 4 && line[sp] === " ") sp++;
+                            if (sp === 0 && line[0] === "\t") sp = 1;
+                            if (idx === 0) removedFirst = sp;
+                            totalRemoved += sp;
+                            return line.substring(sp);
+                        });
+                        const replacement = newLines.join("\n");
+                        replaceRange(blockStart, blockEnd, replacement,
+                            Math.max(blockStart, start - removedFirst),
+                            Math.max(blockStart, end - totalRemoved)
+                        );
+                    } else {
+                        const newLines = lines.map(line => "    " + line);
+                        const replacement = newLines.join("\n");
+                        replaceRange(blockStart, blockEnd, replacement,
+                            start + 4,
+                            end + (lines.length * 4)
+                        );
+                    }
+                } else if (e.shiftKey) {
+                    const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+                    let count = 0;
+                    while (count < 4 && val[lineStart + count] === " ") {
+                        count++;
+                    }
+                    if (count === 0 && val[lineStart] === "\t") {
+                        count = 1;
+                    }
+                    if (count > 0) {
+                        const newStart = Math.max(lineStart, start - count);
+                        const newEnd = Math.max(lineStart, end - count);
+                        replaceRange(lineStart, lineStart + count, "", newStart, newEnd);
+                    }
+                } else {
+                    replaceRange(start, end, "    ", start + 4);
+                }
+                return;
             }
         });
 
