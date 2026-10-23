@@ -514,7 +514,7 @@
             height: 100%;
             overflow: hidden;
             margin: 0;
-            padding: 0;
+            padding: 0 16px 0 0;
             box-sizing: border-box;
         }
 
@@ -525,7 +525,7 @@
             width: 100%;
             height: 100%;
             margin: 0;
-            padding: 14px;
+            padding: 14px 20px 14px 14px;
             border: none;
             box-sizing: border-box;
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -534,10 +534,16 @@
             letter-spacing: normal;
             white-space: pre;
             tab-size: 4;
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
             pointer-events: none;
             background: transparent;
             color: var(--editor-text);
+            scrollbar-width: none;
+        }
+
+        .code-box pre::-webkit-scrollbar {
+            display: none;
         }
 
         .code-box pre code {
@@ -556,7 +562,7 @@
             width: 100%;
             height: 100%;
             margin: 0;
-            padding: 14px;
+            padding: 14px 20px 14px 14px;
             border: none;
             box-sizing: border-box;
             background: transparent;
@@ -568,7 +574,8 @@
             letter-spacing: normal;
             white-space: pre;
             word-wrap: normal;
-            overflow: auto;
+            overflow-x: auto;
+            overflow-y: auto;
             tab-size: 4;
             outline: none;
             resize: none;
@@ -724,22 +731,22 @@
 
         /* Compile status card */
         .compile-card {
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-bottom: 14px;
+            padding: 4px 0 10px 0;
+            margin-bottom: 8px;
             display: flex;
-            gap: 12px;
+            background: transparent;
+            border: none;
         }
 
         .compile-card-success {
-            background: rgba(16, 185, 129, 0.08);
-            border: 1px solid rgba(16, 185, 129, 0.35);
+            background: transparent;
+            border: none;
             align-items: center;
         }
 
         .compile-card-error {
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.35);
+            background: transparent;
+            border: none;
             flex-direction: column;
         }
 
@@ -815,33 +822,33 @@
 
         /* Summary Card */
         .summary-card {
-            border-radius: 8px;
-            padding: 12px 16px;
+            padding: 4px 0 12px 0;
             margin-bottom: 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
             user-select: none;
-            transition: background 0.15s ease, border-color 0.15s ease;
+            background: transparent;
+            border: none;
         }
 
         .summary-card-success {
-            background: rgba(16, 185, 129, 0.08);
-            border: 1px solid rgba(16, 185, 129, 0.35);
+            background: transparent;
+            border: none;
         }
 
         .summary-card-success:hover {
-            background: rgba(16, 185, 129, 0.13);
+            background: transparent;
         }
 
         .summary-card-error {
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.35);
+            background: transparent;
+            border: none;
         }
 
         .summary-card-error:hover {
-            background: rgba(239, 68, 68, 0.13);
+            background: transparent;
         }
 
         .summary-card-title {
@@ -1367,14 +1374,13 @@
                 <div id="results-container">
                     <div class="results-header">
                         <div class="results-header-left">
-                            <span class="results-header-icon">&gt;_</span>
                             <span class="results-header-title">EXECUTION &amp; TEST RESULTS</span>
                         </div>
                         <span id="results-meta"
                             style="font-size: 12px; text-transform:none; color:var(--text-subtle);"></span>
                     </div>
                     <div class="results-body" id="results-body">
-                        <div class="placeholder-text">Run or Submit code to see execution results.</div>
+                        <div class="placeholder-text">Run code to see execution results.</div>
                     </div>
                 </div>
             </div>
@@ -1384,7 +1390,6 @@
                 <button class="btn btn-subtle" onclick="clearCode()">Clear</button>
                 <div style="display: flex; gap: 10px;">
                     <button class="btn btn-primary" id="btn-run" onclick="compileAndRun()">Compile &amp; Run</button>
-                    <button class="btn btn-secondary" onclick="compileAndRun()">Submit Code</button>
                     <button class="btn btn-subtle" onclick="nextProblem()">Next &rarr;</button>
                 </div>
             </div>
@@ -1949,12 +1954,27 @@
                 const start = editor.selectionStart;
                 const end = editor.selectionEnd;
                 const val = editor.value;
-                if (start === end && start < val.length && val[start] === '"') {
+
+                if (start !== end) {
+                    e.preventDefault();
+                    const sel = val.substring(start, end);
+                    replaceRange(start, end, '"' + sel + '"', start + 1, start + 1 + sel.length);
+                    return;
+                }
+
+                if (start < val.length && val[start] === '"') {
                     e.preventDefault();
                     editor.setSelectionRange(start + 1, start + 1);
-                } else {
+                    return;
+                }
+
+                const prevChar = start > 0 ? val[start - 1] : "";
+                if (/[a-zA-Z0-9\\]/.test(prevChar)) {
                     e.preventDefault();
                     replaceRange(start, end, '"', start + 1);
+                } else {
+                    e.preventDefault();
+                    replaceRange(start, end, '""', start + 1);
                 }
                 return;
             }
@@ -2297,7 +2317,7 @@
                 resultsBody.innerHTML = "";
                 const placeholder = document.createElement("div");
                 placeholder.className = "placeholder-text";
-                placeholder.textContent = "Run or Submit code to see execution results.";
+                placeholder.textContent = "Run code to see execution results.";
                 resultsBody.appendChild(placeholder);
                 document.getElementById("results-meta").textContent = "";
 
@@ -2461,7 +2481,6 @@
 
                 const errHead = document.createElement("div");
                 errHead.className = "compile-card-header";
-                errHead.appendChild(createStatusIcon("error"));
 
                 const errTitle = document.createElement("div");
                 errTitle.className = "compile-card-title";
@@ -2575,7 +2594,6 @@
 
                 const header = document.createElement("div");
                 header.className = "compile-card-header";
-                header.appendChild(createStatusIcon("error"));
 
                 const title = document.createElement("div");
                 title.className = "compile-card-title";
@@ -2595,7 +2613,6 @@
             // 2. Compile Success Card
             const compSuccess = document.createElement("div");
             compSuccess.className = "compile-card compile-card-success";
-            compSuccess.appendChild(createStatusIcon("pass"));
 
             const compText = document.createElement("div");
             const compTitle = document.createElement("div");
@@ -2623,10 +2640,7 @@
             const sumLeft = document.createElement("div");
             sumLeft.style.display = "flex";
             sumLeft.style.alignItems = "center";
-            sumLeft.style.gap = "12px";
             sumLeft.style.flex = "1";
-
-            sumLeft.appendChild(createStatusIcon(allPass ? "pass" : "error"));
 
             const sumText = document.createElement("div");
             const sumTitle = document.createElement("div");
