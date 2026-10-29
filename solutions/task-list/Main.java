@@ -1,9 +1,5 @@
 import java.util.*;
 
-public class Solution {
-    // helper class can also just be TaskManager in same file or TaskManager class
-}
-
 class TaskManager {
     private LinkedList<String> tasks = new LinkedList<>();
 
@@ -26,5 +22,20 @@ class TaskManager {
                 System.out.println(String.join(" ", tasks));
             }
         }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (!sc.hasNextInt()) return;
+        int n = sc.nextInt();
+        sc.nextLine(); // Consume newline
+        TaskManager manager = new TaskManager();
+        for (int i = 0; i < n; i++) {
+            String command = sc.nextLine();
+            manager.processCommand(command);
+        }
+        sc.close();
     }
 }

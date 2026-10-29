@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Student {
     private String name;
     private int roll;
@@ -29,20 +27,4 @@ class Student {
 
     public String getName() { return name; }
     public int getRoll() { return roll; }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        if (!sc.hasNext()) return;
-        String name = sc.next();
-        int roll = sc.nextInt();
-        int k = sc.nextInt();
-        int[] marks = new int[k];
-        for (int i = 0; i < k; i++) marks[i] = sc.nextInt();
-        Student s = new Student(name, roll, marks);
-        System.out.println("Student: " + s.getName() + " (Roll: " + s.getRoll() + ")");
-        System.out.printf(Locale.US, "Average: %.2f\n", s.getAverage());
-        System.out.println("Grade: " + s.getGrade());
-    }
 }

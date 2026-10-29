@@ -1,12 +1,5 @@
-import java.util.*;
-
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        if (!sc.hasNextInt()) return;
-        int k = sc.nextInt();
-        sc.nextLine();
-        String s = sc.nextLine();
+class CaesarCipher {
+    public static String encrypt(String s, int k) {
         StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray()) {
             if (c >= 'a' && c <= 'z') {
@@ -17,6 +10,6 @@ public class Main {
                 sb.append(c);
             }
         }
-        System.out.println(sb.toString());
+        return sb.toString();
     }
 }

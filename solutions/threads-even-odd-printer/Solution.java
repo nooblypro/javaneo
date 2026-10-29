@@ -1,14 +1,8 @@
-import java.util.*;
+class NumberPrinter {
+    private final Object lock = new Object();
+    private int current = 1;
 
-public class Main {
-    private static final Object lock = new Object();
-    private static int current = 1;
-
-    public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
-        if (!sc.hasNextInt()) return;
-        int n = sc.nextInt();
-
+    public void printNumbers(int n) throws Exception {
         Thread odd = new Thread(() -> {
             while (true) {
                 synchronized (lock) {

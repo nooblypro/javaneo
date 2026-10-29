@@ -239,7 +239,7 @@
     "id": "6a",
     "title": "Grade Validation Exception Handling",
     "topic": "exceptions",
-    "statement": "Write a method static void validateGrade(int grade) throws IllegalArgumentException. If grade < 0 or grade > 100, it throws new IllegalArgumentException(\"Grade must be between 0 and 100\").\n\nIn the main method:\nRead a string from stdin. Parse it into an integer and call validateGrade(grade).\nIf valid, print: 'Valid grade: <grade>'.\n\nException Handling Requirements:\n- If the input cannot be parsed as an integer, catch NumberFormatException and print e.getMessage().\n- If the grade is out of range, catch IllegalArgumentException and print e.getMessage().\n\nNote: The syllabus asks for multi-catch in exception handling exercises, but combining NumberFormatException and IllegalArgumentException in a single multi-catch block like `catch (NumberFormatException | IllegalArgumentException e)` causes a compilation error because NumberFormatException extends IllegalArgumentException. In Java multi-catch alternatives, an exception type cannot be a subclass of another alternative in the same clause. Therefore, you must use separate catch blocks, placing NumberFormatException first.\n\n(Output format assumed; verify against the lab sheet.)",
+    "statement": "Write only the helper classes. Do not write public class Main; it is provided.\nImplement a class GradeValidator with a static method validateGrade(int grade) throws IllegalArgumentException.\nIf grade < 0 or grade > 100, validateGrade throws new IllegalArgumentException(\"Grade must be between 0 and 100\").\n\nInput Format:\n- Line 1: A string representing a grade value.\n\nOutput Format:\n- If valid: 'Valid grade: <grade>'\n- If invalid integer or out of range: exception message.\n(Output format assumed; verify against the lab sheet.)",
     "cases": [
       {
         "input": "85\n",
@@ -257,7 +257,8 @@
         "input": "abc\n",
         "expected": "For input string: \"abc\"\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        String s = sc.nextLine();\n        try {\n            int g = Integer.parseInt(s);\n            GradeValidator.validateGrade(g);\n            System.out.println(\"Valid grade: \" + g);\n        } catch (NumberFormatException e) {\n            System.out.println(e.getMessage());\n        } catch (IllegalArgumentException e) {\n            System.out.println(e.getMessage());\n        }\n    }\n}\n"
   },
   {
     "id": "6b",
@@ -523,7 +524,7 @@
     "id": "task-list",
     "title": "Task List with LinkedList",
     "topic": "arraylist",
-    "statement": "Users manage a to-do list using a LinkedList in FIFO order. Read n commands. \"ADD task_name\" appends a task. \"REMOVE\" deletes the first task (no error if empty). \"SHOW\" prints all tasks separated by single spaces in order, or \"EMPTY\" if none. Output one line per SHOW. Implement a class TaskManager with a method processCommand(String command). Output format assumed; verify against the lab sheet.",
+    "statement": "Users manage a to-do list using a LinkedList in FIFO order. Read n commands. \"ADD task_name\" appends a task. \"REMOVE\" deletes the first task (no error if empty). \"SHOW\" prints all tasks separated by single spaces in order, or \"EMPTY\" if none. Output one line per SHOW. Implement a class TaskManager with a method processCommand(String command).\n\nInput Format:\n- Line 1: Integer n (number of commands).\n- Next n lines: Command strings (\"ADD task_name\", \"REMOVE\", or \"SHOW\").\n\nOutput Format:\n- Output one line per SHOW command containing space-separated tasks or \"EMPTY\".",
     "cases": [
       {
         "input": "5\nADD homework\nADD project\nSHOW\nREMOVE\nSHOW\n",
@@ -537,14 +538,13 @@
         "input": "3\nSHOW\nREMOVE\nSHOW\n",
         "expected": "EMPTY\nEMPTY\n"
       }
-    ],
-    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        sc.nextLine(); // Consume newline\n        TaskManager manager = new TaskManager();\n        for (int i = 0; i < n; i++) {\n            String command = sc.nextLine();\n            manager.processCommand(command);\n        }\n        sc.close();\n    }\n}\n"
+    ]
   },
   {
     "id": "guest-lookup",
     "title": "Student Names ArrayList Index Lookup",
     "topic": "arraylist",
-    "statement": "Register n names (2 <= n <= 10) into an ArrayList, then read an index. Print \"Element at index [index]: [name]\" if valid, otherwise \"Invalid index\". Implement a class NameManager with addName(String) and printNameAtIndex(int index). Output format assumed; verify against the lab sheet.",
+    "statement": "Register n names (2 <= n <= 10) into an ArrayList, then read an index. Print \"Element at index [index]: [name]\" if valid, otherwise \"Invalid index\".\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class NameManager with methods addName(String name) and printNameAtIndex(int index).\n(Output format assumed; verify against the lab sheet.)",
     "cases": [
       {
         "input": "5\nAlice\nBob\nAnkit\nAlice\nPrajit\n2\n",
@@ -565,7 +565,7 @@
     "id": "review-averages",
     "title": "Product Average Ratings with TreeMap",
     "topic": "hashmap",
-    "statement": "Read n reviews, each line \"product_id rating\" (product_id integer, rating double 1 to 5). Compute the average rating per product using a TreeMap<Integer, Double> so products are sorted by id. Print \"Product ID and Average Rating:\" first, then \"<product_id>: <average with 2 decimals>\" for each product in ascending id order. Implement a class ProductAnalyzer with analyzeProductRatings(List<String> lines). Output format assumed; verify against the lab sheet.",
+    "statement": "Read n reviews, each line \"product_id rating\" (product_id integer, rating double 1 to 5). Compute the average rating per product using a TreeMap<Integer, Double> so products are sorted by id. Print \"Product ID and Average Rating:\" first, then \"<product_id>: <average with 2 decimals>\" for each product in ascending id order.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class ProductAnalyzer with method analyzeProductRatings(List<String> lines).\n(Output format assumed; verify against the lab sheet.)",
     "cases": [
       {
         "input": "5\n101 4.5\n102 3.0\n101 5.0\n102 4.5\n103 2.5\n",
@@ -582,7 +582,7 @@
     "id": "name-frequency",
     "title": "Name Frequency in ArrayList",
     "topic": "arraylist",
-    "statement": "Read N names (2 <= N <= 10) into an ArrayList, then read a search string. Print how many times it appears (case-sensitive). Print 0 if not found. Implement the counting in a class NameCounter with a method count(ArrayList<String> names, String target) returning int. Output format assumed; verify against the lab sheet.",
+    "statement": "Read N names (2 <= N <= 10) into an ArrayList, then read a search string. Print how many times it appears (case-sensitive). Print 0 if not found.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement the counting in a class NameCounter with a method count(ArrayList<String> names, String target) returning int.\n(Output format assumed; verify against the lab sheet.)",
     "cases": [
       {
         "input": "5\nAlice\nBob\nAnkit\nAlice\nPranitha\nAlice\n",
@@ -623,7 +623,7 @@
     "id": "array-rotate-k",
     "title": "Rotate Array Elements Right by K Steps",
     "topic": "arrays",
-    "statement": "Rotate an array of N integers to the right by K positions.\n\nInput Format:\n- Line 1: An integer N representing array length.\n- Line 2: N space-separated integers representing the array elements.\n- Line 3: An integer K representing rotation steps.\n\nOutput Format:\n- Print the rotated array elements separated by a single space on one line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 1000\n- 0 <= K <= 100000",
+    "statement": "Rotate an array of N integers to the right by K positions.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class ArrayRotator with a static method rotateRight(int[] arr, int k) returning int[].\n\nInput Format:\n- Line 1: Integer N (array length).\n- Line 2: N space-separated integers.\n- Line 3: Integer K (shift amount).\n\nOutput Format:\n- Line 1: Space-separated integers of the rotated array.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 1000, 0 <= K <= 100000",
     "cases": [
       {
         "input": "5\n1 2 3 4 5\n2\n",
@@ -637,13 +637,14 @@
         "input": "3\n7 8 9\n5\n",
         "expected": "8 9 7\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        int[] arr = new int[n];\n        for (int i = 0; i < n; i++) {\n            arr[i] = sc.nextInt();\n        }\n        int k = sc.nextInt();\n        int[] res = ArrayRotator.rotateRight(arr, k);\n        for (int i = 0; i < n; i++) {\n            System.out.print(res[i] + (i < n - 1 ? \" \" : \"\\n\"));\n        }\n    }\n}\n"
   },
   {
     "id": "array-matrix-transpose",
     "title": "Transpose of a 2D Integer Matrix",
     "topic": "arrays",
-    "statement": "Compute and print the transpose of a rectangular matrix of integers.\n\nInput Format:\n- Line 1: Two space-separated integers R and C representing rows and columns.\n- Next R lines: C space-separated integers for each row.\n\nOutput Format:\n- Print C lines, each containing R space-separated integers for the transposed matrix.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= R, C <= 50",
+    "statement": "Compute and print the transpose of a rectangular matrix of integers.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class MatrixTransposer with a static method transpose(int[][] matrix) returning int[][].\n\nInput Format:\n- Line 1: Two integers R and C (number of rows and columns).\n- Next R lines: C space-separated integers per line.\n\nOutput Format:\n- C lines with R space-separated integers representing the transposed matrix.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= R, C <= 50",
     "cases": [
       {
         "input": "2 3\n1 2 3\n4 5 6\n",
@@ -657,7 +658,8 @@
         "input": "2 2\n5 8\n9 12\n",
         "expected": "5 9\n8 12\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int r = sc.nextInt();\n        int c = sc.nextInt();\n        int[][] mat = new int[r][c];\n        for (int i = 0; i < r; i++) {\n            for (int j = 0; j < c; j++) {\n                mat[i][j] = sc.nextInt();\n            }\n        }\n        int[][] transposed = MatrixTransposer.transpose(mat);\n        for (int j = 0; j < c; j++) {\n            for (int i = 0; i < r; i++) {\n                System.out.print(transposed[j][i] + (i < r - 1 ? \" \" : \"\\n\"));\n            }\n        }\n    }\n}\n"
   },
   {
     "id": "array-second-largest",
@@ -683,7 +685,7 @@
     "id": "exception-bank-withdrawal",
     "title": "Bank Account Withdrawal with Custom Exception",
     "topic": "exceptions",
-    "statement": "Process bank account withdrawals and handle insufficient balances using a custom checked exception.\n\nInput Format:\n- Line 1: A floating-point number representing starting balance.\n- Line 2: A floating-point number representing withdrawal amount.\n\nOutput Format:\n- If successful: 'Remaining balance: <balance to 2 decimals>'\n- If insufficient funds: 'Error: Insufficient funds: balance is <balance>, attempted <amount>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- balance >= 0.0, amount >= 0.0",
+    "statement": "Process bank account withdrawals and handle insufficient balances using a custom checked exception.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement an exception class InsufficientFundsException extending Exception with a constructor InsufficientFundsException(String msg).\nImplement a class BankAccount with a static method withdraw(double balance, double amount) throws InsufficientFundsException.\nIf amount > balance, throw InsufficientFundsException with message 'Insufficient funds: balance is ' + balance + ', attempted ' + amount. Otherwise print 'Remaining balance: <balance to 2 decimals>'.\n\nInput Format:\n- Line 1: A floating-point number representing starting balance.\n- Line 2: A floating-point number representing withdrawal amount.\n\nOutput Format:\n- If successful: 'Remaining balance: <balance to 2 decimals>'\n- If insufficient funds: 'Error: Insufficient funds: balance is <balance>, attempted <amount>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- balance >= 0.0, amount >= 0.0",
     "cases": [
       {
         "input": "500.00\n200.00\n",
@@ -697,7 +699,8 @@
         "input": "100.00\n100.00\n",
         "expected": "Remaining balance: 0.00\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextDouble()) return;\n        double balance = sc.nextDouble();\n        double amount = sc.nextDouble();\n        try {\n            BankAccount.withdraw(balance, amount);\n        } catch (InsufficientFundsException e) {\n            System.out.println(\"Error: \" + e.getMessage());\n        }\n    }\n}\n"
   },
   {
     "id": "exception-array-bounds",
@@ -723,7 +726,7 @@
     "id": "file-word-count",
     "title": "File Text Statistics Counter",
     "topic": "file-io",
-    "statement": "Read text from a file and calculate the total number of lines, words, and characters.\n\nInput Format:\n- Line 1: An integer N (number of lines of text to follow).\n- Next N lines: The text lines.\n\nOutput Format:\n- Line 1: 'Lines: <L>'\n- Line 2: 'Words: <W>'\n- Line 3: 'Chars: <C>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 20",
+    "statement": "Read text from a file and calculate the total number of lines, words, and characters.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class FileStatsAnalyzer with a static method countStats(File file) throws Exception that calculates and prints the line, word, and character counts.\n\nInput Format:\n- Line 1: An integer N (number of lines of text to follow).\n- Next N lines: The text lines.\n\nOutput Format:\n- Line 1: 'Lines: <L>'\n- Line 2: 'Words: <W>'\n- Line 3: 'Chars: <C>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 20",
     "cases": [
       {
         "input": "2\nHello world\nWelcome to Java\n",
@@ -737,13 +740,14 @@
         "input": "3\nLine one\nLine two\nLine three\n",
         "expected": "Lines: 3\nWords: 6\nChars: 29\n"
       }
-    ]
+    ],
+    "footer": "import java.io.*;\nimport java.util.*;\n\npublic class Main {\n    public static void main(String[] args) throws Exception {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        sc.nextLine();\n        File file = new File(\"document.txt\");\n        try (PrintWriter pw = new PrintWriter(file)) {\n            for (int i = 0; i < n; i++) {\n                pw.println(sc.nextLine());\n            }\n        }\n        FileStatsAnalyzer.countStats(file);\n    }\n}\n"
   },
   {
     "id": "file-line-filter",
     "title": "Filter and Copy Matching Lines to File",
     "topic": "file-io",
-    "statement": "Filter lines matching a prefix from an input file and save them to a filtered output file.\n\nInput Format:\n- Line 1: Prefix string to match (e.g. 'ERROR').\n- Line 2: Integer N (number of log lines).\n- Next N lines: Log message strings.\n\nOutput Format:\n- Line 1: 'Matched lines: <count>'\n- Followed by each matching line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 50",
+    "statement": "Filter lines matching a prefix from an input file and save them to a filtered output file.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class LogFilter with a static method filterLogs(File inputFile, File outputFile, String prefix) throws Exception that filters matching lines and writes them to outputFile.\n\nInput Format:\n- Line 1: Prefix string to match (e.g. 'ERROR').\n- Line 2: Integer N (number of log lines).\n- Next N lines: Log message strings.\n\nOutput Format:\n- Line 1: 'Matched lines: <count>'\n- Followed by each matching line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 50",
     "cases": [
       {
         "input": "ERROR\n4\nERROR Database connection failed\nINFO User logged in\nERROR Timeout on port 8080\nWARN High memory usage\n",
@@ -757,13 +761,14 @@
         "input": "FATAL\n1\nFATAL Disk failure\n",
         "expected": "Matched lines: 1\nFATAL Disk failure\n"
       }
-    ]
+    ],
+    "footer": "import java.io.*;\nimport java.util.*;\n\npublic class Main {\n    public static void main(String[] args) throws Exception {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextLine()) return;\n        String prefix = sc.nextLine();\n        int n = Integer.parseInt(sc.nextLine());\n        File allFile = new File(\"all_logs.txt\");\n        try (PrintWriter pw = new PrintWriter(allFile)) {\n            for (int i = 0; i < n; i++) {\n                pw.println(sc.nextLine());\n            }\n        }\n        File filteredFile = new File(\"filtered_logs.txt\");\n        LogFilter.filterLogs(allFile, filteredFile, prefix);\n        List<String> matched = new ArrayList<>();\n        try (BufferedReader br = new BufferedReader(new FileReader(filteredFile))) {\n            String line;\n            while ((line = br.readLine()) != null) {\n                matched.add(line);\n            }\n        }\n        System.out.println(\"Matched lines: \" + matched.size());\n        for (String m : matched) {\n            System.out.println(m);\n        }\n    }\n}\n"
   },
   {
     "id": "generic-pair-swap",
     "title": "Generic Pair Holder with Element Swapping",
     "topic": "generics",
-    "statement": "Store a pair of two typed elements in a generic container and swap their positions.\n\nInput Format:\n- Line 1: A string and an integer separated by a space.\n\nOutput Format:\n- Line 1: 'Original: (<first>, <second>)'\n- Line 2: 'Swapped: (<second>, <first>)'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Standard Java String and Integer ranges.",
+    "statement": "Store a pair of two typed elements in a generic container and swap their positions.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a generic class Pair<T, U> with constructor Pair(T first, U second) and methods getFirst() returning T, getSecond() returning U, and swap() returning Pair<U, T>.\n\nInput Format:\n- Line 1: A string and an integer separated by a space.\n\nOutput Format:\n- Line 1: 'Original: (<first>, <second>)'\n- Line 2: 'Swapped: (<second>, <first>)'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Standard Java String and Integer ranges.",
     "cases": [
       {
         "input": "Alpha 100\n",
@@ -777,13 +782,14 @@
         "input": "Key 0\n",
         "expected": "Original: (Key, 0)\nSwapped: (0, Key)\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNext()) return;\n        String s = sc.next();\n        int num = sc.nextInt();\n        Pair<String, Integer> p = new Pair<>(s, num);\n        System.out.println(\"Original: (\" + p.getFirst() + \", \" + p.getSecond() + \")\");\n        Pair<Integer, String> swapped = p.swap();\n        System.out.println(\"Swapped: (\" + swapped.getFirst() + \", \" + swapped.getSecond() + \")\");\n    }\n}\n"
   },
   {
     "id": "generic-stack",
     "title": "Generic LIFO Stack Implementation",
     "topic": "generics",
-    "statement": "Implement a generic stack data structure supporting push, pop, and peek operations.\n\nInput Format:\n- Line 1: An integer N representing number of operations.\n- Next N lines: A command string ('PUSH <value>', 'POP', or 'PEEK').\n\nOutput Format:\n- Print the result of each POP and PEEK command on a new line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 50",
+    "statement": "Implement a generic stack data structure supporting push, pop, and peek operations.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a generic class CustomStack<T> with methods push(T item), pop() returning T (or null if empty), and peek() returning T (or null if empty).\n\nInput Format:\n- Line 1: An integer N representing number of operations.\n- Next N lines: A command string ('PUSH <value>', 'POP', or 'PEEK').\n\nOutput Format:\n- Print the result of each POP and PEEK command on a new line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 50",
     "cases": [
       {
         "input": "5\nPUSH Apple\nPUSH Banana\nPEEK\nPOP\nPOP\n",
@@ -797,7 +803,8 @@
         "input": "4\nPUSH One\nPUSH Two\nPEEK\nPOP\n",
         "expected": "Two\nTwo\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        sc.nextLine();\n        CustomStack<String> stack = new CustomStack<>();\n        for (int i = 0; i < n; i++) {\n            String line = sc.nextLine().trim();\n            if (line.startsWith(\"PUSH \")) {\n                stack.push(line.substring(5).trim());\n            } else if (line.equals(\"POP\")) {\n                String val = stack.pop();\n                System.out.println(val != null ? val : \"EMPTY\");\n            } else if (line.equals(\"PEEK\")) {\n                String val = stack.peek();\n                System.out.println(val != null ? val : \"EMPTY\");\n            }\n        }\n    }\n}\n"
   },
   {
     "id": "generic-max-finder",
@@ -863,7 +870,7 @@
     "id": "hashmap-phone-directory",
     "title": "Contact Phone Directory with HashMap",
     "topic": "hashmap",
-    "statement": "Store contact names and phone numbers in a HashMap and query numbers by name.\n\nInput Format:\n- Line 1: An integer N representing number of operations.\n- Next N lines: Command string ('ADD <name> <number>' or 'FIND <name>').\n\nOutput Format:\n- Print output for each FIND command on its own line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100",
+    "statement": "Store contact names and phone numbers in a HashMap and query numbers by name.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class PhoneDirectory with methods addContact(String name, String phone) and findContact(String name).\nThe findContact method prints '<name>: <phone>' if present, or 'Not found: <name>' if absent.\n\nInput Format:\n- Line 1: An integer N representing number of operations.\n- Next N lines: Command string ('ADD <name> <number>' or 'FIND <name>').\n\nOutput Format:\n- Print output for each FIND command on its own line.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100",
     "cases": [
       {
         "input": "4\nADD Alice 555-1234\nADD Bob 555-5678\nFIND Alice\nFIND Charlie\n",
@@ -877,7 +884,8 @@
         "input": "2\nFIND Stranger\nADD Dave 999-0000\n",
         "expected": "Not found: Stranger\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        sc.nextLine();\n        PhoneDirectory dir = new PhoneDirectory();\n        for (int i = 0; i < n; i++) {\n            String line = sc.nextLine().trim();\n            if (line.startsWith(\"ADD \")) {\n                String[] parts = line.substring(4).split(\"\\\\s+\");\n                dir.addContact(parts[0], parts[1]);\n            } else if (line.startsWith(\"FIND \")) {\n                String name = line.substring(5).trim();\n                dir.findContact(name);\n            }\n        }\n    }\n}\n"
   },
   {
     "id": "hashmap-two-sum-indices",
@@ -903,7 +911,7 @@
     "id": "inheritance-vehicle-fleet",
     "title": "Vehicle Fleet Rental Cost Hierarchy",
     "topic": "inheritance",
-    "statement": "Calculate rental charges for different vehicle types using class inheritance.\n\nInput Format:\n- Line 1: Vehicle type ('CAR' or 'TRUCK').\n- Line 2: Model name string.\n- Line 3: Floating-point baseRatePerDay and integer days separated by space.\n\nOutput Format:\n- Line 1: 'Model: <model>'\n- Line 2: 'Total: $<amount to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- days >= 1, baseRatePerDay >= 0.0",
+    "statement": "Calculate rental charges for different vehicle types using class inheritance.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a base class Vehicle with constructor Vehicle(String model, double baseRatePerDay) and methods getModel() returning String and calculateTotal(int days) returning double.\nImplement subclasses Car (adding a flat insurance fee of $15.00 to the total) and Truck (adding $25.00 per day surcharge to the daily rate), both extending Vehicle.\n\nInput Format:\n- Line 1: Vehicle type ('CAR' or 'TRUCK'), model name (String), base daily rate (double), and rental days (int).\n\nOutput Format:\n- Line 1: 'Model: <model>'\n- Line 2: 'Total: $<amount to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- days >= 1, rate >= 0.0",
     "cases": [
       {
         "input": "CAR\nSedan\n40.0 3\n",
@@ -917,7 +925,8 @@
         "input": "CAR\nCompact\n25.50 1\n",
         "expected": "Model: Compact\nTotal: $40.50\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNext()) return;\n        String type = sc.next();\n        String model = sc.next();\n        double rate = sc.nextDouble();\n        int days = sc.nextInt();\n        Vehicle v = type.equals(\"CAR\") ? new Car(model, rate) : new Truck(model, rate);\n        System.out.println(\"Model: \" + v.getModel());\n        System.out.printf(Locale.US, \"Total: $%.2f\\n\", v.calculateTotal(days));\n    }\n}\n"
   },
   {
     "id": "inheritance-bank-accounts",
@@ -943,7 +952,7 @@
     "id": "inheritance-shape-hierarchy",
     "title": "Geometric Shape Hierarchy with Area and Perimeter",
     "topic": "inheritance",
-    "statement": "Calculate dimensions of circles and rectangles using abstract class inheritance.\n\nInput Format:\n- Line 1: Shape type string ('CIRCLE' or 'RECTANGLE').\n- Line 2: Dimension(s) as space-separated floating-point numbers.\n\nOutput Format:\n- Line 1: 'Area: <area to 2 decimals>'\n- Line 2: 'Perimeter: <perimeter to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Dimensions > 0.0",
+    "statement": "Calculate dimensions of circles and rectangles using abstract class inheritance.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement an abstract class Shape with abstract methods area() returning double and perimeter() returning double.\nImplement subclasses Circle with constructor Circle(double radius) and Rectangle with constructor Rectangle(double width, double height), both extending Shape.\n\nInput Format:\n- Line 1: 'CIRCLE <radius>' or 'RECTANGLE <width> <height>'\n\nOutput Format:\n- Line 1: 'Area: <val to 2 decimals>'\n- Line 2: 'Perimeter: <val to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Dimensions > 0.0",
     "cases": [
       {
         "input": "CIRCLE\n5.0\n",
@@ -957,13 +966,14 @@
         "input": "CIRCLE\n1.0\n",
         "expected": "Area: 3.14\nPerimeter: 6.28\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNext()) return;\n        String type = sc.next();\n        Shape s;\n        if (type.equals(\"CIRCLE\")) {\n            s = new Circle(sc.nextDouble());\n        } else {\n            s = new Rectangle(sc.nextDouble(), sc.nextDouble());\n        }\n        System.out.printf(Locale.US, \"Area: %.2f\\n\", s.area());\n        System.out.printf(Locale.US, \"Perimeter: %.2f\\n\", s.perimeter());\n    }\n}\n"
   },
   {
     "id": "interface-payment-gateway",
     "title": "Payment Processor Interface Implementation",
     "topic": "interfaces",
-    "statement": "Process financial transactions using a payment processor interface with varying transaction fees.\n\nInput Format:\n- Line 1: Processor type string ('CREDIT' or 'CRYPTO').\n- Line 2: A floating-point number representing payment amount.\n\nOutput Format:\n- Line 1: 'Charged: $<total formatted to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- amount >= 0.0",
+    "statement": "Process financial transactions using a payment processor interface with varying transaction fees.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement an interface PaymentProcessor with method processPayment(double amount) returning double.\nImplement implementing classes CreditCardProcessor (charges 2.5% transaction fee) and CryptoProcessor (charges fixed $5.00 transaction fee).\n\nInput Format:\n- Line 1: Processor type ('CREDIT' or 'CRYPTO') and transaction amount (double).\n\nOutput Format:\n- Line 1: 'Charged: $<total to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- amount > 0.0",
     "cases": [
       {
         "input": "CREDIT\n200.00\n",
@@ -977,7 +987,8 @@
         "input": "CREDIT\n0.00\n",
         "expected": "Charged: $0.00\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNext()) return;\n        String type = sc.next();\n        double amount = sc.nextDouble();\n        PaymentProcessor p = type.equals(\"CREDIT\") ? new CreditCardProcessor() : new CryptoProcessor();\n        System.out.printf(Locale.US, \"Charged: $%.2f\\n\", p.processPayment(amount));\n    }\n}\n"
   },
   {
     "id": "interface-sortable-items",
@@ -1003,7 +1014,7 @@
     "id": "interface-notifiable",
     "title": "Notification Dispatcher with Notifier Interface",
     "topic": "interfaces",
-    "statement": "Dispatch alert messages across multiple channels via a Notifier interface.\n\nInput Format:\n- Line 1: Channel ('EMAIL' or 'SMS').\n- Line 2: Recipient string.\n- Line 3: Message string.\n\nOutput Format:\n- Line 1: Dispatch notification message.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Non-empty recipient and message strings.",
+    "statement": "Dispatch alert messages across multiple channels via a Notifier interface.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement an interface Notifier with method send(String recipient, String message).\nImplement implementing classes EmailNotifier (prints 'Email sent to <recipient>: <message>') and SMSNotifier (prints 'SMS sent to <recipient>: <message>').\n\nInput Format:\n- Line 1: Notification channel ('EMAIL' or 'SMS').\n- Line 2: Recipient contact string.\n- Line 3: Message body text.\n\nOutput Format:\n- Line 1: Formatted notification delivery message.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Non-empty strings",
     "cases": [
       {
         "input": "EMAIL\nalice@example.com\nMeeting at 10 AM\n",
@@ -1017,7 +1028,8 @@
         "input": "EMAIL\nbob@test.com\nWelcome aboard\n",
         "expected": "Email sent to bob@test.com: Welcome aboard\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextLine()) return;\n        String channel = sc.nextLine().trim();\n        String recipient = sc.nextLine().trim();\n        String message = sc.nextLine().trim();\n        Notifier n = channel.equals(\"EMAIL\") ? new EmailNotifier() : new SMSNotifier();\n        n.send(recipient, message);\n    }\n}\n"
   },
   {
     "id": "interface-data-transformer",
@@ -1043,7 +1055,7 @@
     "id": "math-gcd-lcm",
     "title": "Greatest Common Divisor and Least Common Multiple",
     "topic": "math-basics",
-    "statement": "Calculate the GCD and LCM of two positive integers using the Euclidean algorithm.\n\nInput Format:\n- Line 1: Two space-separated integers A and B.\n\nOutput Format:\n- Line 1: 'GCD: <gcd>'\n- Line 2: 'LCM: <lcm>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= A, B <= 10^7",
+    "statement": "Calculate the GCD and LCM of two positive integers using the Euclidean algorithm.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class MathUtil with static methods gcd(long a, long b) returning long and lcm(long a, long b) returning long.\n\nInput Format:\n- Line 1: Two positive integers A and B separated by a space.\n\nOutput Format:\n- Line 1: 'GCD: <value>'\n- Line 2: 'LCM: <value>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= A, B <= 10^9",
     "cases": [
       {
         "input": "12 18\n",
@@ -1057,13 +1069,14 @@
         "input": "20 20\n",
         "expected": "GCD: 20\nLCM: 20\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextLong()) return;\n        long a = sc.nextLong();\n        long b = sc.nextLong();\n        long g = MathUtil.gcd(a, b);\n        long l = MathUtil.lcm(a, b);\n        System.out.println(\"GCD: \" + g);\n        System.out.println(\"LCM: \" + l);\n    }\n}\n"
   },
   {
     "id": "math-compound-interest",
     "title": "Compound Interest Calculation",
     "topic": "math-basics",
-    "statement": "Compute future investment value and compound interest earned over time.\n\nInput Format:\n- Line 1: Three space-separated numbers: principal P (double), rate r (double), and time t (integer years).\n\nOutput Format:\n- Line 1: 'Amount: <total to 2 decimals>'\n- Line 2: 'Interest: <interest to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- P >= 1.0, r >= 0.0, t >= 1",
+    "statement": "Compute future investment value and compound interest earned over time.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class InvestmentCalculator with static methods computeTotalAmount(double principal, double annualRate, int years) returning double and computeInterest(double principal, double annualRate, int years) returning double.\n\nInput Format:\n- Line 1: Principal amount (double), annual interest rate percentage (double), and time in years (int).\n\nOutput Format:\n- Line 1: 'Amount: <value to 2 decimals>'\n- Line 2: 'Interest: <value to 2 decimals>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- principal > 0, rate >= 0, years >= 1",
     "cases": [
       {
         "input": "1000.0 5.0 2\n",
@@ -1077,13 +1090,14 @@
         "input": "2000.0 0.0 5\n",
         "expected": "Amount: 2000.00\nInterest: 0.00\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextDouble()) return;\n        double p = sc.nextDouble();\n        double r = sc.nextDouble();\n        int t = sc.nextInt();\n        double amount = InvestmentCalculator.computeTotalAmount(p, r, t);\n        double interest = InvestmentCalculator.computeInterest(p, r, t);\n        System.out.printf(Locale.US, \"Amount: %.2f\\n\", amount);\n        System.out.printf(Locale.US, \"Interest: %.2f\\n\", interest);\n    }\n}\n"
   },
   {
     "id": "oop-student-gradebook",
     "title": "Student Gradebook Object with Average and Letter Grade",
     "topic": "oop",
-    "statement": "Encapsulate student grades in an object and compute academic performance metrics.\n\nGrade bands:\n- A: average >= 90.00\n- B: 75.00 <= average < 90.00 (at exactly 75.00, grade is B)\n- C: 60.00 <= average < 75.00 (at exactly 60.00, grade is C)\n- D: 40.00 <= average < 60.00 (at exactly 40.00, grade is D)\n- F: average < 40.00\n\nInput Format:\n- Line 1: Student name string.\n- Line 2: Integer rollNumber.\n- Line 3: Integer K (number of subjects).\n- Line 4: K space-separated integer marks.\n\nOutput Format:\n- Line 1: 'Student: <name> (Roll: <rollNumber>)'\n- Line 2: 'Average: <avg to 2 decimals>'\n- Line 3: 'Grade: <grade>'\n\nConstraints:\n- 1 <= K <= 10, marks between 0 and 100",
+    "statement": "Encapsulate student grades in an object and compute academic performance metrics.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class Student with a constructor Student(String name, int roll, int[] marks) and methods getName() returning String, getRoll() returning int, getAverage() returning double, and getGrade() returning char ('A' for >= 90, 'B' for >= 75, 'C' for >= 60, 'D' for >= 40, 'F' otherwise).\n\nInput Format:\n- Line 1: Name string, roll number (int), and number of subjects K (int).\n- Line 2: K space-separated integer marks (0-100).\n\nOutput Format:\n- Line 1: 'Student: <name> (Roll: <roll>)'\n- Line 2: 'Average: <avg to 2 decimals>'\n- Line 3: 'Grade: <letter grade>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= K <= 20, 0 <= marks <= 100",
     "cases": [
       {
         "input": "Alice\n101\n3\n95 90 85\n",
@@ -1097,13 +1111,14 @@
         "input": "Charlie\n103\n2\n35 40\n",
         "expected": "Student: Charlie (Roll: 103)\nAverage: 37.50\nGrade: F\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNext()) return;\n        String name = sc.next();\n        int roll = sc.nextInt();\n        int k = sc.nextInt();\n        int[] marks = new int[k];\n        for (int i = 0; i < k; i++) marks[i] = sc.nextInt();\n        Student s = new Student(name, roll, marks);\n        System.out.println(\"Student: \" + s.getName() + \" (Roll: \" + s.getRoll() + \")\");\n        System.out.printf(Locale.US, \"Average: %.2f\\n\", s.getAverage());\n        System.out.println(\"Grade: \" + s.getGrade());\n    }\n}\n"
   },
   {
     "id": "oop-point-distance",
     "title": "2D Coordinate Point with Distance Calculations",
     "topic": "oop",
-    "statement": "Represent 2D coordinates in a Point class and compute Euclidean and Manhattan distances.\n\nInput Format:\n- Line 1: Two space-separated integers x1 and y1.\n- Line 2: Two space-separated integers x2 and y2.\n\nOutput Format:\n- Line 1: 'Euclidean: <dist to 2 decimals>'\n- Line 2: 'Manhattan: <dist>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- -1000 <= x, y <= 1000",
+    "statement": "Represent 2D coordinates in a Point class and compute Euclidean and Manhattan distances.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class Point2D with a constructor Point2D(int x, int y) and methods euclideanDistance(Point2D other) returning double and manhattanDistance(Point2D other) returning int.\n\nInput Format:\n- Line 1: Space-separated x1, y1 (Point 1).\n- Line 2: Space-separated x2, y2 (Point 2).\n\nOutput Format:\n- Line 1: 'Euclidean: <value to 2 decimals>'\n- Line 2: 'Manhattan: <integer value>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- -1000 <= coordinates <= 1000",
     "cases": [
       {
         "input": "0 0\n3 4\n",
@@ -1117,7 +1132,8 @@
         "input": "-2 3\n4 -5\n",
         "expected": "Euclidean: 10.00\nManhattan: 14\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        Point2D p1 = new Point2D(sc.nextInt(), sc.nextInt());\n        Point2D p2 = new Point2D(sc.nextInt(), sc.nextInt());\n        System.out.printf(Locale.US, \"Euclidean: %.2f\\n\", p1.euclideanDistance(p2));\n        System.out.println(\"Manhattan: \" + p1.manhattanDistance(p2));\n    }\n}\n"
   },
   {
     "id": "oop-shopping-cart",
@@ -1143,7 +1159,7 @@
     "id": "serialization-student-record",
     "title": "Transient Field Behavior in Student Serialization",
     "topic": "serialization",
-    "statement": "Demonstrate transient attribute exclusion during object serialization and deserialization.\n\nInput Format:\n- Line 1: Space-separated name (String), rollNumber (int), and secretPin (String).\n\nOutput Format:\n- Line 1: 'Name: <name>'\n- Line 2: 'Roll: <rollNumber>'\n- Line 3: 'PIN: <secretPin>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Valid non-empty strings, positive rollNumber.",
+    "statement": "Demonstrate transient attribute exclusion during object serialization and deserialization.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class StudentRecord implementing java.io.Serializable with private fields name (String), roll (int), and transient pin (String), constructor StudentRecord(String name, int roll, String pin), and getter methods getName() returning String, getRoll() returning int, and getPin() returning String.\n\nInput Format:\n- Line 1: Space-separated name (String), rollNumber (int), and secretPin (String).\n\nOutput Format:\n- Line 1: 'Name: <name>'\n- Line 2: 'Roll: <rollNumber>'\n- Line 3: 'PIN: <secretPin>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- Valid non-empty strings, positive rollNumber.",
     "cases": [
       {
         "input": "Alice 101 secret99\n",
@@ -1157,7 +1173,8 @@
         "input": "Charlie 303 pass@word\n",
         "expected": "Name: Charlie\nRoll: 303\nPIN: null\n"
       }
-    ]
+    ],
+    "footer": "import java.io.*;\nimport java.util.*;\n\npublic class Main {\n    public static void main(String[] args) throws Exception {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNext()) return;\n        String name = sc.next();\n        int roll = sc.nextInt();\n        String pin = sc.next();\n        StudentRecord rec = new StudentRecord(name, roll, pin);\n        File file = new File(\"student.ser\");\n        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {\n            oos.writeObject(rec);\n        }\n        StudentRecord loaded;\n        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {\n            loaded = (StudentRecord) ois.readObject();\n        }\n        System.out.println(\"Name: \" + loaded.getName());\n        System.out.println(\"Roll: \" + loaded.getRoll());\n        System.out.println(\"PIN: \" + loaded.getPin());\n    }\n}\n"
   },
   {
     "id": "serialization-book-catalog",
@@ -1183,7 +1200,7 @@
     "id": "serialization-config-object",
     "title": "Application Configuration State Persistence",
     "topic": "serialization",
-    "statement": "Persist, modify, and verify application settings using object serialization.\n\nInput Format:\n- Line 1: Space-separated environment string and initial timeoutSeconds (int).\n- Line 2: Integer extraSeconds to add.\n\nOutput Format:\n- Line 1: 'Environment: <environment>'\n- Line 2: 'Timeout: <timeoutSeconds>s'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- timeoutSeconds >= 0, extraSeconds >= 0",
+    "statement": "Persist, modify, and verify application settings using object serialization.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class AppConfig implementing java.io.Serializable with constructor AppConfig(String environment, int timeout) and methods getEnvironment() returning String, getTimeout() returning int, and addTimeout(int extra).\n\nInput Format:\n- Line 1: Space-separated environment string and initial timeoutSeconds (int).\n- Line 2: Integer extraSeconds to add.\n\nOutput Format:\n- Line 1: 'Environment: <environment>'\n- Line 2: 'Timeout: <timeoutSeconds>s'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- timeoutSeconds >= 0, extraSeconds >= 0",
     "cases": [
       {
         "input": "Production 30\n15\n",
@@ -1197,7 +1214,8 @@
         "input": "Development 5\n20\n",
         "expected": "Environment: Development\nTimeout: 25s\n"
       }
-    ]
+    ],
+    "footer": "import java.io.*;\nimport java.util.*;\n\npublic class Main {\n    public static void main(String[] args) throws Exception {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNext()) return;\n        String env = sc.next();\n        int timeout = sc.nextInt();\n        int extra = sc.nextInt();\n        File file = new File(\"config.ser\");\n        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {\n            oos.writeObject(new AppConfig(env, timeout));\n        }\n        AppConfig config;\n        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {\n            config = (AppConfig) ois.readObject();\n        }\n        config.addTimeout(extra);\n        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {\n            oos.writeObject(config);\n        }\n        AppConfig reloaded;\n        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {\n            reloaded = (AppConfig) ois.readObject();\n        }\n        System.out.println(\"Environment: \" + reloaded.getEnvironment());\n        System.out.println(\"Timeout: \" + reloaded.getTimeout() + \"s\");\n    }\n}\n"
   },
   {
     "id": "stringbuilder-palindrome-check",
@@ -1243,7 +1261,7 @@
     "id": "stringbuilder-caesar-cipher",
     "title": "Caesar Cipher Encryption with StringBuilder",
     "topic": "stringbuilder",
-    "statement": "Shift alphabetic characters in a text by K positions using StringBuilder.\n\nInput Format:\n- Line 1: Integer shift K.\n- Line 2: A line of text to encrypt.\n\nOutput Format:\n- Line 1: Encrypted text string.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 0 <= K <= 25, string length <= 500",
+    "statement": "Shift alphabetic characters in a text by K positions using StringBuilder.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class CaesarCipher with a static method encrypt(String text, int shift) returning String.\n\nInput Format:\n- Line 1: Integer shift K.\n- Line 2: String to encrypt.\n\nOutput Format:\n- Line 1: Encrypted text string.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 0 <= K <= 25, string length <= 500",
     "cases": [
       {
         "input": "3\nHello, World!\n",
@@ -1257,13 +1275,14 @@
         "input": "1\nxyz XYZ 123\n",
         "expected": "yza YZA 123\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int k = sc.nextInt();\n        sc.nextLine();\n        String s = sc.nextLine();\n        String res = CaesarCipher.encrypt(s, k);\n        System.out.println(res);\n    }\n}\n"
   },
   {
     "id": "stringbuilder-word-reverser",
     "title": "Sentence Word Reverser using StringBuilder",
     "topic": "stringbuilder",
-    "statement": "Reverse the characters of each word in a sentence while keeping word order intact.\n\nInput Format:\n- Line 1: A line of text containing space-separated words.\n\nOutput Format:\n- Line 1: The modified sentence with each word reversed.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- String length <= 500",
+    "statement": "Reverse the characters of each word in a sentence while keeping word order intact.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class WordReverser with a static method reverseWords(String sentence) returning String.\n\nInput Format:\n- Line 1: A line of text containing space-separated words.\n\nOutput Format:\n- Line 1: The modified sentence with each word reversed.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- String length <= 500",
     "cases": [
       {
         "input": "Java makes coding fun\n",
@@ -1277,13 +1296,14 @@
         "input": "step on no pets\n",
         "expected": "pets no on step\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextLine()) return;\n        String line = sc.nextLine();\n        System.out.println(WordReverser.reverseWords(line));\n    }\n}\n"
   },
   {
     "id": "threads-counter-sync",
     "title": "Thread-Safe Synchronized Shared Counter",
     "topic": "threads",
-    "statement": "Safely increment a shared counter across two concurrent threads using synchronization.\n\nInput Format:\n- Line 1: An integer N representing increment iterations per thread.\n\nOutput Format:\n- Line 1: 'Final count: <val>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100000",
+    "statement": "Safely increment a shared counter across two concurrent threads using synchronization.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class Counter with synchronized method add(int v) and method get() returning int.\n\nInput Format:\n- Line 1: An integer N representing increment iterations per thread.\n\nOutput Format:\n- Line 1: 'Final count: <val>'\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 100000",
     "cases": [
       {
         "input": "100\n",
@@ -1297,13 +1317,14 @@
         "input": "1\n",
         "expected": "Final count: 3\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) throws Exception {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        Counter counter = new Counter();\n        Thread t1 = new Thread(() -> {\n            for (int i = 0; i < n; i++) counter.add(1);\n        });\n        Thread t2 = new Thread(() -> {\n            for (int i = 0; i < n; i++) counter.add(2);\n        });\n        t1.start();\n        t2.start();\n        t1.join();\n        t2.join();\n        System.out.println(\"Final count: \" + counter.get());\n    }\n}\n"
   },
   {
     "id": "threads-even-odd-printer",
     "title": "Coordinated Even and Odd Number Thread Printer",
     "topic": "threads",
-    "statement": "Coordinate two threads using wait and notify to print numbers sequentially from 1 to N.\n\nInput Format:\n- Line 1: An integer N.\n\nOutput Format:\n- N lines printing integers from 1 to N in order.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 20",
+    "statement": "Coordinate two threads using wait and notify to print numbers sequentially from 1 to N.\n\nWrite only the helper classes. Do not write public class Main; it is provided.\nImplement a class NumberPrinter with a method printNumbers(int n) that coordinates printing integers from 1 to n in order across concurrent threads.\n\nInput Format:\n- Line 1: An integer N.\n\nOutput Format:\n- N lines printing integers from 1 to N in order.\n(Output format assumed; verify against the lab sheet.)\n\nConstraints:\n- 1 <= N <= 20",
     "cases": [
       {
         "input": "5\n",
@@ -1317,7 +1338,8 @@
         "input": "1\n",
         "expected": "1\n"
       }
-    ]
+    ],
+    "footer": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) throws Exception {\n        Scanner sc = new Scanner(System.in);\n        if (!sc.hasNextInt()) return;\n        int n = sc.nextInt();\n        NumberPrinter printer = new NumberPrinter();\n        printer.printNumbers(n);\n    }\n}\n"
   },
   {
     "id": "threads-parallel-array-sum",
